@@ -19,9 +19,10 @@ Miga o Domingo en Vitrina), en lo posible útil para el rubro gastronómico.
 
 5. Plantillas de plan Carta que faltan: `carta-pizarra` (cervecería), `carta-minimal` (heladería/café).
 8. `scripts/entregar.mjs`: plantilla + contenido → carpeta lista para publicar (valida el contenido).
-9. Integrar en Vitrina (repo `vitrina`, publicado en https://vitrina-iota-ten.vercel.app/): copiar el
-   catálogo y las plantillas a `public/prototipos/` (se sirven tal cual, sin build) y sumar la sección
-   a la galería. Pedir permiso de push al repo `vitrina`.
+9. Vitrina (https://vitrina-iota-ten.vercel.app/): **integrado** el 21/10/2026. El catálogo vive en
+   `vitrina/public/plantillas/` (se sirve tal cual en `/plantillas/`), las capturas en `public/previews/`
+   y las tarjetas en `galeria/main.ts` (filtro "Plantillas"). Al sumar plantillas, copiar de nuevo
+   `index.html`, `catalogo*`, `capturas/`, `nucleo/`, `plantillas/` y `contenido/`, y agregar la tarjeta.
 10. Próxima app (después de 5 gastronómicas más): reservas de mesas con plano del salón, o
     "café a tu medida" como app de pedido en mostrador.
 11. Más plantillas y armadores por rubro (ideas abajo), siempre al nivel de Vitrina.
