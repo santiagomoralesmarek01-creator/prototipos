@@ -454,3 +454,255 @@
   font-size: 1.4rem;
   opacity: 0.5;
 }
+
+/* ---------- Pizza por mitades ---------- */
+
+.pizza-cuerpo,
+.juntada-cuerpo {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 52rem) {
+  .pizza-cuerpo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .juntada-cuerpo {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+}
+
+.pizza-escena {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border-radius: var(--radio);
+  background: radial-gradient(circle, rgb(0 0 0 / 0.12), transparent 65%);
+}
+
+.pizza-escena .pizza-dibujo {
+  width: min(100%, 22rem);
+  cursor: pointer;
+  filter: drop-shadow(0 12px 18px rgb(0 0 0 / 0.25));
+  animation: pizza-gira 0.5s ease-out;
+}
+
+@keyframes pizza-gira {
+  from {
+    transform: rotate(-8deg) scale(0.96);
+  }
+}
+
+.pizza-activa {
+  animation: pizza-marca 1.2s linear infinite;
+}
+
+@keyframes pizza-marca {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+.pizza-lados {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.pizza-lados button {
+  display: grid;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  font-weight: 700;
+  text-align: left;
+}
+
+.pizza-lados small {
+  color: var(--suave);
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.pizza-lados [aria-checked="true"] {
+  border-color: var(--acento);
+  box-shadow: inset 0 0 0 1px var(--acento);
+}
+
+.pizza-gustos,
+.juntada-gustos {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pizza-gusto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 0.75rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  text-align: left;
+}
+
+.pizza-gusto[aria-pressed="true"] {
+  border-color: var(--acento);
+  background: var(--superficie);
+  box-shadow: inset 4px 0 0 var(--acento);
+}
+
+.pizza-gusto-nombre {
+  font-weight: 600;
+}
+
+.pizza-gusto-nombre small {
+  color: var(--suave);
+  font-weight: 400;
+}
+
+.pizza-gusto-desc {
+  grid-column: 1;
+  color: var(--suave);
+  font-size: 0.8rem;
+}
+
+.pizza-gusto-precio {
+  grid-column: 2;
+  grid-row: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Juntada ---------- */
+
+.juntada-controles {
+  display: grid;
+  gap: 1rem;
+}
+
+.juntada-personas {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.juntada-personas input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  accent-color: var(--acento);
+}
+
+.juntada-numero {
+  display: grid;
+  justify-items: center;
+}
+
+.juntada-numero strong {
+  font-family: var(--fuente-titulos);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.juntada-numero span {
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+.juntada-personas .control-paso {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.4rem;
+}
+
+.juntada-hambre {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+.juntada-hambre button {
+  display: grid;
+  padding: 0.55rem 0.5rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.juntada-hambre small {
+  margin-top: 0.2rem;
+  color: var(--suave);
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+.juntada-hambre [aria-checked="true"] {
+  border-color: var(--acento);
+  box-shadow: inset 0 0 0 1px var(--acento);
+}
+
+.juntada-gustos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.juntada-gusto {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.88rem;
+}
+
+.juntada-gusto[aria-pressed="true"] {
+  border-color: var(--acento);
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.juntada-mesa {
+  padding: 1.25rem;
+  border-radius: var(--radio);
+  background: var(--superficie);
+}
+
+.juntada-titulo {
+  margin: 0 0 1rem;
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+}
+
+.juntada-pizzas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.juntada-pizzas li {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  text-align: center;
+  animation: lugar-entra 0.3s ease-out backwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+
+.juntada-pizzas svg {
+  width: 100%;
+}

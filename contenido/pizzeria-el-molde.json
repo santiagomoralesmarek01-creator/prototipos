@@ -1,0 +1,341 @@
+{
+  "slug": "pizzeria-el-molde",
+  "nombre": "Pizzería El Molde",
+  "descripcion": "Pizza de molde al estilo porteño, fainá y empanadas, en Almagro desde 1982.",
+  "demo": true,
+  "plan": "local",
+  "marca": {
+    "color": "#b3261e",
+    "colorOscuro": "#ff9d8f"
+  },
+  "cartel": "EL MOLDE",
+  "eslogan": "Pizza de molde, como en las de antes.",
+  "historia": [
+    "Abrimos en 1982 con un horno a leña y una barra de estaño. El horno ya no es a leña, pero la masa se sigue estirando a mano en el molde de hierro, con mucho queso y borde crocante.",
+    "Los viernes a la noche la fila llega a la esquina. Si no querés esperar, pedí por acá y pasá a buscarla."
+  ],
+  "destacados": [
+    "fugazzeta",
+    "napolitana",
+    "faina"
+  ],
+  "cifras": [
+    {
+      "valor": "1982",
+      "texto": "abrimos en Almagro"
+    },
+    {
+      "valor": "250",
+      "texto": "pizzas un viernes cualquiera"
+    },
+    {
+      "valor": "8",
+      "texto": "porciones, siempre"
+    }
+  ],
+  "cinta": [
+    "Muzzarella",
+    "Fugazzeta",
+    "Fainá",
+    "De molde",
+    "Al corte",
+    "Para llevar"
+  ],
+  "turnos": [
+    {
+      "dias": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        0
+      ],
+      "abre": "12:00",
+      "cierra": "15:00"
+    },
+    {
+      "dias": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        0
+      ],
+      "abre": "19:30",
+      "cierra": "00:30"
+    }
+  ],
+  "whatsapp": "5491123456707",
+  "direccion": "Av. Corrientes 3840, Almagro",
+  "instagram": "pizzeriaelmolde",
+  "mediosDePago": [
+    "Efectivo",
+    "Transferencia",
+    "Mercado Pago",
+    "Débito"
+  ],
+  "envio": {
+    "disponible": true,
+    "costo": 1800,
+    "zona": "Almagro, Boedo y Caballito"
+  },
+  "categorias": [
+    {
+      "id": "pizzas",
+      "nombre": "Pizzas",
+      "productos": [
+        {
+          "id": "muzzarella",
+          "nombre": "Muzzarella",
+          "descripcion": "Salsa de tomate, muzzarella y aceitunas.",
+          "precio": 13500,
+          "etiquetas": [
+            "vegetariano"
+          ],
+          "cubierta": [
+            "aceitunas"
+          ]
+        },
+        {
+          "id": "napolitana",
+          "nombre": "Napolitana",
+          "descripcion": "Tomate en rodajas, ajo y albahaca.",
+          "precio": 15500,
+          "etiquetas": [
+            "vegetariano"
+          ],
+          "cubierta": [
+            "tomate",
+            "ajo",
+            "albahaca"
+          ]
+        },
+        {
+          "id": "fugazzeta",
+          "nombre": "Fugazzeta",
+          "descripcion": "Rellena de muzzarella, con cebolla arriba.",
+          "precio": 16500,
+          "etiquetas": [
+            "vegetariano"
+          ],
+          "cubierta": [
+            "cebolla"
+          ]
+        },
+        {
+          "id": "especial",
+          "nombre": "Especial",
+          "descripcion": "Jamón, morrones y aceitunas.",
+          "precio": 16000,
+          "cubierta": [
+            "jamon",
+            "morron",
+            "aceitunas"
+          ]
+        },
+        {
+          "id": "calabresa",
+          "nombre": "Calabresa",
+          "descripcion": "Longaniza calabresa y un toque de ají.",
+          "precio": 16500,
+          "cubierta": [
+            "calabresa"
+          ]
+        },
+        {
+          "id": "rucula",
+          "nombre": "Rúcula y crudo",
+          "descripcion": "Jamón crudo, rúcula y parmesano.",
+          "precio": 18500,
+          "cubierta": [
+            "rucula",
+            "jamon"
+          ]
+        },
+        {
+          "id": "provolone",
+          "nombre": "Provolone",
+          "descripcion": "Provolone gratinado y orégano.",
+          "precio": 16000,
+          "etiquetas": [
+            "vegetariano"
+          ],
+          "cubierta": [
+            "provolone"
+          ]
+        },
+        {
+          "id": "palmitos",
+          "nombre": "Palmitos",
+          "descripcion": "Palmitos, jamón y salsa golf.",
+          "precio": 17500,
+          "cubierta": [
+            "palmitos",
+            "jamon"
+          ]
+        },
+        {
+          "id": "champi",
+          "nombre": "Champiñones",
+          "descripcion": "Champiñones salteados al ajo.",
+          "precio": 16500,
+          "etiquetas": [
+            "vegetariano"
+          ],
+          "cubierta": [
+            "champignon",
+            "ajo"
+          ]
+        },
+        {
+          "id": "huevo",
+          "nombre": "Con huevo frito",
+          "descripcion": "Muzzarella, jamón y dos huevos fritos.",
+          "precio": 17000,
+          "cubierta": [
+            "huevo",
+            "jamon"
+          ],
+          "agotado": true
+        }
+      ],
+      "ilustracion": "pizza"
+    },
+    {
+      "id": "al-corte",
+      "nombre": "Al corte",
+      "productos": [
+        {
+          "id": "porcion-muzza",
+          "nombre": "Porción de muzzarella",
+          "precio": 2400,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "porcion-fugazzeta",
+          "nombre": "Porción de fugazzeta",
+          "precio": 2800,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "faina",
+          "nombre": "Fainá",
+          "descripcion": "Porción, para poner arriba de la pizza.",
+          "precio": 1500,
+          "etiquetas": [
+            "vegano"
+          ]
+        }
+      ],
+      "ilustracion": "pizza"
+    },
+    {
+      "id": "empanadas",
+      "nombre": "Empanadas",
+      "productos": [
+        {
+          "id": "emp-carne-molde",
+          "nombre": "Carne",
+          "descripcion": "Al horno.",
+          "precio": 1900
+        },
+        {
+          "id": "emp-jyq-molde",
+          "nombre": "Jamón y queso",
+          "precio": 1900
+        },
+        {
+          "id": "emp-capresse",
+          "nombre": "Capresse",
+          "precio": 1900,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "productos": [
+        {
+          "id": "gaseosa-molde",
+          "nombre": "Gaseosa 1,5 l",
+          "precio": 4500
+        },
+        {
+          "id": "cerveza-molde",
+          "nombre": "Cerveza 1 l",
+          "precio": 5200
+        },
+        {
+          "id": "moscato",
+          "nombre": "Moscato",
+          "descripcion": "Vaso, como manda la tradición.",
+          "precio": 2500
+        }
+      ]
+    },
+    {
+      "id": "postres",
+      "nombre": "Postres",
+      "productos": [
+        {
+          "id": "flan-molde",
+          "nombre": "Flan con dulce de leche",
+          "precio": 5500,
+          "etiquetas": [
+            "vegetariano",
+            "sin-tacc"
+          ]
+        },
+        {
+          "id": "helado-molde",
+          "nombre": "Helado 1/4 kg",
+          "precio": 6500
+        }
+      ]
+    }
+  ],
+  "armadores": [
+    {
+      "tipo": "mitades",
+      "menu": "Mitad y mitad",
+      "volanta": "No te decidís",
+      "titulo": "Armala mitad y mitad",
+      "bajada": "Tocá una mitad de la pizza y elegí el gusto. Se cobra la mitad más cara.",
+      "categorias": [
+        "pizzas"
+      ]
+    },
+    {
+      "tipo": "juntada",
+      "menu": "Para la juntada",
+      "volanta": "Para la juntada",
+      "titulo": "¿Cuántas pizzas pido?",
+      "bajada": "Decinos cuántos son y cuánta hambre hay. Repartimos las pizzas entre los gustos que elijas.",
+      "categorias": [
+        "pizzas"
+      ],
+      "porciones": 8,
+      "sugerencias": [
+        {
+          "id": "faina",
+          "cada": 1,
+          "por": "pizzas"
+        },
+        {
+          "id": "gaseosa-molde",
+          "cada": 4,
+          "por": "personas"
+        }
+      ]
+    }
+  ]
+}

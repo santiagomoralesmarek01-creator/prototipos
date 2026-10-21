@@ -8,6 +8,9 @@
 // - "box": caja de N lugares que se llena con productos (pastelería, facturas, alfajores),
 //   con descuento por tamaño y opción de regalo con tarjeta.
 // - "burger": hamburguesa capa por capa: pan, medallones, quesos y extras, cada uno con su precio.
+// - "mitades": pizza mitad y mitad, dibujada; se cobra la mitad más cara (o el promedio).
+// - "juntada": cuántas pizzas pedir según la cantidad de personas y el hambre; suma productos
+//   comunes de la carta (no lleva id propio).
 
 const DIAS_CORTOS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 const DIAS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -199,8 +202,75 @@ export const burger = {
   },
 };
 
-const TIPOS = { vianda, box, burger };
-const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger" };
+// ---------- Pizza por mitades ----------
+// cfg: { categorias, precio: "mas-cara" (por defecto) | "promedio" }. Cada gusto puede tener
+// `cubierta` (tomate, jamon, morron, aceitunas, cebolla, calabresa, rucula, huevo, albahaca) para el dibujo.
+
+export const mitades = {
+  opciones: (local, cfg) => productosDe(local, cfg.categorias).filter((p) => !p.agotado),
+
+  precio(cfg, a, b) {
+    if (cfg.precio === "promedio") return redondear((a.precio + b.precio) / 2);
+    return Math.max(a.precio, b.precio);
+  },
+
+  id: (a, b) => `mitades:${[a, b].sort().join("+")}`,
+
+  leer(id) {
+    const m = /^mitades:([^+]+)\+([^+]+)$/.exec(id);
+    return m ? [m[1], m[2]] : null;
+  },
+
+  resolver(local, cfg, id) {
+    const par = this.leer(id);
+    if (!par) return undefined;
+    const [a, b] = par.map((x) => this.opciones(local, cfg).find((p) => p.id === x));
+    if (!a || !b || a === b) return undefined;
+    return { id, nombre: `Pizza mitad ${a.nombre} y mitad ${b.nombre}`, precio: this.precio(cfg, a, b), detalle: cfg.precio === "promedio" ? "Promedio de las dos mitades" : "Se cobra la mitad más cara" };
+  },
+};
+
+// ---------- Juntada ----------
+// cfg: { categorias, porciones: 8, hambre: [{ id, nombre, porciones }], sugerencias: [{ id, cada, por: "pizzas" | "personas" }] }
+
+export const juntada = {
+  opciones: (local, cfg) => productosDe(local, cfg.categorias).filter((p) => !p.agotado),
+  niveles: (cfg) => cfg.hambre ?? [{ id: "poco", nombre: "Picamos algo", porciones: 2 }, { id: "normal", nombre: "Normal", porciones: 3 }, { id: "mucho", nombre: "Venimos con hambre", porciones: 4 }],
+
+  /** Pizzas enteras para que nadie se quede con hambre. */
+  pizzasNecesarias(cfg, personas, hambre) {
+    const nivel = this.niveles(cfg).find((n) => n.id === hambre) ?? this.niveles(cfg)[1];
+    return Math.max(1, Math.ceil((personas * nivel.porciones) / (cfg.porciones ?? 8)));
+  },
+
+  /** Reparte las pizzas entre los gustos elegidos, en orden, lo más parejo posible. */
+  repartir(cantidad, gustos) {
+    if (!gustos.length) return {};
+    const reparto = Object.fromEntries(gustos.map((g) => [g, Math.floor(cantidad / gustos.length)]));
+    for (let i = 0; i < cantidad % gustos.length; i++) reparto[gustos[i]] += 1;
+    return reparto;
+  },
+
+  /** Lo que conviene sumar (fainá, bebidas): [{ producto, cantidad }]. */
+  sugerencias(local, cfg, personas, pizzas) {
+    return (cfg.sugerencias ?? []).flatMap((s) => {
+      const p = producto(local, s.id);
+      if (!p || p.agotado) return [];
+      const base = s.por === "personas" ? personas : pizzas;
+      return [{ producto: p, cantidad: Math.max(1, Math.ceil(base / s.cada)) }];
+    });
+  },
+
+  total(local, reparto, extras = []) {
+    const pizzas = Object.entries(reparto).reduce((s, [id, n]) => s + (producto(local, id)?.precio ?? 0) * n, 0);
+    return pizzas + extras.reduce((s, e) => s + e.producto.precio * e.cantidad, 0);
+  },
+
+  resolver: () => undefined,
+};
+
+const TIPOS = { vianda, box, burger, mitades, juntada };
+const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades" };
 
 /** El producto armado que corresponde a un id del carrito, o undefined si no es un armado válido. */
 export function resolverArmado(local, id) {
