@@ -447,3 +447,10 @@
     width: 100%;
   }
 }
+
+.box-lugar:not([data-lleno])::after {
+  content: "+";
+  color: var(--suave);
+  font-size: 1.4rem;
+  opacity: 0.5;
+}

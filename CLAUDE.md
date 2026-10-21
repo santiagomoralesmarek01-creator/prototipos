@@ -31,5 +31,5 @@ HTML, CSS y JS de navegador, **sin build**: lo entregado funciona en cualquier h
 
 ```bash
 python3 -m http.server 8765   # http://localhost:8765/plantillas/local-barrio/
-node --test tests/            # lógica del núcleo
+npm test                      # lógica del núcleo y validación de los contenidos
 ```
