@@ -12,6 +12,16 @@
 - Catálogo (`index.html`) con capturas (`npm run capturas`), filtros y "Probar con" otro contenido.
 - Contenidos: bodegon-el-farol, cerveceria-la-tiza, copo-heladeria, rotiseria-don-tito, cafe-brote, humo-burgers.
 
+## Segunda tanda (hecha)
+
+- Revisión de alineación y calidad en todas las plantillas (cinta en pantallas anchas, carta, datos,
+  cabeceras, dibujos de pizza, burger, box, viandas).
+- Portadas distintas: el núcleo deja que cada plantilla componga la suya (`opciones.portada`) y
+  decida si lleva cinta (`opciones.cinta`).
+- Plantillas nuevas: `local-tostado` (cafetería, café a tu medida), `local-giro` (pizzería, pizza
+  desde cero), `local-diario` (casa de comidas, menú del día), `carta-pizarra` y `carta-muestrario`.
+- App `app-llamador` (pantalla de pedidos listos, conectada con Comanda).
+
 ## Sigue (en este orden)
 
 Regla del usuario: **cada 5 páginas gastronómicas, 1 página de categoría "app"** (como Filo, Mercadito,

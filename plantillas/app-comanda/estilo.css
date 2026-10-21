@@ -328,14 +328,19 @@ main {
   --borde: var(--ambar);
 }
 
+/* El atrasado titila en la franja de arriba; el ticket queda quieto para poder tocar sus botones. */
 .ticket-atrasado {
   --borde: var(--rojo);
-  animation: atraso 1.6s ease-in-out infinite;
+}
+
+.ticket-atrasado::before {
+  height: 7px;
+  animation: atraso 1.2s ease-in-out infinite;
 }
 
 @keyframes atraso {
   50% {
-    transform: translateX(2px);
+    opacity: 0.35;
   }
 }
 

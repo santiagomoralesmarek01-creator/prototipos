@@ -118,6 +118,16 @@ export const PLANTILLAS = [
     interacciones: ["Arrastrar tickets entre columnas", "Demoras en ámbar y rojo", "Números del turno y pedidos simulados"],
     contenido: "pizzeria-el-molde",
   },
+  {
+    id: "app-llamador",
+    nombre: "Llamador",
+    tipo: "app",
+    rubros: ["pizzeria", "rotiseria", "cafeteria", "hamburgueseria"],
+    planes: ["extra"],
+    estilo: "Pantalla para la tele del local: números de pedidos listos en fichas que se dan vuelta, como un cartel de aeropuerto.",
+    interacciones: ["Se conecta con Comanda: lo que la cocina marca listo aparece solo", "Aviso grande y timbre opcional", "Promociones del día corriendo abajo"],
+    contenido: "pizzeria-el-molde",
+  },
 ];
 
 export const RUBROS = {
