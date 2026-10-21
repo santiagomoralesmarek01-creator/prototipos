@@ -59,7 +59,7 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem clamp(1rem, 4vw, 3rem);
+  padding: 0.75rem max(clamp(1rem, 4vw, 3rem), calc((100% - 76rem) / 2 + clamp(1rem, 4vw, 3rem)));
   background: color-mix(in srgb, var(--fondo) 85%, transparent);
   backdrop-filter: blur(12px);
 }
@@ -144,9 +144,9 @@ main {
 }
 
 .portada-titulo {
-  margin: 0.75rem 0;
-  font-size: clamp(4rem, 13vw, 8.5rem);
-  line-height: 0.86;
+  margin: 0.75rem 0 1.25rem;
+  font-size: clamp(3.6rem, 11vw, 7.6rem);
+  line-height: 0.94;
 }
 
 .portada-bajada {
@@ -358,16 +358,8 @@ main {
   transition: transform 0.2s;
 }
 
-.destacado:nth-child(2) {
-  transform: rotate(1deg);
-}
-
-.destacado:nth-child(3) {
-  transform: rotate(-1deg);
-}
-
 .destacado:hover {
-  transform: rotate(0) translateY(-6px);
+  transform: translateY(-6px);
 }
 
 .destacado-numero {

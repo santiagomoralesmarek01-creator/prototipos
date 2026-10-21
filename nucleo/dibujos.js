@@ -28,12 +28,17 @@ export const DIBUJOS = {
   sushi: `<circle cx="32" cy="34" r="20" fill="#2d3a2e" ${C}/><circle cx="32" cy="34" r="14" fill="#fff"/><circle cx="32" cy="34" r="7" fill="#f08a5d" ${C}/>`,
   parrilla: `<path d="M8 40h48" ${C}/><path d="M14 40v14M50 40v14" ${C}/><path d="M12 26h40v14H12z" fill="#555" ${C}/><path d="M18 26c0-6 8-8 14-6s12 2 14 6" fill="#b5532f" ${C}/><path d="M20 12q-3 4 0 8M32 10q-3 4 0 8M44 12q-3 4 0 8" fill="none" ${C}/>`,
   vaso: `<path d="M18 14h28l-4 40H22z" fill="#cfe6f2" ${C}/><path d="M20 28h24l-2 24H22z" fill="#f2b632"/><circle cx="28" cy="38" r="2" fill="#fff"/><circle cx="36" cy="44" r="1.5" fill="#fff"/>`,
+  faina: `<path d="M10 22l44 8-30 24z" fill="#b5642a" ${C}/><path d="M10 22l44 8-30 18z" fill="#eab04a" ${C}/><path d="M10 22c14-6 32-2 44 8" fill="none" stroke="#b5642a" stroke-width="4" stroke-linecap="round"/><circle cx="26" cy="30" r="1.8" fill="#5b3320"/><circle cx="36" cy="34" r="1.6" fill="#5b3320"/><circle cx="28" cy="38" r="1.4" fill="#5b3320"/><circle cx="42" cy="31" r="1.4" fill="#5b3320"/>`,
+  galleta: `<circle cx="32" cy="34" r="20" fill="#d99a4e" ${C}/><circle cx="24" cy="28" r="3" fill="#5b3320"/><circle cx="38" cy="26" r="2.6" fill="#5b3320"/><circle cx="34" cy="40" r="3" fill="#5b3320"/><circle cx="22" cy="40" r="2.2" fill="#5b3320"/><circle cx="43" cy="36" r="2" fill="#5b3320"/>`,
+  brownie: `<path d="M12 26l20-8 20 8v20l-20 8-20-8z" fill="#5b3320" ${C}/><path d="M12 26l20 8 20-8M32 34v20" fill="none" ${C}/><path d="M20 26l6 2M34 22l5 2M40 28l-4 1" stroke="#a8673a" stroke-width="2"/>`,
+  budin: `<path d="M10 28c0-6 6-10 22-10s22 4 22 10v18a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z" fill="#e8b25b" ${C}/><path d="M10 28c6 4 14 5 22 5s16-1 22-5" fill="none" ${C}/><path d="M18 24l4 3M30 22l4 3M42 24l4 3" stroke="#8a4b2a" stroke-width="2"/>`,
   horno: `<path d="M8 50c0-22 10-34 24-34s24 12 24 34z" fill="#c9714a" ${C}/><path d="M20 50c0-10 5-16 12-16s12 6 12 16z" fill="#2a1f1a"/><path d="M26 50c2-6 4-8 6-8s4 2 6 8" fill="#f2b632"/><path d="M6 50h52" ${C}/>`,
 };
 
 const PISTAS = [
   [/empanad/i, "empanada"],
-  [/pizz|fain/i, "pizza"],
+  [/fain[aá]/i, "faina"],
+  [/pizz/i, "pizza"],
   [/milanes|minuta/i, "milanesa"],
   [/tarta|tortilla/i, "tarta"],
   [/pollo|spiedo/i, "pollo"],
@@ -46,6 +51,9 @@ const PISTAS = [
   [/ensalad|veggie|verde/i, "ensalada"],
   [/postre|dulce|flan/i, "postre"],
   [/caf[eé]|espresso/i, "taza"],
+  [/cookie|galleta|alfajor/i, "galleta"],
+  [/brownie/i, "brownie"],
+  [/bud[ií]n|bizcocho|muffin/i, "budin"],
   [/medialun|factura|panader|pasteler/i, "medialuna"],
   [/torta|porci/i, "porcion"],
   [/tostad|brunch|desayun/i, "tostado"],

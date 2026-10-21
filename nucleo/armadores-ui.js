@@ -2,6 +2,7 @@
 // lista para insertar; el aspecto base está en nucleo/armadores.css y cada plantilla lo ajusta
 // con sus variables.
 import { box, burger, juntada, mitades, vianda } from "./armadores.js";
+import { dibujoPara, svgDibujo } from "./dibujos.js";
 import { formatearPesos } from "./formato.js";
 import { crear, svg } from "./pagina.js";
 
@@ -109,6 +110,12 @@ function armadorVianda(local, cfg, carrito) {
 
 // ---------- Box para llenar ----------
 
+/** Dibujo del producto por su nombre (medialuna, galletita, budín…), o null si no hay uno parecido. */
+function dibujoDe(producto) {
+  const nombre = dibujoPara({ id: producto.id, nombre: producto.nombre });
+  return nombre ? svg(svgDibujo(nombre, "box-dibujo")) : null;
+}
+
 function armadorBox(local, cfg, carrito) {
   const opciones = box.opciones(local, cfg);
   if (!opciones.length) return null;
@@ -153,7 +160,7 @@ function armadorBox(local, cfg, carrito) {
           ? crear(
               "button",
               { type: "button", className: "box-lugar", "data-lleno": "", style: `--color:${colorDe(p.id)}`, "aria-label": `Sacar ${p.nombre}`, onclick: () => ((items = items.filter((_, j) => j !== i)), pintar()) },
-              crear("span", { className: "box-inicial", "aria-hidden": "true" }, p.nombre[0]),
+              dibujoDe(p) ?? crear("span", { className: "box-inicial", "aria-hidden": "true" }, p.nombre[0]),
               crear("span", { className: "box-nombre" }, p.nombre),
             )
           : crear("span", { className: "box-lugar", "aria-hidden": "true" });
@@ -208,7 +215,9 @@ function armadorBox(local, cfg, carrito) {
 
 const FORMAS = {
   medallon: (y, c) => `<rect x="14" y="${y - 13}" width="172" height="15" rx="7" fill="${c ?? "#5b3320"}"/><path d="M24 ${y - 9}h20M60 ${y - 6}h16M100 ${y - 9}h22M140 ${y - 6}h18" stroke="rgb(0 0 0 / .25)" stroke-width="2" stroke-linecap="round"/>`,
-  queso: (y, c) => `<path d="M10 ${y - 6}h180l-10 6-12 8-10-8H74l-12 10-10-10H20z" fill="${c ?? "#f2b632"}"/>`,
+  // Feta que se derrite: un poco más ancha que el medallón, con gotas redondeadas que caen.
+  queso: (y, c) =>
+    `<path d="M10 ${y - 7}h180v4c0 3-4 3-6 3h-22c-4 0-5 2-5 6s-3 6-6 6-6-2-6-6-1-6-5-6H96c-4 0-5 2-5 4s-3 4-5 4-5-2-5-4-1-4-5-4H40c-4 0-5 3-5 7s-3 6-6 6-6-2-6-6-1-7-5-7h-2c-3 0-6 0-6-3z" fill="${c ?? "#f2b632"}"/>`,
   panceta: (y, c) => `<path d="M16 ${y - 4}q15-8 30 0t30 0 30 0 30 0 30 0 18 0" fill="none" stroke="${c ?? "#c2453a"}" stroke-width="6" stroke-linecap="round"/>`,
   hoja: (y, c) => `<path d="M12 ${y - 3}q12-10 22 0t22 0 22 0 22 0 22 0 22 0 22 0 22 0" fill="none" stroke="${c ?? "#5aa04a"}" stroke-width="7" stroke-linecap="round"/>`,
   tomate: (y, c) => `<rect x="30" y="${y - 7}" width="62" height="8" rx="4" fill="${c ?? "#e2483d"}"/><rect x="104" y="${y - 7}" width="62" height="8" rx="4" fill="${c ?? "#e2483d"}"/>`,
@@ -219,12 +228,17 @@ const FORMAS = {
 };
 /** Color de cada forma cuando la capa no trae `color` (para el dibujo y la muestra de la lista). */
 const COLOR_FORMA = { medallon: "#5b3320", queso: "#f2b632", panceta: "#c2453a", hoja: "#5aa04a", tomate: "#e2483d", cebolla: "#c9a0d6", salsa: "#e0702a", huevo: "#f2a52c", pepino: "#8bb05a" };
-const ALTO = { medallon: 16, queso: 8, panceta: 8, hoja: 8, tomate: 9, cebolla: 6, salsa: 5, huevo: 10, pepino: 6 };
+const ALTO = { medallon: 16, queso: 6, panceta: 8, hoja: 8, tomate: 9, cebolla: 6, salsa: 5, huevo: 10, pepino: 6 };
 
 /** Dibujo de la burger: de abajo hacia arriba, el pan, cada capa repetida según la cantidad y la tapa. */
 export function dibujoBurger(cfg, eleccion) {
   const r = burger.calcular(cfg, eleccion);
-  const pisos = r.capas.flatMap((c) => Array.from({ length: c.cantidad }, (_, i) => ({ ...c, nuevo: i === c.cantidad - 1 })));
+  // Como en una burger de verdad: cada medallón lleva su feta de queso arriba; el resto va encima.
+  const repetir = (c) => Array.from({ length: c.cantidad }, () => c);
+  const medallones = r.capas.filter((c) => c.forma === "medallon").flatMap(repetir);
+  const fetas = r.capas.filter((c) => c.forma === "queso").flatMap(repetir);
+  const pisos = medallones.flatMap((m, i) => (fetas[i] ? [m, fetas[i]] : [m]));
+  pisos.push(...fetas.slice(medallones.length), ...r.capas.filter((c) => c.forma !== "medallon" && c.forma !== "queso").flatMap(repetir));
   const alto = 40 + pisos.reduce((s, c) => s + (ALTO[c.forma] ?? 8), 0) + 60;
   const colorPan = r.pan.color ?? "#d99a4e";
   let y = alto - 14;

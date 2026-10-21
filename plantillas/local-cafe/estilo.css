@@ -350,7 +350,7 @@ h2,
   grid-template-rows: auto auto auto 1fr auto auto;
   gap: 0.35rem;
   padding: 1.5rem;
-  border-radius: 28px 28px 28px 6px;
+  border-radius: 28px;
   background: var(--superficie);
   box-shadow: 0 10px 30px rgb(0 0 0 / 0.06);
   transition: transform 0.25s;
@@ -570,7 +570,7 @@ h2,
 .cifras li {
   display: grid;
   padding: 1.25rem 1.5rem;
-  border-radius: 999px 999px 999px 24px;
+  border-radius: 24px;
   background: rgb(255 255 255 / 0.12);
 }
 

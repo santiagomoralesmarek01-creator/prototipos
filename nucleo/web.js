@@ -57,9 +57,14 @@ export function textoCartel(local) {
 const conCartel = (dibujo, local) => dibujo.replaceAll("{cartel}", textoCartel(local).replace(/[<&>]/g, ""));
 
 function cinta(local) {
-  const palabras = local.cinta?.length ? local.cinta : local.categorias.map((c) => c.nombre);
-  const fila = () => crear("span", {}, palabras.map((p) => crear("span", { className: "cinta-palabra" }, p)));
-  return crear("div", { className: "cinta", "aria-hidden": "true" }, crear("div", { className: "cinta-pista" }, fila(), fila()));
+  const lista = local.cinta?.length ? local.cinta : local.categorias.map((c) => c.nombre);
+  // Cada mitad de la pista tiene que ser más ancha que la pantalla más grande (2560 px), o en
+  // monitores anchos la cinta se termina antes del borde: se repite la lista hasta tener 24 palabras.
+  const palabras = Array.from({ length: Math.ceil(24 / lista.length) }, () => lista).flat();
+  const fila = () => crear("span", { className: "cinta-fila" }, palabras.map((p) => crear("span", { className: "cinta-palabra" }, p)));
+  // La velocidad no depende de cuántas palabras haya: unos 2,5 segundos por palabra.
+  const pista = crear("div", { className: "cinta-pista", style: `animation-duration: ${palabras.length * 2.5}s` }, fila(), fila());
+  return crear("div", { className: "cinta", "aria-hidden": "true" }, pista);
 }
 
 function cifras(local) {
@@ -116,7 +121,7 @@ export async function webLocal(opciones = {}) {
         salon ? null : crear("a", { className: "boton boton-secundario", href: whatsapp(local), target: "_blank", rel: "noopener" }, t.pedir),
       ),
     ),
-    opciones.dibujo ? crear("div", { className: "portada-dibujo", "aria-hidden": "true" }, svg(conCartel(opciones.dibujo, local))) : null,
+    opciones.dibujo && !salon ? crear("div", { className: "portada-dibujo", "aria-hidden": "true" }, svg(conCartel(opciones.dibujo, local))) : null,
   );
 
   const enlaces = salon

@@ -384,3 +384,79 @@ a {
   width: 4.5rem;
   height: 4.5rem;
 }
+
+/* ---------- Fila de producto con pedido ----------
+   Nombre y precio en la misma línea, arriba; el botón debajo del precio. Así las filas quedan
+   parejas aunque unas tengan descripción y otras no. (Las cartas para mirar no tienen .control
+   y cada plantilla las alinea a su manera.) */
+
+.carta-lista .carta-producto:has(.control) {
+  align-items: start;
+}
+
+.carta-producto:has(.control) .carta-producto-texto {
+  grid-row: span 2;
+}
+
+.carta-producto:has(.control) .carta-producto-precio {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  line-height: 1.5;
+}
+
+.carta-lista .carta-producto:has(.control) .control {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+}
+
+/* ---------- Datos del local ----------
+   El estado va como texto con un punto, no como píldora: en una columna angosta la píldora se
+   parte en dos renglones. Los horarios llevan una columna más ancha. */
+
+.datos .estado {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--suave);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.datos .estado::before {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  transform: translateY(-0.05rem);
+}
+
+@media (min-width: 60rem) {
+  .datos.datos {
+    grid-template-columns: 1.5fr repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Portada en el celular: los botones ocupan el ancho parejo (si no, al apilarse quedan de distinto largo). */
+@media (max-width: 40rem) {
+  .portada-botones > * {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+/* En dos columnas, si el último bloque de datos queda solo, ocupa la fila entera. */
+@media (max-width: 40rem) {
+  .datos .datos-bloque:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}

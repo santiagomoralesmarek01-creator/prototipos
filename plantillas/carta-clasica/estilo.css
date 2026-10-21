@@ -435,3 +435,7 @@ main::before {
   color: var(--suave);
   font-size: 0.95rem;
 }
+
+.datos .estado {
+  justify-content: center;
+}

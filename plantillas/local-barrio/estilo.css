@@ -45,7 +45,7 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem clamp(1rem, 4vw, 3rem);
+  padding: 0.75rem max(clamp(1rem, 4vw, 3rem), calc((100% - 72rem) / 2 + clamp(1rem, 4vw, 3rem)));
   border-bottom: 2px solid var(--texto);
   background: var(--fondo);
 }
@@ -282,9 +282,18 @@ main {
   background: repeating-linear-gradient(-45deg, transparent 0 14px, rgb(0 0 0 / 0.025) 14px 28px);
 }
 
+.destacado-numero,
+.destacado-dibujo {
+  grid-row: 1;
+  grid-column: 1;
+}
+
 .destacado-dibujo {
   justify-self: end;
-  margin: -3.2rem -0.5rem -0.5rem 0;
+  align-self: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin: -0.4rem -0.4rem 0 0;
   transform: rotate(8deg);
   transition: transform 0.25s;
 }
@@ -308,7 +317,7 @@ main {
 
 .destacado {
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto auto;
+  grid-template-rows: auto auto 1fr auto auto;
   gap: 0.4rem;
   padding: 1.25rem;
   border: 2px solid var(--texto);

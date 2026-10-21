@@ -61,7 +61,7 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.7rem clamp(1rem, 4vw, 3rem);
+  padding: 0.7rem max(clamp(1rem, 4vw, 3rem), calc((100% - 76rem) / 2 + clamp(1rem, 4vw, 3rem)));
   border-bottom: 3px solid var(--bronce);
   background: var(--botella);
   color: #f4ecdc;

@@ -1,6 +1,7 @@
 // Bloques que arman todas las plantillas: la carta (con o sin pedido), los destacados y los
 // datos del local. Cada plantilla les da su aspecto con CSS sobre estas clases:
 // .carta-nav, .carta-filtros, .carta-categoria, .carta-producto, .destacados, .datos…
+import { dibujoPizza } from "./armadores-ui.js";
 import { dibujoPara, svgDibujo } from "./dibujos.js";
 import { formatearPesos } from "./formato.js";
 import { estadoDelLocal, textoHorarios } from "./horario.js";
@@ -79,6 +80,18 @@ function fila(p, { carrito, puntos }) {
   );
 }
 
+/** Una pizza con sus ingredientes se dibuja tal cual; lo demás, con el dibujo del producto o de su categoría. */
+function dibujoDestacado(p) {
+  if (p.cubierta) {
+    const pizza = dibujoPizza(p, p);
+    pizza.classList.add("destacado-dibujo");
+    pizza.setAttribute("aria-hidden", "true");
+    return pizza;
+  }
+  const propio = dibujoPara({ id: p.id, nombre: p.nombre });
+  return propio ? svg(svgDibujo(propio, "destacado-dibujo")) : dibujo(p.categoria, "destacado-dibujo");
+}
+
 /** Productos destacados (ids en `destacados`), con su control de pedido si hay carrito. */
 export function destacados(local, { carrito } = {}) {
   const productos = (local.destacados ?? [])
@@ -96,7 +109,7 @@ export function destacados(local, { carrito } = {}) {
         "li",
         { className: "destacado", style: `--i:${i}` },
         crear("span", { className: "destacado-numero", "aria-hidden": "true" }, String(i + 1).padStart(2, "0")),
-        dibujo(p.categoria, "destacado-dibujo"),
+        dibujoDestacado(p),
         crear("h3", { className: "destacado-nombre" }, p.nombre),
         p.descripcion ? crear("p", { className: "destacado-desc" }, p.descripcion) : null,
         crear("span", { className: "destacado-precio" }, formatearPesos(p.precio)),
@@ -142,7 +155,8 @@ export function datos(local) {
           : "Por ahora no hacemos envíos.",
       ),
     ),
-    bloque("Medios de pago", crear("p", {}, local.mediosDePago.join(" · "))),
+    // Uno por renglón: separados con "·" el separador queda colgando al final de la línea.
+    bloque("Medios de pago", crear("ul", {}, local.mediosDePago.map((m) => crear("li", {}, m)))),
     bloque(
       "Contacto",
       crear("a", { className: "datos-enlace", href: linkWhatsApp(local.whatsapp), target: "_blank", rel: "noopener" }, "WhatsApp"),

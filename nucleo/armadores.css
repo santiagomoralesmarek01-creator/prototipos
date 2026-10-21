@@ -224,6 +224,7 @@
 .box-tamanios button,
 .burger-panes button {
   display: grid;
+  align-content: center;
   padding: 0.5rem 0.9rem;
   border: 1px solid var(--linea);
   border-radius: var(--radio);
@@ -246,6 +247,8 @@
 .box-caja {
   display: grid;
   grid-template-columns: repeat(var(--columnas, 3), 1fr);
+  /* Cada lugar mide como mucho 6,5 rem: con 4 lugares la caja no se come la pantalla. */
+  width: min(100%, calc(var(--columnas, 3) * 6.5rem + 1.5rem));
   gap: 0.5rem;
   padding: 0.75rem;
   border: 3px solid var(--acento);
@@ -360,7 +363,12 @@
 @media (min-width: 52rem) {
   .burger-cuerpo {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: center;
+    align-items: start;
+  }
+  /* La burger queda a la vista mientras se baja por la lista de capas. */
+  .burger-escena {
+    position: sticky;
+    top: 6rem;
   }
 }
 
@@ -705,4 +713,42 @@
 
 .juntada-pizzas svg {
   width: 100%;
+}
+
+/* Viandas en el celular: un día por fila (táper chico, día, plato y selector), sin días sueltos. */
+@media (max-width: 40rem) {
+  .vianda-dias {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .vianda-dia {
+    grid-template-columns: 3.4rem 1fr;
+    grid-template-areas: "dibujo dia" "dibujo select";
+    justify-items: start;
+    gap: 0.15rem 0.85rem;
+    padding: 0.7rem 0.85rem;
+    text-align: left;
+  }
+  .vianda-dia svg {
+    grid-area: dibujo;
+    align-self: center;
+    width: 3.4rem;
+  }
+  .vianda-dia-nombre {
+    grid-area: dia;
+  }
+  /* El selector ya dice el plato elegido. */
+  .vianda-plato {
+    display: none;
+  }
+  .vianda-dia select {
+    grid-area: select;
+    margin-top: 0.25rem;
+  }
+}
+
+.box-dibujo {
+  width: 2.8rem;
+  height: 2.8rem;
+  color: #1f1a17;
 }
