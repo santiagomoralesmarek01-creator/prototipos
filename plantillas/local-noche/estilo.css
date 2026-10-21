@@ -1,0 +1,664 @@
+/* Plantilla "Noche": carbón, brasas y humo. Pensada para hamburgueserías y bares. Oscura por
+   naturaleza; el modo claro es papel de envoltorio con tinta negra. */
+
+:root {
+  --fondo: #f3eee6;
+  --superficie: #fffdf8;
+  --texto: #141110;
+  --suave: #5c5550;
+  --linea: #ddd5c8;
+  --acento: var(--marca, #b3261e);
+  --sobre-acento: #fff;
+  --brasa: #ff7a1a;
+  --fuente: "Space Grotesk", system-ui, sans-serif;
+  --fuente-titulos: "Anton", Impact, sans-serif;
+  --radio: 14px;
+  color-scheme: light;
+}
+
+[data-tema="oscuro"] {
+  --fondo: #0e0c0b;
+  --superficie: #1a1614;
+  --texto: #f6efe6;
+  --suave: #a89d93;
+  --linea: #2d2724;
+  --acento: var(--marca-oscuro, #ffb4a9);
+  --sobre-acento: #2a0905;
+  color-scheme: dark;
+}
+
+body {
+  /* Grano de papel / de humo. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+}
+
+main {
+  overflow-x: clip;
+}
+
+.portada-titulo,
+.seccion-titulo,
+.armador-titulo,
+.cabecera-marca,
+.carta-categoria-titulo,
+.destacado-nombre,
+.pie-nombre,
+.cifras strong {
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--fondo) 85%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.cabecera-marca {
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.cabecera-nav {
+  display: none;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.cabecera-nav a {
+  padding: 0.35rem 0.9rem;
+  border: 1.5px solid var(--texto);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.cabecera-nav a:hover {
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+.cabecera .boton-tema {
+  margin-left: auto;
+}
+
+@media (min-width: 52rem) {
+  .cabecera-nav {
+    display: flex;
+  }
+  .cabecera .boton-tema {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Portada ---------- */
+
+.portada {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(2.5rem, 6vw, 5rem);
+}
+
+.portada::before {
+  /* Brasa detrás de la burger. */
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 5%;
+  top: 15%;
+  width: min(36rem, 80vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brasa) 45%, transparent), transparent 65%);
+  filter: blur(20px);
+  animation: brasa 4s ease-in-out infinite alternate;
+}
+
+@keyframes brasa {
+  to {
+    opacity: 0.6;
+    transform: scale(1.06);
+  }
+}
+
+@media (min-width: 52rem) {
+  .portada {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.portada-titulo {
+  margin: 0.75rem 0;
+  font-size: clamp(4rem, 13vw, 8.5rem);
+  line-height: 0.86;
+}
+
+.portada-bajada {
+  max-width: 28rem;
+  margin: 0 0 1.75rem;
+  color: var(--suave);
+  font-size: 1.1rem;
+}
+
+.portada-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.boton {
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.boton-principal {
+  background: var(--acento);
+  color: var(--sobre-acento);
+  box-shadow: 0 0 0 0 var(--brasa);
+}
+
+.boton-principal:hover {
+  box-shadow: 0 0 24px 0 color-mix(in srgb, var(--brasa) 60%, transparent);
+  transform: translateY(-2px);
+}
+
+.boton-secundario {
+  border: 2px solid var(--texto);
+}
+
+.portada-dibujo {
+  color: var(--texto);
+}
+
+.portada-dibujo svg {
+  width: min(100%, 30rem);
+  margin: 0 auto;
+}
+
+.humo {
+  animation: humo 3s ease-in-out infinite;
+}
+
+.humo-2 {
+  animation-delay: 0.8s;
+}
+
+.humo-3 {
+  animation-delay: 1.6s;
+}
+
+@keyframes humo {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+
+.sticker {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sticker 6s ease-in-out infinite;
+}
+
+@keyframes sticker {
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--texto);
+  color: var(--fondo);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.estado::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #e2483d;
+}
+
+.estado[data-abierto="true"]::before {
+  background: var(--brasa);
+  box-shadow: 0 0 10px var(--brasa);
+}
+
+/* ---------- Cinta: dos tiras cruzadas ---------- */
+
+.cinta {
+  overflow: hidden;
+  margin: 1rem 0 2rem;
+  padding: 0.7rem 0;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-2deg) scale(1.03);
+  box-shadow: 0 0 0 3px var(--texto);
+}
+
+.cinta-pista {
+  display: inline-flex;
+  animation: cinta 22s linear infinite;
+}
+
+.cinta-palabra::after {
+  content: "●";
+  margin: 0 1rem;
+  font-size: 0.6em;
+  vertical-align: middle;
+}
+
+@keyframes cinta {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Secciones ---------- */
+
+.seccion {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.seccion-titulo {
+  margin: 0 0 2rem;
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  line-height: 0.9;
+}
+
+.banda-armador {
+  background: #141110;
+  color: #f6efe6;
+  --fondo: #0e0c0b;
+  --texto: #f6efe6;
+  --suave: #a89d93;
+  --linea: #2d2724;
+  --superficie: #1f1a17;
+  --acento: #ff7a1a;
+  --sobre-acento: #1a0c02;
+  background-image: radial-gradient(ellipse at 20% 100%, rgb(255 122 26 / 0.18), transparent 55%);
+}
+
+.banda-armador .armador-titulo {
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  line-height: 0.9;
+}
+
+.banda-armador .burger-escena {
+  background: radial-gradient(ellipse at 50% 90%, rgb(255 122 26 / 0.35), transparent 60%), #1f1a17;
+}
+
+.banda-historia {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+/* ---------- Destacados: tarjetas como tickets ---------- */
+
+.destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destacado {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  border: 2px solid var(--texto);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  transition: transform 0.2s;
+}
+
+.destacado:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.destacado:nth-child(3) {
+  transform: rotate(-1deg);
+}
+
+.destacado:hover {
+  transform: rotate(0) translateY(-6px);
+}
+
+.destacado-numero {
+  position: absolute;
+  top: -0.9rem;
+  left: 1.25rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.destacado-dibujo {
+  width: 6rem;
+  height: 6rem;
+  color: var(--texto);
+}
+
+.destacado-nombre {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.destacado-desc {
+  margin: 0;
+  color: var(--suave);
+  font-size: 0.92rem;
+}
+
+.destacado-precio {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* ---------- Carta ---------- */
+
+.carta-barra {
+  position: sticky;
+  top: 3.8rem;
+  z-index: 5;
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 0;
+  background: var(--fondo);
+}
+
+.carta-nav ul,
+.carta-filtros {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.carta-nav a,
+.carta-filtros button {
+  display: block;
+  padding: 0.45rem 1rem;
+  border: 2px solid var(--texto);
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.carta-nav a[aria-current] {
+  border-color: var(--acento);
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.carta-filtros button {
+  border-width: 1px;
+  border-color: var(--linea);
+  font-size: 0.78rem;
+}
+
+.carta-filtros [aria-pressed="true"] {
+  border-color: var(--texto);
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+.carta-cuerpo {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 60rem) {
+  .carta-cuerpo {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.carta-categoria {
+  padding: 1.5rem;
+  border: 2px solid var(--texto);
+  border-radius: var(--radio);
+  background: var(--superficie);
+}
+
+.carta-categoria-titulo {
+  margin: 0 0 0.5rem;
+  font-size: 2.2rem;
+}
+
+.carta-categoria-dibujo {
+  width: 3rem;
+  height: 3rem;
+  color: var(--texto);
+}
+
+.carta-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-producto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.2rem 1rem;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-top: 1px dashed var(--linea);
+}
+
+.carta-producto[data-agotado] {
+  opacity: 0.45;
+}
+
+.carta-producto-nombre {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.carta-producto-desc {
+  margin: 0.1rem 0 0;
+  color: var(--suave);
+  font-size: 0.88rem;
+}
+
+.carta-producto-etiquetas {
+  color: var(--acento);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.carta-producto-precio {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.carta-producto .control {
+  grid-column: 2;
+  justify-self: end;
+}
+
+.control-agregar,
+.control-paso {
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* ---------- Historia y datos ---------- */
+
+.seccion-historia {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 52rem) {
+  .seccion-historia {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  .seccion-historia .seccion-titulo {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+}
+
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cifras li {
+  display: grid;
+}
+
+.cifras strong {
+  font-size: clamp(3.5rem, 8vw, 5rem);
+  line-height: 1;
+}
+
+.historia-texto p {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 1rem;
+}
+
+.datos-bloque {
+  padding: 1.25rem;
+  border: 2px solid var(--texto);
+  border-radius: var(--radio);
+  background: var(--superficie);
+}
+
+.datos-bloque h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--fuente-titulos);
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.datos-bloque p,
+.datos-bloque ul {
+  margin: 0 0 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+.datos-enlace {
+  display: inline-block;
+  margin-right: 1rem;
+  color: var(--acento);
+  font-weight: 700;
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  overflow: hidden;
+  padding: 3rem 1rem 6rem;
+  background: #141110;
+  color: #f6efe6;
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.2rem 0;
+}
+
+.pie-nombre {
+  font-size: clamp(3.5rem, 14vw, 9rem);
+  line-height: 0.9;
+  -webkit-text-stroke: 2px #f6efe6;
+  color: transparent;
+}
+
+.pie-direccion {
+  opacity: 0.7;
+}
+
+.pie-enlace {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #ff7a1a;
+}
+
+.pie .firma {
+  color: inherit;
+  opacity: 0.6;
+}
+
+[data-modo="salon"] .portada-dibujo {
+  display: none;
+}

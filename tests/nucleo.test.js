@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { formatearPesos } from "../nucleo/formato.js";
 import { describirTurnos, estadoDelLocal } from "../nucleo/horario.js";
 import { armarMensaje, calcularTotal, cambiarCantidad, lineasValidas } from "../nucleo/pedido.js";
-import { box, burger, vianda } from "../nucleo/armadores.js";
+import { box, burger, juntada, mitades, vianda } from "../nucleo/armadores.js";
 import { contraste, validarContenido } from "../nucleo/validar.js";
 import { normalizarWhatsapp } from "../nucleo/whatsapp.js";
 
@@ -91,4 +91,23 @@ test("burger: límites de capas y precio", () => {
   assert.deepEqual(burger.leer(cfg, id), e);
   assert.equal(lineasValidas(local, [{ productoId: id, cantidad: 2 }])[0].subtotal, burger.calcular(cfg, e).total * 2);
   assert.equal(lineasValidas(local, [{ productoId: "burger:papa;medallon=9", cantidad: 1 }]).length, 0);
+});
+
+test("mitades: cobra la más cara, mismo id en cualquier orden", () => {
+  const local = leer("pizzeria-el-molde");
+  assert.equal(mitades.id("rucula", "muzzarella"), mitades.id("muzzarella", "rucula"));
+  const [l] = lineasValidas(local, [{ productoId: mitades.id("muzzarella", "rucula"), cantidad: 1 }]);
+  assert.equal(l.subtotal, 18500);
+  assert.equal(lineasValidas(local, [{ productoId: "mitades:muzzarella+huevo", cantidad: 1 }]).length, 0); // agotada
+  assert.equal(mitades.precio({ precio: "promedio" }, { precio: 13500 }, { precio: 18500 }), 16000);
+});
+
+test("juntada: pizzas por personas, reparto y sugerencias", () => {
+  const local = leer("pizzeria-el-molde");
+  const cfg = local.armadores.find((a) => a.tipo === "juntada");
+  assert.equal(juntada.pizzasNecesarias(cfg, 8, "normal"), 3);
+  assert.equal(juntada.pizzasNecesarias(cfg, 10, "mucho"), 5);
+  assert.deepEqual(juntada.repartir(5, ["a", "b"]), { a: 3, b: 2 });
+  const s = juntada.sugerencias(local, cfg, 8, 3);
+  assert.deepEqual(s.map((x) => [x.producto.id, x.cantidad]), [["faina", 3], ["gaseosa-molde", 2]]);
 });

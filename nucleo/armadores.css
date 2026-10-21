@@ -367,15 +367,15 @@
 .burger-escena {
   display: grid;
   place-items: end center;
-  min-height: 16rem;
+  min-height: 20rem;
   padding: 1rem;
   border-radius: var(--radio);
   background: radial-gradient(ellipse at 50% 95%, rgb(0 0 0 / 0.18), transparent 55%), var(--superficie);
 }
 
 .burger-dibujo {
-  width: min(100%, 20rem);
-  max-height: 26rem;
+  width: min(100%, 24rem);
+  max-height: 30rem;
 }
 
 .burger-capa:last-of-type,

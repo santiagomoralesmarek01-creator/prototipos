@@ -217,6 +217,8 @@ const FORMAS = {
   huevo: (y) => `<ellipse cx="100" cy="${y - 5}" rx="58" ry="7" fill="#fff8ec"/><circle cx="100" cy="${y - 6}" r="8" fill="#f2a52c"/>`,
   pepino: (y, c) => `<g fill="${c ?? "#8bb05a"}"><ellipse cx="50" cy="${y - 3}" rx="16" ry="4"/><ellipse cx="100" cy="${y - 3}" rx="16" ry="4"/><ellipse cx="150" cy="${y - 3}" rx="16" ry="4"/></g>`,
 };
+/** Color de cada forma cuando la capa no trae `color` (para el dibujo y la muestra de la lista). */
+const COLOR_FORMA = { medallon: "#5b3320", queso: "#f2b632", panceta: "#c2453a", hoja: "#5aa04a", tomate: "#e2483d", cebolla: "#c9a0d6", salsa: "#e0702a", huevo: "#f2a52c", pepino: "#8bb05a" };
 const ALTO = { medallon: 16, queso: 8, panceta: 8, hoja: 8, tomate: 9, cebolla: 6, salsa: 5, huevo: 10, pepino: 6 };
 
 /** Dibujo de la burger: de abajo hacia arriba, el pan, cada capa repetida según la cantidad y la tapa. */
@@ -264,7 +266,7 @@ function armadorBurger(local, cfg, carrito) {
         return crear(
           "li",
           { className: "burger-capa-fila" },
-          crear("span", { className: "burger-muestra", style: `--color:${c.color ?? "currentColor"}`, "aria-hidden": "true" }),
+          crear("span", { className: "burger-muestra", style: `--color:${c.color ?? COLOR_FORMA[c.forma] ?? "currentColor"}`, "aria-hidden": "true" }),
           crear("span", { className: "burger-capa-nombre" }, c.nombre, crear("small", {}, `${formatearPesos(c.precio)} c/u${c.max > 1 ? ` · hasta ${c.max}` : ""}`)),
           crear(
             "span",
