@@ -99,6 +99,16 @@ export const PLANTILLAS = [
     contenido: "cerveceria-la-tiza",
   },
   {
+    id: "carta-muestrario",
+    nombre: "Muestrario",
+    tipo: "carta",
+    rubros: ["heladeria", "cafeteria"],
+    planes: ["carta"],
+    estilo: "Muestrario de pinturas: cada sabor es una ficha de color, blanco y negro con Archivo en todos sus anchos.",
+    interacciones: ["Abanico de fichas con los sabores de la semana", "Ficha de color al lado de cada sabor", "Agotados rayados"],
+    contenido: "copo-heladeria",
+  },
+  {
     id: "app-comanda",
     nombre: "Comanda",
     tipo: "app",
