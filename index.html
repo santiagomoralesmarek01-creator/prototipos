@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plantillas para gastronomía · Vitrina por MrK</title>
+    <meta name="description" content="Webs de pedidos, cartas y apps listas para cafeterías, rotiserías y pizzerías. Cada local pone su contenido; el diseño ya está hecho." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="catalogo.css" />
+    <script type="module" src="catalogo-pagina.js"></script>
+  </head>
+  <body>
+    <a class="volver" href="/">← Vitrina</a>
+    <header class="cabecera">
+      <p class="sobre">Plantillas para gastronomía · MrK</p>
+      <h1>Tu local, <em>listo para pedir</em> en dos semanas.</h1>
+      <p class="bajada">
+        Webs de pedidos, cartas y apps para cafeterías, rotiserías y pizzerías. El diseño ya está hecho y probado: se carga tu carta,
+        tus precios, tus horarios y tu color, y sale publicada con tu dominio. Cada una se puede ver con el contenido de otro rubro.
+      </p>
+      <dl class="planes">
+        <div><dt>Plan Carta</dt><dd>Menú digital con QR y panel para cambiar precios.</dd></div>
+        <div><dt>Plan Local</dt><dd>Web con dominio propio, carta y pedidos por WhatsApp, sin comisiones.</dd></div>
+        <div><dt>Local Plus</dt><dd>Lo mismo, con ficha de Google al día, cambios sin límite y reporte con charla mensual.</dd></div>
+      </dl>
+    </header>
+
+    <nav class="filtros" aria-label="Filtrar plantillas">
+      <div role="radiogroup" aria-label="Tipo" id="filtro-tipo"></div>
+      <div role="radiogroup" aria-label="Rubro" id="filtro-rubro"></div>
+    </nav>
+
+    <main class="grilla" id="grilla"></main>
+
+    <footer class="pie">
+      <p>Los negocios, las personas y los precios son ficticios. HTML, CSS y JavaScript sin frameworks: lo que se entrega funciona en cualquier hosting.</p>
+      <p class="firma">Hecho por <strong>MrK</strong></p>
+    </footer>
+  </body>
+</html>

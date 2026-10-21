@@ -1,0 +1,368 @@
+/* Catálogo: misma estética que la galería de Vitrina (Instrument Serif + Inter, papel y acento coral). */
+
+:root {
+  --fondo: #f4f2ee;
+  --papel: #ffffff;
+  --tinta: #151515;
+  --tinta-suave: #6a6762;
+  --linea: #e1ddd5;
+  --acento: #e0553d;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Inter", system-ui, sans-serif;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #121212;
+    --papel: #1b1b1b;
+    --tinta: #f1efea;
+    --tinta-suave: #a19d96;
+    --linea: #2c2c2c;
+    --acento: #ff7a62;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--sans);
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+.volver {
+  position: fixed;
+  z-index: 10;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: var(--papel);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.cabecera {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(4.5rem, 10vw, 7rem) clamp(1rem, 4vw, 2.5rem) 2rem;
+}
+
+.sobre {
+  margin: 0 0 1rem;
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  max-width: 16ch;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 8vw, 5.4rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+h1 em {
+  color: var(--acento);
+}
+
+.bajada {
+  max-width: 44rem;
+  margin: 1.5rem 0 2rem;
+  color: var(--tinta-suave);
+  font-size: 1.08rem;
+}
+
+.planes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.planes div {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+  background: var(--papel);
+}
+
+.planes dt {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+}
+
+.planes dd {
+  margin: 0.2rem 0 0;
+  color: var(--tinta-suave);
+  font-size: 0.92rem;
+}
+
+/* ---------- Filtros ---------- */
+
+.filtros {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  gap: 0.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--fondo) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.filtros [role="radiogroup"] {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filtros button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: var(--papel);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filtros button span {
+  color: var(--tinta-suave);
+  font-size: 0.8rem;
+}
+
+.filtros [aria-checked="true"] {
+  border-color: var(--tinta);
+  background: var(--tinta);
+  color: var(--fondo);
+}
+
+.filtros [aria-checked="true"] span {
+  color: inherit;
+  opacity: 0.7;
+}
+
+/* ---------- Grilla ---------- */
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+  gap: 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 2.5rem) 3rem;
+}
+
+.tarjeta {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid var(--linea);
+  border-radius: 18px;
+  background: var(--papel);
+  animation: aparece 0.4s ease-out backwards;
+}
+
+@keyframes aparece {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* Captura de página completa dentro de un marco de navegador: al pasar el mouse se recorre. */
+.captura {
+  position: relative;
+  display: block;
+  height: 17rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--linea);
+  background: var(--fondo);
+}
+
+.captura-barra {
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 auto;
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.55rem 0.7rem;
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  border-bottom: 1px solid var(--linea);
+}
+
+.captura-barra i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--linea);
+}
+
+.captura img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding-top: 1.6rem;
+  transform: translateY(0);
+  transition: transform 4s ease-in-out;
+}
+
+.captura:hover img,
+.captura:focus-visible img {
+  transform: translateY(calc(-100% + 17rem));
+}
+
+.tarjeta-texto {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  padding: 1.25rem;
+}
+
+.tarjeta-tipo {
+  margin: 0;
+  color: var(--acento);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tarjeta h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.tarjeta-estilo {
+  margin: 0;
+  color: var(--tinta-suave);
+  font-size: 0.92rem;
+}
+
+.tarjeta-interacciones {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+}
+
+.tarjeta-interacciones li::before {
+  content: "→ ";
+  color: var(--acento);
+}
+
+.tarjeta-planes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.2rem 0 0;
+}
+
+.tarjeta-planes span {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--fondo);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tarjeta-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.boton {
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.boton-principal {
+  border-color: var(--tinta);
+  background: var(--tinta);
+  color: var(--fondo);
+}
+
+.probar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--tinta-suave);
+  font-size: 0.8rem;
+}
+
+.probar select {
+  max-width: 10rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  background: var(--papel);
+  color: var(--tinta);
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.vacio {
+  grid-column: 1 / -1;
+  color: var(--tinta-suave);
+  text-align: center;
+}
+
+.pie {
+  padding: 2rem 1rem 3rem;
+  color: var(--tinta-suave);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.3rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta,
+  .captura img {
+    animation: none;
+    transition: none;
+  }
+}
