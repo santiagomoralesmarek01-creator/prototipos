@@ -475,3 +475,14 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* El índice y los filtros de la carta se deslizan de costado dentro de la pantalla. Sin esto, la
+   grilla de .carta-barra los estira al ancho de su contenido y las últimas categorías quedan
+   afuera, cortadas y sin forma de llegar a ellas. */
+.carta-barra > *,
+.carta-nav,
+.carta-nav ul,
+.carta-filtros {
+  min-width: 0;
+  max-width: 100%;
+}

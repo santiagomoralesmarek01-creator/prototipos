@@ -134,6 +134,18 @@ export function etiquetas(producto, clase = "etiquetas") {
   return crear("span", { className: clase }, producto.etiquetas.map((e) => ETIQUETAS[e]).join(" · "));
 }
 
+/**
+ * Centra la pestaña activa moviendo sólo la lista de pestañas, de costado. No usa scrollIntoView:
+ * ese mueve también la página, y cuando el índice queda fuera de la pantalla la tira para arriba
+ * mientras la persona baja.
+ */
+function centrarEnLista(enlace) {
+  const lista = enlace.closest("ul");
+  if (!lista || lista.scrollWidth <= lista.clientWidth) return;
+  const izquierda = enlace.offsetLeft - lista.offsetLeft - (lista.clientWidth - enlace.offsetWidth) / 2;
+  lista.scrollTo({ left: Math.max(0, izquierda), behavior: movimientoReducido() ? "auto" : "smooth" });
+}
+
 /** Marca la categoría visible en una barra de pestañas: enlaces con href="#<id>" dentro de `nav`. */
 export function seguirCategorias(nav) {
   const enlaces = [...nav.querySelectorAll("a[href^='#']")];
@@ -144,7 +156,7 @@ export function seguirCategorias(nav) {
         for (const a of enlaces) {
           const activo = a.getAttribute("href") === `#${e.target.id}`;
           a.toggleAttribute("aria-current", activo);
-          if (activo) a.scrollIntoView({ block: "nearest", inline: "center", behavior: movimientoReducido() ? "auto" : "smooth" });
+          if (activo) centrarEnLista(a);
         }
       }
     },
