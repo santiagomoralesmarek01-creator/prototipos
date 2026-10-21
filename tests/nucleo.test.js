@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { formatearPesos } from "../nucleo/formato.js";
 import { describirTurnos, estadoDelLocal } from "../nucleo/horario.js";
 import { armarMensaje, calcularTotal, cambiarCantidad, lineasValidas } from "../nucleo/pedido.js";
-import { box, burger, cafe, juntada, mitades, vianda } from "../nucleo/armadores.js";
+import { box, burger, cafe, juntada, mitades, pizza, vianda } from "../nucleo/armadores.js";
 import { contraste, validarContenido } from "../nucleo/validar.js";
 import { normalizarWhatsapp } from "../nucleo/whatsapp.js";
 
@@ -126,4 +126,20 @@ test("café a tu medida: precio, espresso sin leche e id que vuelve", () => {
   assert.equal(cafe.calcular(cfg, espresso).total, 2900);
   assert.doesNotMatch(cafe.describir(cfg, espresso), /leche/);
   assert.equal(lineasValidas(local, [{ productoId: "cafe:latte;enorme;;;", cantidad: 1 }]).length, 0);
+});
+
+test("pizza desde cero: máximo de ingredientes, precio e id", () => {
+  const local = leer("pizzeria-doble-queso");
+  const cfg = local.armadores[0];
+  let e = pizza.inicial(cfg);
+  for (const id of ["jamon", "morron", "cebolla", "aceitunas", "tomate", "rucula"]) e = pizza.alternar(cfg, e, id);
+  assert.equal(e.ingredientes.length, 5, "no pasa del máximo");
+  e = pizza.alternar(cfg, e, "jamon");
+  assert.deepEqual(e.ingredientes, ["morron", "cebolla", "aceitunas", "tomate"]);
+  e = { ...e, masa: "molde", salsa: "blanca" };
+  const total = 12000 + 500 + 1000 + 800 + 900 + 900;
+  assert.equal(pizza.calcular(cfg, e).total, total);
+  assert.equal(lineasValidas(local, [{ productoId: pizza.id(e), cantidad: 1 }])[0].subtotal, total);
+  assert.equal(lineasValidas(local, [{ productoId: "pizza:piedra;tomate;jamon+jamon", cantidad: 1 }]).length, 0);
+  assert.equal(lineasValidas(local, [{ productoId: "pizza:piedra;tomate;caviar", cantidad: 1 }]).length, 0);
 });

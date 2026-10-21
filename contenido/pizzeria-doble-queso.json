@@ -1,0 +1,107 @@
+{
+  "slug": "pizzeria-doble-queso",
+  "nombre": "Doble Queso",
+  "descripcion": "Pizza a la piedra y de molde, con delivery propio en La Plata. Armala como quieras.",
+  "demo": true,
+  "plan": "plus",
+  "marca": { "color": "#c0271c", "colorOscuro": "#ff8a7a" },
+  "cartel": "DOBLE QUESO",
+  "eslogan": "Tu pizza, como la quieras.",
+  "historia": [
+    "Somos tres amigos de la facultad que se cansaron de pedir la misma muzza de siempre. En 2022 abrimos un horno a la piedra en el centro de La Plata y empezamos a probar combinaciones.",
+    "Hoy la pizza más pedida es una que inventó un cliente. Por eso dejamos que la armes vos."
+  ],
+  "destacados": ["la-del-cliente", "cuatro-quesos", "muzza-dq"],
+  "cifras": [
+    { "valor": "30'", "texto": "promedio de envío" },
+    { "valor": "14", "texto": "ingredientes para combinar" }
+  ],
+  "turnos": [
+    { "dias": [0, 2, 3, 4], "abre": "19:00", "cierra": "00:00" },
+    { "dias": [5, 6], "abre": "19:00", "cierra": "01:30" }
+  ],
+  "whatsapp": "5492214567809",
+  "direccion": "Calle 47 n.º 612, La Plata",
+  "instagram": "doblequeso.lp",
+  "mediosDePago": ["Efectivo", "Mercado Pago", "Transferencia"],
+  "envio": { "disponible": true, "costo": 1500, "zona": "Casco urbano" },
+  "categorias": [
+    {
+      "id": "clasicas",
+      "nombre": "Clásicas",
+      "ilustracion": "pizza",
+      "productos": [
+        { "id": "muzza-dq", "nombre": "Muzza doble", "descripcion": "Doble muzzarella, orégano y aceitunas.", "precio": 14500, "etiquetas": ["vegetariano"], "cubierta": ["aceitunas"] },
+        { "id": "napo-dq", "nombre": "Napolitana", "descripcion": "Tomate, ajo y albahaca fresca.", "precio": 15500, "etiquetas": ["vegetariano"], "cubierta": ["tomate", "albahaca", "ajo"] },
+        { "id": "jyq-dq", "nombre": "Jamón y morrones", "precio": 16500, "cubierta": ["jamon", "morron"] },
+        { "id": "cuatro-quesos", "nombre": "Cuatro quesos", "descripcion": "Muzzarella, provolone, azul y parmesano.", "precio": 18000, "etiquetas": ["vegetariano"], "cubierta": ["provolone"] }
+      ]
+    },
+    {
+      "id": "de-la-casa",
+      "nombre": "De la casa",
+      "ilustracion": "pizza",
+      "productos": [
+        { "id": "la-del-cliente", "nombre": "La del cliente", "descripcion": "Calabresa, cebolla morada, miel y rúcula. La inventó Juan, de 7 y 50.", "precio": 19500, "cubierta": ["calabresa", "cebolla", "rucula"] },
+        { "id": "hawaiana-dq", "nombre": "Tropical", "descripcion": "Jamón, ananá y un toque de pimienta.", "precio": 17500, "cubierta": ["jamon", "anana"] },
+        { "id": "huerta", "nombre": "Huerta", "descripcion": "Champiñones, morrones, cebolla y palmitos.", "precio": 17000, "etiquetas": ["vegetariano"], "cubierta": ["champignon", "morron", "cebolla", "palmitos"] },
+        { "id": "vegana-dq", "nombre": "Vegana", "descripcion": "Salsa de tomate, verduras asadas y queso de castañas.", "precio": 18500, "etiquetas": ["vegano"], "cubierta": ["morron", "champignon", "albahaca"] }
+      ]
+    },
+    {
+      "id": "para-compartir",
+      "nombre": "Para compartir",
+      "productos": [
+        { "id": "papas-dq", "nombre": "Papas con cheddar", "precio": 7500, "etiquetas": ["vegetariano"] },
+        { "id": "faina-dq", "nombre": "Fainá", "descripcion": "Porción.", "precio": 1600, "etiquetas": ["vegano"] },
+        { "id": "nuggets", "nombre": "Bastones de muzzarella", "descripcion": "Ocho, con salsa de tomate.", "precio": 8500, "etiquetas": ["vegetariano"] }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "productos": [
+        { "id": "gaseosa-dq", "nombre": "Gaseosa 1,5 l", "precio": 4800 },
+        { "id": "birra-dq", "nombre": "Cerveza artesanal 1 l", "precio": 7000 },
+        { "id": "agua-dq", "nombre": "Agua saborizada", "precio": 2800 }
+      ]
+    }
+  ],
+  "armadores": [
+    {
+      "tipo": "pizza",
+      "menu": "Armá tu pizza",
+      "volanta": "Paso 2",
+      "titulo": "Armá tu pizza desde cero",
+      "bajada": "Elegí la masa y la salsa, y sumá hasta 5 ingredientes. La muzzarella va siempre.",
+      "nombre": "Pizza a tu manera",
+      "max": 5,
+      "masas": [
+        { "id": "piedra", "nombre": "A la piedra", "precio": 11000 },
+        { "id": "molde", "nombre": "De molde", "precio": 12000 },
+        { "id": "integral", "nombre": "Integral", "precio": 12500 }
+      ],
+      "salsas": [
+        { "id": "tomate", "nombre": "Tomate", "extra": 0 },
+        { "id": "blanca", "nombre": "Blanca", "extra": 500 },
+        { "id": "picante", "nombre": "Picante", "extra": 300 }
+      ],
+      "ingredientes": [
+        { "id": "jamon", "nombre": "Jamón", "precio": 1800, "cubierta": "jamon" },
+        { "id": "calabresa", "nombre": "Calabresa", "precio": 2000, "cubierta": "calabresa" },
+        { "id": "morron", "nombre": "Morrón", "precio": 1000, "cubierta": "morron" },
+        { "id": "cebolla", "nombre": "Cebolla", "precio": 800, "cubierta": "cebolla" },
+        { "id": "aceitunas", "nombre": "Aceitunas", "precio": 900, "cubierta": "aceitunas" },
+        { "id": "champi", "nombre": "Champiñones", "precio": 1600, "cubierta": "champignon" },
+        { "id": "tomate", "nombre": "Tomate", "precio": 900, "cubierta": "tomate" },
+        { "id": "rucula", "nombre": "Rúcula", "precio": 1200, "cubierta": "rucula" },
+        { "id": "huevo", "nombre": "Huevo", "precio": 1100, "cubierta": "huevo" },
+        { "id": "anana", "nombre": "Ananá", "precio": 1400, "cubierta": "anana" },
+        { "id": "palmitos", "nombre": "Palmitos", "precio": 2200, "cubierta": "palmitos" },
+        { "id": "provolone", "nombre": "Provolone", "precio": 2400, "cubierta": "provolone" },
+        { "id": "albahaca", "nombre": "Albahaca", "precio": 600, "cubierta": "albahaca" },
+        { "id": "ajo", "nombre": "Ajo", "precio": 400, "cubierta": "ajo" }
+      ]
+    }
+  ]
+}

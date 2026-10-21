@@ -9,6 +9,7 @@
 //   con descuento por tamaño y opción de regalo con tarjeta.
 // - "burger": hamburguesa capa por capa: pan, medallones, quesos y extras, cada uno con su precio.
 // - "mitades": pizza mitad y mitad, dibujada; se cobra la mitad más cara (o el promedio).
+// - "pizza": pizza desde cero: masa, salsa y hasta N ingredientes, dibujados sobre la pizza.
 // - "cafe": café a tu medida: bebida, tamaño, leche, extras y frío o caliente, con la taza dibujada.
 // - "juntada": cuántas pizzas pedir según la cantidad de personas y el hambre; suma productos
 //   comunes de la carta (no lleva id propio).
@@ -322,8 +323,53 @@ export const cafe = {
   },
 };
 
-const TIPOS = { vianda, box, burger, mitades, juntada, cafe };
-const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades", "cafe:": "cafe" };
+// ---------- Pizza desde cero ----------
+// cfg: { masas: [{ id, nombre, precio }], salsas: [{ id, nombre, extra }],
+//        ingredientes: [{ id, nombre, precio, cubierta }], max }
+// Precio: la masa (que ya trae muzzarella) + la salsa + cada ingrediente.
+
+export const pizza = {
+  inicial: (cfg) => ({ masa: cfg.masas[0].id, salsa: cfg.salsas[0].id, ingredientes: [] }),
+
+  alternar(cfg, e, id) {
+    if (e.ingredientes.includes(id)) return { ...e, ingredientes: e.ingredientes.filter((x) => x !== id) };
+    if (e.ingredientes.length >= (cfg.max ?? 5)) return e;
+    return { ...e, ingredientes: [...e.ingredientes, id] };
+  },
+
+  calcular(cfg, e) {
+    const masa = cfg.masas.find((m) => m.id === e.masa) ?? cfg.masas[0];
+    const salsa = cfg.salsas.find((x) => x.id === e.salsa) ?? cfg.salsas[0];
+    const ingredientes = e.ingredientes.map((id) => cfg.ingredientes.find((i) => i.id === id)).filter(Boolean);
+    return { masa, salsa, ingredientes, total: masa.precio + (salsa.extra ?? 0) + ingredientes.reduce((s, i) => s + i.precio, 0), quedan: (cfg.max ?? 5) - ingredientes.length };
+  },
+
+  describir(cfg, e) {
+    const r = this.calcular(cfg, e);
+    return [r.masa.nombre, `salsa ${r.salsa.nombre.toLowerCase()}`, ...r.ingredientes.map((i) => i.nombre.toLowerCase())].join(" · ");
+  },
+
+  id: (e) => `pizza:${e.masa};${e.salsa};${[...e.ingredientes].sort().join("+")}`,
+
+  leer(cfg, id) {
+    if (!id.startsWith("pizza:")) return null;
+    const [masa, salsa, lista] = id.slice(6).split(";");
+    const ingredientes = lista ? lista.split("+") : [];
+    if (!cfg.masas.some((m) => m.id === masa) || !cfg.salsas.some((x) => x.id === salsa)) return null;
+    if (!ingredientes.every((i) => cfg.ingredientes.some((x) => x.id === i)) || new Set(ingredientes).size !== ingredientes.length) return null;
+    if (ingredientes.length > (cfg.max ?? 5)) return null;
+    return { masa, salsa, ingredientes };
+  },
+
+  resolver(local, cfg, id) {
+    const e = this.leer(cfg, id);
+    if (!e) return undefined;
+    return { id, nombre: cfg.nombre ?? "Pizza armada", precio: this.calcular(cfg, e).total, detalle: this.describir(cfg, e) };
+  },
+};
+
+const TIPOS = { vianda, box, burger, mitades, juntada, cafe, pizza };
+const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades", "cafe:": "cafe", "pizza:": "pizza" };
 
 /** El producto armado que corresponde a un id del carrito, o undefined si no es un armado válido. */
 export function resolverArmado(local, id) {

@@ -1,7 +1,7 @@
 // Interfaz de los armadores (ver nucleo/armadores.js). Cada uno devuelve una <section class="armador">
 // lista para insertar; el aspecto base está en nucleo/armadores.css y cada plantilla lo ajusta
 // con sus variables.
-import { box, burger, cafe, juntada, mitades, vianda } from "./armadores.js";
+import { box, burger, cafe, juntada, mitades, pizza, vianda } from "./armadores.js";
 import { dibujoPara, svgDibujo } from "./dibujos.js";
 import { formatearPesos } from "./formato.js";
 import { crear, svg } from "./pagina.js";
@@ -11,7 +11,7 @@ export function armadores(local, carrito) {
   return (local.armadores ?? []).map((cfg) => ARMADORES[cfg.tipo]?.(local, cfg, carrito)).filter(Boolean);
 }
 
-const ARMADORES = { vianda: armadorVianda, box: armadorBox, burger: armadorBurger, mitades: armadorMitades, juntada: armadorJuntada, cafe: armadorCafe };
+const ARMADORES = { vianda: armadorVianda, box: armadorBox, burger: armadorBurger, mitades: armadorMitades, juntada: armadorJuntada, cafe: armadorCafe, pizza: armadorPizza };
 
 function cabeza(cfg, tituloPorDefecto, bajadaPorDefecto) {
   return crear(
@@ -315,6 +315,16 @@ function armadorBurger(local, cfg, carrito) {
 
 // ---------- Pizza por mitades ----------
 
+/** Capa de queso: un círculo apenas ondulado, centrado en la pizza de 240 × 240. */
+function queso(radio) {
+  const puntos = Array.from({ length: 36 }, (_, i) => {
+    const a = (i / 36) * Math.PI * 2;
+    const r = radio * (1 + 0.025 * Math.sin(a * 5) + 0.015 * Math.cos(a * 3));
+    return `${(120 + r * Math.cos(a)).toFixed(1)} ${(120 + r * Math.sin(a)).toFixed(1)}`;
+  });
+  return `<path d="M${puntos.join("L")}Z" fill="#f6d98c" stroke="none" stroke-linejoin="round"/>`;
+}
+
 // Lugares fijos de los ingredientes en cada mitad (x, y sobre la pizza de 240 × 240, mitad izquierda).
 const LUGARES = [[70, 70], [52, 118], [82, 160], [100, 104], [62, 190], [104, 52], [96, 200], [40, 152], [108, 148]];
 const INGREDIENTE = {
@@ -356,10 +366,10 @@ export function dibujoPizza(izq, der, activa) {
     <defs><clipPath id="mitad-izq"><rect x="0" y="0" width="120" height="240"/></clipPath><clipPath id="mitad-der"><rect x="120" y="0" width="120" height="240"/></clipPath></defs>
     <circle cx="120" cy="120" r="114" fill="#d99a4e" stroke="#a8692c" stroke-width="3"/>
     <circle cx="120" cy="120" r="100" fill="#d1453b"/>
-    <path d="M120 26q20-2 34 6t30 12 18 28 6 30-4 32-18 26-30 18-36 6-34-4-28-18-18-30-6-32 8-30 22-26 30-14 24-4z" fill="#f6d98c"/>
+    ${queso(88)}
     <circle cx="82" cy="88" r="10" fill="#fbe7b0"/><circle cx="160" cy="152" r="12" fill="#fbe7b0"/><circle cx="152" cy="70" r="8" fill="#fbe7b0"/><circle cx="88" cy="170" r="9" fill="#fbe7b0"/>
     ${mitadPizza(izq, "izq")}${mitadPizza(der, "der")}
-    <path d="M120 10v220" stroke="#a8692c" stroke-width="2" stroke-dasharray="4 6"/>
+    ${izq === der ? "" : `<path d="M120 10v220" stroke="#a8692c" stroke-width="2" stroke-dasharray="4 6"/>`}
     ${sombra("izq")}${sombra("der")}
   </svg>`);
 }
@@ -670,6 +680,96 @@ function armadorCafe(local, cfg, carrito) {
     { className: "armador armador-cafe", id: "armador-cafe" },
     cabeza(cfg, "Café a tu medida", "Elegí la bebida, el tamaño y la leche, y mirá cómo queda."),
     crear("div", { className: "cafe-cuerpo" }, escena, opciones),
+    r.caja,
+  );
+}
+
+// ---------- Pizza desde cero ----------
+
+const SALSAS = { tomate: "#d1453b", blanca: "#f3ead6", picante: "#b5291f" };
+const MASAS = { piedra: { color: "#e2a65a", borde: 8 }, molde: { color: "#d99a4e", borde: 16 }, integral: { color: "#a8713e", borde: 11 } };
+
+/** Pizza entera vista desde arriba con la salsa, la masa y los ingredientes repartidos por toda la superficie. */
+export function dibujoPizzaArmada(cfg, e) {
+  const r = pizza.calcular(cfg, e);
+  const masa = MASAS[r.masa.id] ?? MASAS.piedra;
+  const salsa = SALSAS[r.salsa.id] ?? SALSAS.tomate;
+  const interior = 114 - masa.borde;
+  let piezas = "";
+  r.ingredientes.forEach((ing, i) => {
+    const dibujo = INGREDIENTE[ing.cubierta];
+    if (!dibujo) return;
+    // Mitad izquierda y su espejo: cada ingrediente toma lugares alternados según su orden.
+    LUGARES.forEach(([x, y], j) => {
+      if (j % r.ingredientes.length !== i) return;
+      piezas += dibujo(x, y) + `<g transform="matrix(-1 0 0 1 240 0)">${dibujo(x + 6, 240 - y)}</g>`;
+    });
+  });
+  return svg(`<svg class="pizza-dibujo pizza-armada" viewBox="0 0 240 240" role="img" aria-label="${pizza.describir(cfg, e)}">
+    <circle cx="120" cy="120" r="114" fill="${masa.color}" stroke="#8a5424" stroke-width="3"/>
+    <circle cx="120" cy="120" r="${interior}" fill="${salsa}"/>
+    ${queso(interior - 10)}
+    <circle cx="86" cy="92" r="9" fill="#fbe7b0"/><circle cx="158" cy="150" r="11" fill="#fbe7b0"/><circle cx="150" cy="74" r="7" fill="#fbe7b0"/><circle cx="92" cy="166" r="8" fill="#fbe7b0"/>
+    <defs><clipPath id="pizza-armada-${r.masa.id}"><circle cx="120" cy="120" r="${interior}"/></clipPath></defs>
+    <g clip-path="url(#pizza-armada-${r.masa.id})">${piezas}</g>
+  </svg>`);
+}
+
+function armadorPizza(local, cfg, carrito) {
+  let e = pizza.inicial(cfg);
+  const escena = crear("div", { className: "pizza-escena" });
+  const opciones = crear("div", { className: "cafe-opciones" });
+  const r = resumen("Tu pizza");
+
+  const grupo = (titulo, lista, activo, elegir, rotulo) =>
+    crear(
+      "div",
+      { className: "cafe-grupo" },
+      crear("p", { className: "cafe-grupo-titulo" }, titulo),
+      crear("div", { className: "cafe-botones", role: "radiogroup", "aria-label": titulo }, lista.map((x) => crear("button", { type: "button", role: "radio", "aria-checked": String(activo === x.id), onclick: () => elegir(x.id) }, x.nombre, crear("small", {}, rotulo(x))))),
+    );
+
+  function pintar() {
+    escena.replaceChildren(dibujoPizzaArmada(cfg, e));
+    const c = pizza.calcular(cfg, e);
+    opciones.replaceChildren(
+      grupo("Masa", cfg.masas, e.masa, (id) => ((e = { ...e, masa: id }), pintar()), (m) => formatearPesos(m.precio)),
+      grupo("Salsa", cfg.salsas, e.salsa, (id) => ((e = { ...e, salsa: id }), pintar()), (x) => (x.extra ? `+${formatearPesos(x.extra)}` : "incluida")),
+      crear(
+        "div",
+        { className: "cafe-grupo" },
+        crear("p", { className: "cafe-grupo-titulo" }, `Ingredientes · ${c.quedan === 0 ? "llegaste al máximo" : `te ${c.quedan === 1 ? "queda 1" : `quedan ${c.quedan}`}`}`),
+        crear(
+          "div",
+          { className: "cafe-botones pizza-ingredientes" },
+          cfg.ingredientes.map((i) => {
+            const puesto = e.ingredientes.includes(i.id);
+            return crear(
+              "button",
+              { type: "button", "aria-pressed": String(puesto), disabled: !puesto && c.quedan === 0, onclick: () => ((e = pizza.alternar(cfg, e, i.id)), pintar()) },
+              i.nombre,
+              crear("small", {}, `+${formatearPesos(i.precio)}`),
+            );
+          }),
+        ),
+      ),
+    );
+    r.precio.textContent = formatearPesos(c.total);
+    r.nota.textContent = pizza.describir(cfg, e);
+  }
+
+  r.boton.addEventListener("click", () => {
+    carrito.agregar(pizza.id(e));
+    e = pizza.inicial(cfg);
+    pintar();
+  });
+
+  pintar();
+  return crear(
+    "section",
+    { className: "armador armador-pizza", id: "armador-pizza" },
+    cabeza(cfg, "Armá tu pizza", "Elegí la masa, la salsa y los ingredientes."),
+    crear("div", { className: "pizza-cuerpo" }, escena, opciones),
     r.caja,
   );
 }

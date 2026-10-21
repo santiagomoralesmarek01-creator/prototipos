@@ -1,0 +1,655 @@
+/* Plantilla "Giro": pizzería de delivery a todo color. Rojo tomate, crema y mostaza, Unbounded
+   para los títulos y Rubik para el texto. Esquinas muy redondeadas, sin líneas finas. */
+
+:root {
+  --fondo: #fff6ea;
+  --superficie: #ffffff;
+  --texto: #1d1210;
+  --suave: #6f5d57;
+  --linea: #f0dfcf;
+  --acento: var(--marca, #c0271c);
+  --sobre-acento: #fff;
+  --mostaza: #f4b62a;
+  --fuente: "Rubik", system-ui, sans-serif;
+  --fuente-titulos: "Unbounded", system-ui, sans-serif;
+  --radio: 18px;
+  color-scheme: light;
+}
+
+[data-tema="oscuro"] {
+  --fondo: #160d0b;
+  --superficie: #22140f;
+  --texto: #fff1e4;
+  --suave: #c4ada3;
+  --linea: #3a2620;
+  --acento: var(--marca-oscuro, #ff8a7a);
+  --sobre-acento: #2b0904;
+  color-scheme: dark;
+}
+
+main {
+  overflow-x: clip;
+}
+
+.seccion-titulo,
+.armador-titulo,
+.portada-titulo,
+.cabecera-marca,
+.carta-categoria-titulo,
+.destacado-nombre,
+.pie-nombre,
+.cifras strong {
+  font-family: var(--fuente-titulos);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem max(clamp(1rem, 4vw, 3rem), calc((100% - 76rem) / 2 + clamp(1rem, 4vw, 3rem)));
+  background: var(--marca, #c0271c);
+  color: #fff;
+}
+
+.cabecera-marca {
+  font-size: 1.05rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.cabecera-nav {
+  display: none;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.cabecera-nav a {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cabecera-nav a:hover {
+  background: rgb(255 255 255 / 0.18);
+}
+
+.cabecera .boton-tema {
+  margin-left: auto;
+  border-color: rgb(255 255 255 / 0.4);
+}
+
+@media (min-width: 52rem) {
+  .cabecera-nav {
+    display: flex;
+  }
+  .cabecera .boton-tema {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Portada partida ---------- */
+
+/* La portada es roja en los dos modos: es la marca. */
+.portada {
+  background: var(--marca, #c0271c);
+  color: #fff;
+  --texto: #fff;
+}
+
+.giro {
+  position: relative;
+  display: grid;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem) 0;
+}
+
+@media (min-width: 56rem) {
+  .giro {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    min-height: 36rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.giro-texto {
+  position: relative;
+  z-index: 1;
+}
+
+.portada-titulo {
+  margin: 1rem 0;
+  font-size: clamp(2.6rem, 7vw, 5.6rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.portada-bajada {
+  max-width: 28rem;
+  margin: 0 0 2rem;
+  font-size: 1.15rem;
+  opacity: 0.88;
+}
+
+.portada-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.boton {
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.boton:hover {
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.boton-armador,
+.boton-principal {
+  background: var(--mostaza);
+  color: #1d1210;
+}
+
+.boton-secundario {
+  border: 2px solid currentColor;
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.2);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.estado::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #ffd1c9;
+}
+
+.estado[data-abierto="true"]::before {
+  background: #7ff0a4;
+}
+
+/* La pizza estrella, enorme, girando y cortada por el borde derecho. */
+.giro-pizza {
+  position: relative;
+  justify-self: center;
+  width: min(92vw, 30rem);
+  margin: 2rem 0 -5rem;
+}
+
+@media (min-width: 56rem) {
+  .giro-pizza {
+    justify-self: end;
+    width: min(46vw, 40rem);
+    margin: 0 calc(-1 * min(14vw, 12rem)) 0 0;
+  }
+}
+
+.giro-pizza svg {
+  width: 100%;
+  filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.35));
+  animation: giro 60s linear infinite;
+}
+
+@keyframes giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.giro-etiqueta {
+  position: absolute;
+  left: 0;
+  bottom: 12%;
+  display: grid;
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radio);
+  background: var(--mostaza);
+  color: #1d1210;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.25);
+  transform: rotate(-4deg);
+}
+
+.giro-etiqueta span:first-child {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.giro-etiqueta strong {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+}
+
+/* ---------- Pasos: 1 Elegí · 2 Armá · 3 Pedí ---------- */
+
+.pasos {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 7rem clamp(1rem, 4vw, 3rem) 0;
+}
+
+@media (min-width: 56rem) {
+  .pasos {
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 2.5rem;
+  }
+}
+
+.paso {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radio);
+  background: var(--superficie);
+  box-shadow: 0 6px 0 var(--linea);
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+a.paso:hover {
+  transform: translateY(-3px);
+}
+
+.paso-numero {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-family: var(--fuente-titulos);
+  font-weight: 900;
+}
+
+.paso strong {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+}
+
+.paso span:last-child {
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+/* ---------- Secciones ---------- */
+
+.seccion {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.seccion-titulo {
+  margin: 0 0 2rem;
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.banda-armador {
+  background: var(--mostaza);
+  color: #1d1210;
+  --texto: #1d1210;
+  --suave: #5a4520;
+  --linea: rgb(0 0 0 / 0.14);
+  --superficie: #ffd775;
+  --fondo: #ffe39b;
+  --acento: #1d1210;
+  --sobre-acento: #fff6ea;
+  border-radius: 48px;
+  margin: 0 clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.banda-armador .armador-titulo {
+  text-transform: uppercase;
+}
+
+.banda-armador .armador-resumen {
+  background: #fff6ea;
+  border: 0;
+}
+
+.banda-armador .pizza-escena {
+  background: radial-gradient(circle, rgb(0 0 0 / 0.14), transparent 65%);
+}
+
+.banda-historia {
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+/* ---------- Destacados: pizzas en plato ---------- */
+
+.destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destacado {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  justify-items: center;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  border-radius: 32px;
+  background: var(--superficie);
+  box-shadow: 0 8px 0 var(--linea);
+  text-align: center;
+}
+
+.destacado-numero {
+  display: none;
+}
+
+.destacado-dibujo {
+  width: 9rem;
+  height: 9rem;
+  margin-top: -0.5rem;
+  transition: transform 0.6s;
+}
+
+.destacado:hover .destacado-dibujo {
+  transform: rotate(40deg);
+}
+
+.destacado-nombre {
+  margin: 0;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+}
+
+.destacado-desc {
+  margin: 0;
+  color: var(--suave);
+  font-size: 0.92rem;
+}
+
+.destacado-precio {
+  color: var(--acento);
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+/* ---------- Carta ---------- */
+
+.carta-barra {
+  position: sticky;
+  top: 3.6rem;
+  z-index: 5;
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 0;
+  background: var(--fondo);
+}
+
+.carta-nav ul,
+.carta-filtros {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.carta-nav a,
+.carta-filtros button {
+  display: block;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--superficie);
+  box-shadow: 0 3px 0 var(--linea);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.carta-nav a[aria-current] {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.carta-filtros button {
+  padding: 0.3rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.carta-filtros [aria-pressed="true"] {
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+.carta-cuerpo {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 60rem) {
+  .carta-cuerpo {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.carta-categoria {
+  padding: 1.5rem;
+  border-radius: 32px;
+  background: var(--superficie);
+}
+
+.carta-categoria-titulo {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+
+.carta-categoria-dibujo {
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--texto);
+}
+
+.carta-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-producto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.2rem 1rem;
+  padding: 0.9rem 0;
+  border-top: 2px dotted var(--linea);
+}
+
+.carta-producto[data-agotado] {
+  opacity: 0.45;
+}
+
+.carta-producto-nombre {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.carta-producto-desc {
+  margin: 0.1rem 0 0;
+  color: var(--suave);
+  font-size: 0.88rem;
+}
+
+.carta-producto-etiquetas {
+  color: var(--acento);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.carta-producto-precio {
+  font-weight: 700;
+  text-align: right;
+}
+
+.control-agregar {
+  border: 0;
+  border-radius: 999px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.control-agregar:hover {
+  filter: brightness(1.1);
+}
+
+.control-paso {
+  border-radius: 50%;
+}
+
+/* ---------- Historia y datos ---------- */
+
+.seccion-historia {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 52rem) {
+  .seccion-historia {
+    grid-template-columns: 1fr 1.4fr;
+    align-items: center;
+  }
+  .seccion-historia .seccion-titulo {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+}
+
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cifras li {
+  display: grid;
+  padding: 1.25rem;
+  border-radius: 24px;
+  background: var(--mostaza);
+  color: #1d1210;
+}
+
+.cifras strong {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.historia-texto p {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 1rem;
+}
+
+.datos-bloque {
+  padding: 1.25rem;
+  border-radius: 24px;
+  background: var(--superficie);
+  box-shadow: 0 6px 0 var(--linea);
+}
+
+.datos-bloque h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--fuente-titulos);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.datos-bloque p,
+.datos-bloque ul {
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.datos-enlace {
+  display: inline-block;
+  margin-right: 1rem;
+  color: var(--acento);
+  font-weight: 700;
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  margin-top: 2rem;
+  padding: 3rem 1rem 6rem;
+  border-radius: 48px 48px 0 0;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.2rem 0;
+}
+
+.pie-nombre {
+  font-size: clamp(2rem, 7vw, 4rem);
+  text-transform: uppercase;
+}
+
+.pie-enlace {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.pie .firma {
+  color: inherit;
+  opacity: 0.7;
+}
