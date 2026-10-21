@@ -1,4 +1,5 @@
 // Plantilla "Brote": cafetería de especialidad, brunch, pastelería. Salvia, crema y serif cursiva.
+import { crear } from "../../nucleo/pagina.js";
 import { webLocal } from "../../nucleo/web.js";
 
 // Mesa redonda con taza humeante, plato de medialunas, una porción de torta y una planta.
@@ -23,7 +24,24 @@ const MESA = `<svg viewBox="0 0 360 300" fill="none" stroke="currentColor" strok
   <circle cx="150" cy="134" r="5" fill="#e45b4b"/>
 </svg>`;
 
+// Portada editorial, centrada: estado arriba, el título gigante en cursiva, la mesa debajo como una
+// foto de revista, y un solo botón; el pedido interactivo va como enlace de texto.
+function portada(p) {
+  if (p.armador) p.armador.className = "enlace-armador";
+  return crear(
+    "div",
+    { className: "portada-centro" },
+    p.estado,
+    p.titulo,
+    p.bajada,
+    crear("div", { className: "portada-acciones" }, p.verCarta, p.armador ?? p.pedir),
+    p.dibujo,
+  );
+}
+
 webLocal({
   dibujo: MESA,
+  portada,
+  cinta: false,
   textos: { destacados: "Lo que pide todo el mundo", carta: "La carta", historia: "Cómo empezamos", datos: "Pasá a visitarnos", verCarta: "Ver la carta", pedir: "Pedir para llevar" },
 });

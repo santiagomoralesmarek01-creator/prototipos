@@ -1,7 +1,7 @@
 // Interfaz de los armadores (ver nucleo/armadores.js). Cada uno devuelve una <section class="armador">
 // lista para insertar; el aspecto base está en nucleo/armadores.css y cada plantilla lo ajusta
 // con sus variables.
-import { box, burger, juntada, mitades, vianda } from "./armadores.js";
+import { box, burger, cafe, juntada, mitades, vianda } from "./armadores.js";
 import { dibujoPara, svgDibujo } from "./dibujos.js";
 import { formatearPesos } from "./formato.js";
 import { crear, svg } from "./pagina.js";
@@ -11,7 +11,7 @@ export function armadores(local, carrito) {
   return (local.armadores ?? []).map((cfg) => ARMADORES[cfg.tipo]?.(local, cfg, carrito)).filter(Boolean);
 }
 
-const ARMADORES = { vianda: armadorVianda, box: armadorBox, burger: armadorBurger, mitades: armadorMitades, juntada: armadorJuntada };
+const ARMADORES = { vianda: armadorVianda, box: armadorBox, burger: armadorBurger, mitades: armadorMitades, juntada: armadorJuntada, cafe: armadorCafe };
 
 function cabeza(cfg, tituloPorDefecto, bajadaPorDefecto) {
   return crear(
@@ -534,6 +534,142 @@ function armadorJuntada(local, cfg, carrito) {
     { className: "armador armador-juntada", id: "armador-juntada" },
     cabeza(cfg, "¿Cuántas pizzas pido?", "Decinos cuántos son y cuánta hambre hay. Te armamos el pedido para la juntada."),
     crear("div", { className: "juntada-cuerpo" }, crear("div", { className: "juntada-controles" }, contador, nivel, chips, extras), mesa),
+    r.caja,
+  );
+}
+
+// ---------- Café a tu medida ----------
+
+/**
+ * Taza (caliente) o vaso con hielo (frío), del tamaño elegido, con las capas de la bebida de abajo
+ * hacia arriba: café, leche y espuma; arriba, los extras (crema, caramelo, canela).
+ */
+export function dibujoCafe(cfg, eleccion) {
+  const r = cafe.calcular(cfg, eleccion);
+  const escala = r.tamanio.escala ?? 1;
+  const capas = r.bebida.capas ?? { cafe: 1, leche: 0, espuma: 0 };
+  const shot = r.extras.some((x) => x.id === "shot");
+  const conLeche = !!r.leche;
+  const colorLeche = r.leche?.id === "avena" ? "#e6d1a8" : r.leche?.id === "almendras" ? "#efdcc0" : "#f1e2c8";
+  const alto = Math.round(120 * escala);
+  const ancho = Math.round(r.frio ? 78 * escala : 104 * escala);
+  const x0 = 100 - ancho / 2;
+  const base = 196;
+  const tope = base - alto;
+  // Lo que se llena: casi hasta el borde.
+  const lleno = alto - 12;
+  const partes = [
+    ["cafe", shot ? "#2f1a0e" : "#4a2a17", capas.cafe],
+    ["leche", colorLeche, conLeche ? capas.leche : 0],
+    ["espuma", "#fbf3e4", conLeche || r.bebida.id === "espresso" ? capas.espuma : 0],
+  ];
+  const totalProp = partes.reduce((s, p) => s + p[2], 0) || 1;
+  let y = base - 6;
+  let capasSvg = "";
+  for (const [clase, color, prop] of partes) {
+    if (!prop) continue;
+    const h = (lleno * prop) / totalProp;
+    // En el espresso, la espuma es la crema: dorada.
+    const relleno = clase === "espuma" && r.bebida.id === "espresso" ? "#c98b47" : color;
+    capasSvg += `<rect class="cafe-capa" x="${x0 + 4}" y="${(y - h).toFixed(1)}" width="${ancho - 8}" height="${h.toFixed(1)}" fill="${relleno}"/>`;
+    y -= h;
+  }
+  let hielo = "";
+  if (r.frio) {
+    for (const [dx, dy, g] of [[-18, 30, 8], [10, 18, -10], [-6, 52, 14], [16, 62, -6]]) {
+      hielo += `<rect x="${100 + dx * escala - 9}" y="${tope + dy * escala}" width="18" height="18" rx="4" fill="#ffffff" opacity=".55" stroke="#bfe3f2" stroke-width="1.5" transform="rotate(${g} ${100 + dx * escala} ${tope + dy * escala + 9})"/>`;
+    }
+  }
+  let arriba = "";
+  if (r.extras.some((x) => x.id === "crema")) arriba += `<path d="M${x0 + 6} ${tope + 12}c0-22 ${ancho - 12} -22 ${ancho - 12} 0z" fill="#fffaf2" stroke="#e7d9c3" stroke-width="2"/><path d="M${100 - 10} ${tope - 2}q10-14 20 0" fill="#fffaf2" stroke="#e7d9c3" stroke-width="2"/>`;
+  if (r.extras.some((x) => x.id === "caramelo")) arriba += `<path d="M${x0 + 10} ${tope + 10}q${ancho / 4} -10 ${ancho / 2 - 10} 0t${ancho / 2 - 10} 0" fill="none" stroke="#c87a2a" stroke-width="4" stroke-linecap="round"/>`;
+  if (r.extras.some((x) => x.id === "canela")) arriba += [[-14, 6], [6, 4], [16, 9], [-2, 10], [-22, 9]].map(([dx, dy]) => `<circle cx="${100 + dx}" cy="${tope + dy}" r="1.6" fill="#7a3e1a"/>`).join("");
+  const vaso = r.frio
+    ? `<path d="M${x0} ${tope}h${ancho}l-6 ${alto}h-${ancho - 12}z" fill="rgb(255 255 255 / .18)" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M${100 + 8} ${tope - 30}l-6 ${alto + 10}" stroke="#d1453b" stroke-width="5" stroke-linecap="round"/>`
+    : `<path d="M${x0} ${tope}h${ancho}v${alto - 22}a22 22 0 0 1-22 22h-${ancho - 44}a22 22 0 0 1-22-22z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M${x0 + ancho} ${tope + 22}h10a18 18 0 0 1 0 36h-12" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="100" cy="${base + 8}" rx="${ancho / 2 + 26}" ry="8" fill="currentColor" opacity=".18"/>`;
+  const humo = r.frio ? "" : `<path class="cafe-humo" d="M92 ${tope - 10}q-6-8 0-16t0-16M108 ${tope - 12}q-6-8 0-16t0-16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>`;
+  const clip = `cafe-clip-${r.frio ? "f" : "c"}`;
+  const forma = r.frio ? `<path d="M${x0} ${tope}h${ancho}l-6 ${alto}h-${ancho - 12}z"/>` : `<path d="M${x0} ${tope}h${ancho}v${alto - 22}a22 22 0 0 1-22 22h-${ancho - 44}a22 22 0 0 1-22-22z"/>`;
+  return svg(`<svg class="cafe-dibujo" viewBox="0 0 200 220" role="img" aria-label="${r.bebida.nombre}, ${cafe.describir(cfg, eleccion)}">
+    <defs><clipPath id="${clip}">${forma}</clipPath></defs>
+    ${humo}
+    <g clip-path="url(#${clip})">${capasSvg}${hielo}</g>
+    ${vaso}${arriba}
+  </svg>`);
+}
+
+function armadorCafe(local, cfg, carrito) {
+  let e = cafe.inicial(cfg);
+  const escena = crear("div", { className: "cafe-escena" });
+  const opciones = crear("div", { className: "cafe-opciones" });
+  const r = resumen("Tu café");
+
+  const grupo = (titulo, lista, activo, elegir, rotulo) =>
+    crear(
+      "div",
+      { className: "cafe-grupo" },
+      crear("p", { className: "cafe-grupo-titulo" }, titulo),
+      crear(
+        "div",
+        { className: "cafe-botones", role: "radiogroup", "aria-label": titulo },
+        lista.map((x) => crear("button", { type: "button", role: "radio", "aria-checked": String(activo === x.id), onclick: () => elegir(x.id) }, x.nombre, rotulo(x) ? crear("small", {}, rotulo(x)) : null)),
+      ),
+    );
+
+  function pintar() {
+    escena.replaceChildren(dibujoCafe(cfg, e));
+    const mas = (n) => (n ? `+${formatearPesos(n)}` : "");
+    opciones.replaceChildren(
+      ...[
+        grupo("Bebida", cfg.bebidas, e.bebida, (id) => ((e = { ...e, bebida: id }), pintar()), (b) => formatearPesos(b.precio)),
+        grupo("Tamaño", cfg.tamanios, e.tamanio, (id) => ((e = { ...e, tamanio: id }), pintar()), (t) => mas(t.extra)),
+        cafe.llevaLeche(cfg, e) && cfg.leches?.length ? grupo("Leche", cfg.leches, e.leche, (id) => ((e = { ...e, leche: id }), pintar()), (l) => mas(l.extra)) : null,
+        cfg.extras?.length
+          ? crear(
+              "div",
+              { className: "cafe-grupo" },
+              crear("p", { className: "cafe-grupo-titulo" }, "Extras"),
+              crear(
+                "div",
+                { className: "cafe-botones" },
+                cfg.extras.map((x) =>
+                  crear(
+                    "button",
+                    {
+                      type: "button",
+                      "aria-pressed": String(e.extras.includes(x.id)),
+                      onclick: () => ((e = { ...e, extras: e.extras.includes(x.id) ? e.extras.filter((y) => y !== x.id) : [...e.extras, x.id] }), pintar()),
+                    },
+                    x.nombre,
+                    crear("small", {}, x.precio ? `+${formatearPesos(x.precio)}` : "sin cargo"),
+                  ),
+                ),
+              ),
+            )
+          : null,
+        cfg.frio
+          ? crear(
+              "div",
+              { className: "cafe-grupo cafe-temperatura", role: "radiogroup", "aria-label": "Temperatura" },
+              crear("button", { type: "button", role: "radio", "aria-checked": String(!e.frio), onclick: () => ((e = { ...e, frio: false }), pintar()) }, "Caliente"),
+              crear("button", { type: "button", role: "radio", "aria-checked": String(e.frio), onclick: () => ((e = { ...e, frio: true }), pintar()) }, "Frío", cfg.frio.extra ? crear("small", {}, `+${formatearPesos(cfg.frio.extra)}`) : null),
+            )
+          : null,
+      ].filter(Boolean),
+    );
+    const c = cafe.calcular(cfg, e);
+    r.precio.textContent = formatearPesos(c.total);
+    r.nota.textContent = `${c.bebida.nombre}${c.frio ? " frío" : ""} · ${cafe.describir(cfg, e)}`;
+  }
+
+  r.boton.addEventListener("click", () => carrito.agregar(cafe.id(cfg, e)));
+
+  pintar();
+  return crear(
+    "section",
+    { className: "armador armador-cafe", id: "armador-cafe" },
+    cabeza(cfg, "Café a tu medida", "Elegí la bebida, el tamaño y la leche, y mirá cómo queda."),
+    crear("div", { className: "cafe-cuerpo" }, escena, opciones),
     r.caja,
   );
 }

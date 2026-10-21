@@ -1,4 +1,7 @@
 // Plantilla "Horno": pizzería porteña. Verde botella, bronce, piso a cuadros y tipografía condensada.
+import { formatearPesos } from "../../nucleo/formato.js";
+import { estadoDelLocal } from "../../nucleo/horario.js";
+import { crear } from "../../nucleo/pagina.js";
 import { webLocal } from "../../nucleo/web.js";
 
 // Boca del horno con fuego, la pala sacando una pizza y el cartel de chapa con el nombre.
@@ -24,7 +27,34 @@ const HORNO = `<svg viewBox="0 0 360 320" fill="none" stroke="#1b1712" stroke-wi
   </g>
 </svg>`;
 
+// Portada: la pared verde del local, con el horno a la izquierda y el texto a la derecha.
+// Los botones llevan al pedido interactivo y a WhatsApp; el estado ("abierto") va en la pizarra.
+function portada(p) {
+  const botones = crear("div", { className: "portada-botones" }, p.armador ?? p.verCarta, p.pedir);
+  return crear("div", { className: "frente" }, p.dibujo, crear("div", { className: "portada-texto" }, p.titulo, p.bajada, botones));
+}
+
+// En lugar de la cinta: una pizarra de tiza fija con lo de hoy.
+function pizarra(local) {
+  const e = estadoDelLocal(local.turnos ?? []);
+  const especialidad = (local.cinta ?? local.categorias.map((c) => c.nombre)).slice(0, 3).join(" · ");
+  const renglon = (titulo, texto) => crear("div", { className: "pizarra-renglon" }, crear("dt", {}, titulo), crear("dd", {}, texto));
+  return crear(
+    "div",
+    { className: "pizarra-marco" },
+    crear(
+      "dl",
+      { className: "pizarra" },
+      renglon("Hoy", e.texto.replace("·", "—")),
+      renglon("De la casa", especialidad),
+      renglon(local.envio.disponible ? "Envíos" : "Retiro", local.envio.disponible ? `${local.envio.zona ?? "Consultá la zona"}${local.envio.costo ? ` · ${formatearPesos(local.envio.costo)}` : ""}` : local.direccion),
+    ),
+  );
+}
+
 webLocal({
   dibujo: HORNO,
-  textos: { destacados: "Las que más salen", carta: "La carta", historia: "Desde 1982", datos: "Dónde y cuándo", verCarta: "Ver la carta", pedir: "Pedir por WhatsApp" },
+  portada,
+  cinta: pizarra,
+  textos: { destacados: "Las que más salen", carta: "La carta", historia: "Desde siempre", datos: "Dónde y cuándo", verCarta: "Ver la carta", pedir: "Pedir por WhatsApp" },
 });

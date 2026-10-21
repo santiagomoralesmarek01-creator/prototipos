@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { formatearPesos } from "../nucleo/formato.js";
 import { describirTurnos, estadoDelLocal } from "../nucleo/horario.js";
 import { armarMensaje, calcularTotal, cambiarCantidad, lineasValidas } from "../nucleo/pedido.js";
-import { box, burger, juntada, mitades, vianda } from "../nucleo/armadores.js";
+import { box, burger, cafe, juntada, mitades, vianda } from "../nucleo/armadores.js";
 import { contraste, validarContenido } from "../nucleo/validar.js";
 import { normalizarWhatsapp } from "../nucleo/whatsapp.js";
 
@@ -110,4 +110,20 @@ test("juntada: pizzas por personas, reparto y sugerencias", () => {
   assert.deepEqual(juntada.repartir(5, ["a", "b"]), { a: 3, b: 2 });
   const s = juntada.sugerencias(local, cfg, 8, 3);
   assert.deepEqual(s.map((x) => [x.producto.id, x.cantidad]), [["faina", 3], ["gaseosa-molde", 2]]);
+});
+
+test("café a tu medida: precio, espresso sin leche e id que vuelve", () => {
+  const local = leer("cafe-grano");
+  const cfg = local.armadores[0];
+  const e = { bebida: "latte", tamanio: "grande", leche: "avena", extras: ["shot", "canela"], frio: true };
+  assert.equal(cafe.calcular(cfg, e).total, 4500 + 1300 + 600 + 900 + 0 + 300);
+  assert.deepEqual(cafe.leer(cfg, cafe.id(cfg, e)), { ...e, extras: ["canela", "shot"] }, "los extras quedan ordenados");
+  const [l] = lineasValidas(local, [{ productoId: cafe.id(cfg, e), cantidad: 2 }]);
+  assert.equal(l.subtotal, 7600 * 2);
+  assert.equal(l.producto.nombre, "Latte frío");
+  // El espresso no lleva leche: no se cobra ni se anota.
+  const espresso = { bebida: "espresso", tamanio: "chico", leche: "almendras", extras: [], frio: false };
+  assert.equal(cafe.calcular(cfg, espresso).total, 2900);
+  assert.doesNotMatch(cafe.describir(cfg, espresso), /leche/);
+  assert.equal(lineasValidas(local, [{ productoId: "cafe:latte;enorme;;;", cantidad: 1 }]).length, 0);
 });

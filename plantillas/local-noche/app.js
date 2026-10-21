@@ -1,4 +1,5 @@
 // Plantilla "Noche": hamburguesería, bar, comida de noche. Carbón, brasas y humo, tipografía condensada.
+import { crear } from "../../nucleo/pagina.js";
 import { webLocal } from "../../nucleo/web.js";
 
 // Burger doble sobre la plancha, con humo que sube y una calcomanía con el nombre.
@@ -25,7 +26,27 @@ const BURGER = `<svg viewBox="0 0 360 340" fill="none" stroke="#141110" stroke-w
   </g>
 </svg>`;
 
+// Portada tipo afiche: el nombre del local gigante a todo el ancho, la burger montada encima y,
+// abajo, la frase y los botones. La cinta cruzada queda como firma de la plantilla.
+function portada(p) {
+  // El tamaño sale de la cantidad de letras: cualquier nombre ocupa el ancho justo, sin cortarse.
+  const nombre = crear("p", { className: "afiche-nombre", "aria-hidden": "true", style: `--letras: ${p.local.nombre.length}` }, p.local.nombre);
+  return crear(
+    "div",
+    { className: "afiche" },
+    nombre,
+    p.dibujo,
+    crear(
+      "div",
+      { className: "afiche-pie" },
+      crear("div", {}, p.estado, p.titulo, p.bajada),
+      crear("div", { className: "portada-botones" }, p.armador ?? p.verCarta, p.pedir),
+    ),
+  );
+}
+
 webLocal({
   dibujo: BURGER,
+  portada,
   textos: { destacados: "Las que la rompen", carta: "El menú", historia: "La historia", datos: "Dónde estamos", verCarta: "Ver el menú", pedir: "Pedir ya" },
 });

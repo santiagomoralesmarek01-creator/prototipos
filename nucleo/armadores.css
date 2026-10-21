@@ -752,3 +752,96 @@
   height: 2.8rem;
   color: #1f1a17;
 }
+
+/* ---------- Café a tu medida ---------- */
+
+.cafe-cuerpo {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 52rem) {
+  .cafe-cuerpo {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+  .cafe-escena {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.cafe-escena {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border-radius: var(--radio);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.cafe-dibujo {
+  width: min(100%, 17rem);
+}
+
+.cafe-capa {
+  transition: y 0.35s ease, height 0.35s ease;
+}
+
+.cafe-humo {
+  animation: humo-cafe 3s ease-in-out infinite;
+}
+
+@keyframes humo-cafe {
+  50% {
+    opacity: 0.15;
+    transform: translateY(-4px);
+  }
+}
+
+.cafe-opciones {
+  display: grid;
+  gap: 1rem;
+}
+
+.cafe-grupo-titulo {
+  margin: 0 0 0.4rem;
+  color: var(--suave);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cafe-botones,
+.cafe-temperatura {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.cafe-botones button,
+.cafe-temperatura button {
+  display: grid;
+  align-content: center;
+  min-width: 6.5rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  text-align: left;
+}
+
+.cafe-botones small,
+.cafe-temperatura small {
+  color: var(--suave);
+  font-size: 0.75rem;
+}
+
+.cafe-botones [aria-checked="true"],
+.cafe-botones [aria-pressed="true"],
+.cafe-temperatura [aria-checked="true"] {
+  border-color: var(--acento);
+  box-shadow: inset 0 0 0 1px var(--acento);
+  background: var(--superficie);
+}

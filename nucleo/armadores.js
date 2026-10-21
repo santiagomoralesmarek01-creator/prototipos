@@ -9,6 +9,7 @@
 //   con descuento por tamaño y opción de regalo con tarjeta.
 // - "burger": hamburguesa capa por capa: pan, medallones, quesos y extras, cada uno con su precio.
 // - "mitades": pizza mitad y mitad, dibujada; se cobra la mitad más cara (o el promedio).
+// - "cafe": café a tu medida: bebida, tamaño, leche, extras y frío o caliente, con la taza dibujada.
 // - "juntada": cuántas pizzas pedir según la cantidad de personas y el hambre; suma productos
 //   comunes de la carta (no lleva id propio).
 
@@ -269,8 +270,58 @@ export const juntada = {
   resolver: () => undefined,
 };
 
-const TIPOS = { vianda, box, burger, mitades, juntada };
-const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades" };
+// ---------- Café a tu medida ----------
+// cfg: { bebidas: [{ id, nombre, precio, capas: { cafe, leche, espuma } (proporciones), leche?: false }],
+//        tamanios: [{ id, nombre, extra, escala }], leches: [{ id, nombre, extra }],
+//        extras: [{ id, nombre, precio }], frio: { extra } (opcional: se puede pedir frío) }
+
+export const cafe = {
+  inicial: (cfg) => ({ bebida: cfg.bebidas[0].id, tamanio: cfg.tamanios[Math.min(1, cfg.tamanios.length - 1)].id, leche: cfg.leches?.[0]?.id ?? null, extras: [], frio: false }),
+
+  /** Si la bebida lleva leche (el espresso o el filtrado no): ahí no se elige leche. */
+  llevaLeche: (cfg, eleccion) => cfg.bebidas.find((b) => b.id === eleccion.bebida)?.leche !== false,
+
+  calcular(cfg, e) {
+    const bebida = cfg.bebidas.find((b) => b.id === e.bebida) ?? cfg.bebidas[0];
+    const tamanio = cfg.tamanios.find((t) => t.id === e.tamanio) ?? cfg.tamanios[0];
+    const leche = this.llevaLeche(cfg, e) ? cfg.leches?.find((l) => l.id === e.leche) : null;
+    const extras = (cfg.extras ?? []).filter((x) => e.extras.includes(x.id));
+    const frio = e.frio && cfg.frio ? cfg.frio.extra ?? 0 : 0;
+    const total = bebida.precio + (tamanio.extra ?? 0) + (leche?.extra ?? 0) + extras.reduce((s, x) => s + x.precio, 0) + frio;
+    return { bebida, tamanio, leche, extras, frio: e.frio && !!cfg.frio, total };
+  },
+
+  describir(cfg, e) {
+    const r = this.calcular(cfg, e);
+    return [r.tamanio.nombre.toLowerCase(), r.leche ? `leche ${r.leche.nombre.toLowerCase()}` : null, ...r.extras.map((x) => x.nombre.toLowerCase()), r.frio ? "frío" : null].filter(Boolean).join(" · ");
+  },
+
+  id(cfg, e) {
+    const partes = [e.bebida, e.tamanio, this.llevaLeche(cfg, e) ? e.leche ?? "" : "", [...e.extras].sort().join("+"), e.frio ? "frio" : ""];
+    return `cafe:${partes.join(";")}`;
+  },
+
+  leer(cfg, id) {
+    if (!id.startsWith("cafe:")) return null;
+    const [bebida, tamanio, leche, extras, frio] = id.slice(5).split(";");
+    if (!cfg.bebidas.some((b) => b.id === bebida) || !cfg.tamanios.some((t) => t.id === tamanio)) return null;
+    const lista = extras ? extras.split("+") : [];
+    if (!lista.every((x) => (cfg.extras ?? []).some((e) => e.id === x))) return null;
+    if (leche && !(cfg.leches ?? []).some((l) => l.id === leche)) return null;
+    if (frio === "frio" && !cfg.frio) return null;
+    return { bebida, tamanio, leche: leche || null, extras: lista, frio: frio === "frio" };
+  },
+
+  resolver(local, cfg, id) {
+    const e = this.leer(cfg, id);
+    if (!e) return undefined;
+    const r = this.calcular(cfg, e);
+    return { id, nombre: `${r.bebida.nombre}${r.frio ? " frío" : ""}`, precio: r.total, detalle: this.describir(cfg, e) };
+  },
+};
+
+const TIPOS = { vianda, box, burger, mitades, juntada, cafe };
+const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades", "cafe:": "cafe" };
 
 /** El producto armado que corresponde a un id del carrito, o undefined si no es un armado válido. */
 export function resolverArmado(local, id) {

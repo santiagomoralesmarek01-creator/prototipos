@@ -460,3 +460,10 @@ a {
     grid-column: 1 / -1;
   }
 }
+
+/* Títulos de portada y de sección con renglones parejos: sin una palabra sola en el último. */
+.portada-titulo,
+.seccion-titulo,
+.armador-titulo {
+  text-wrap: balance;
+}
