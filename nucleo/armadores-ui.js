@@ -556,8 +556,8 @@ export function dibujoCafe(cfg, eleccion) {
   const x0 = 100 - ancho / 2;
   const base = 196;
   const tope = base - alto;
-  // Lo que se llena: casi hasta el borde.
-  const lleno = alto - 12;
+  // Lo que se llena: casi hasta el borde, salvo las bebidas cortas (`llenado` < 1, como el espresso).
+  const lleno = (alto - 12) * (r.bebida.llenado ?? 1);
   const partes = [
     ["cafe", shot ? "#2f1a0e" : "#4a2a17", capas.cafe],
     ["leche", colorLeche, conLeche ? capas.leche : 0],

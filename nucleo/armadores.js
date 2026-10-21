@@ -271,7 +271,8 @@ export const juntada = {
 };
 
 // ---------- Café a tu medida ----------
-// cfg: { bebidas: [{ id, nombre, precio, capas: { cafe, leche, espuma } (proporciones), leche?: false }],
+// cfg: { bebidas: [{ id, nombre, precio, capas: { cafe, leche, espuma } (proporciones), leche?: false,
+//                   llenado?: cuánto se llena la taza, de 0 a 1 (el espresso, menos de la mitad) }],
 //        tamanios: [{ id, nombre, extra, escala }], leches: [{ id, nombre, extra }],
 //        extras: [{ id, nombre, precio }], frio: { extra } (opcional: se puede pedir frío) }
 
@@ -293,7 +294,8 @@ export const cafe = {
 
   describir(cfg, e) {
     const r = this.calcular(cfg, e);
-    return [r.tamanio.nombre.toLowerCase(), r.leche ? `leche ${r.leche.nombre.toLowerCase()}` : null, ...r.extras.map((x) => x.nombre.toLowerCase()), r.frio ? "frío" : null].filter(Boolean).join(" · ");
+    // "Frío" no va acá: ya va en el nombre ("Latte frío").
+    return [r.tamanio.nombre.toLowerCase(), r.leche ? `leche ${r.leche.nombre.toLowerCase()}` : null, ...r.extras.map((x) => x.nombre.toLowerCase())].filter(Boolean).join(" · ");
   },
 
   id(cfg, e) {

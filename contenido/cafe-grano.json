@@ -4,40 +4,115 @@
   "descripcion": "Tostadores de café de especialidad en Rosario. Barra de espresso, filtrados y café en grano para llevar.",
   "demo": true,
   "plan": "local",
-  "marca": { "color": "#8a5a12", "colorOscuro": "#e2b065" },
+  "marca": {
+    "color": "#8a5a12",
+    "colorOscuro": "#e2b065"
+  },
   "cartel": "GRANO",
   "eslogan": "Tostamos los martes. Lo tomás el miércoles.",
   "historia": [
     "Grano empezó en 2020 como un tostador de un kilo en un garaje de barrio Echesortu. Hoy tostamos 300 kilos por mes, siempre en tandas chicas y con la fecha en la bolsa.",
     "En la barra preparamos lo mismo que vendemos en grano: si te gusta un café, te llevás el paquete."
   ],
-  "destacados": ["flat-white-grano", "v60", "alfajor-grano"],
-  "cifras": [
-    { "valor": "300 kg", "texto": "de café por mes" },
-    { "valor": "4", "texto": "orígenes en rotación" },
-    { "valor": "7 días", "texto": "desde el tueste a tu taza" }
+  "destacados": [
+    "flat-white-grano",
+    "v60",
+    "alfajor-grano"
   ],
-  "cinta": ["Etiopía", "Colombia", "Brasil", "Guatemala", "Espresso", "Filtrados", "Café en grano"],
+  "cifras": [
+    {
+      "valor": "300 kg",
+      "texto": "de café por mes"
+    },
+    {
+      "valor": "4",
+      "texto": "orígenes en rotación"
+    },
+    {
+      "valor": "7 días",
+      "texto": "desde el tueste a tu taza"
+    }
+  ],
+  "cinta": [
+    "Etiopía",
+    "Colombia",
+    "Brasil",
+    "Guatemala",
+    "Espresso",
+    "Filtrados",
+    "Café en grano"
+  ],
   "turnos": [
-    { "dias": [1, 2, 3, 4, 5], "abre": "07:30", "cierra": "19:30" },
-    { "dias": [6], "abre": "09:00", "cierra": "14:00" }
+    {
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "abre": "07:30",
+      "cierra": "19:30"
+    },
+    {
+      "dias": [
+        6
+      ],
+      "abre": "09:00",
+      "cierra": "14:00"
+    }
   ],
   "whatsapp": "5493414567808",
   "direccion": "Mendoza 3120, Echesortu, Rosario",
   "instagram": "grano.tostadores",
-  "mediosDePago": ["Efectivo", "Débito", "Mercado Pago", "Transferencia"],
-  "envio": { "disponible": true, "costo": 1500, "zona": "Centro, Echesortu y Abasto" },
+  "mediosDePago": [
+    "Efectivo",
+    "Débito",
+    "Mercado Pago",
+    "Transferencia"
+  ],
+  "envio": {
+    "disponible": true,
+    "costo": 1500,
+    "zona": "Centro, Echesortu y Abasto"
+  },
   "categorias": [
     {
       "id": "barra",
       "nombre": "Barra",
       "ilustracion": "taza",
       "productos": [
-        { "id": "espresso-grano", "nombre": "Espresso", "descripcion": "Doble, del blend de la semana.", "precio": 2900, "etiquetas": ["vegano"] },
-        { "id": "cortado-grano", "nombre": "Cortado", "precio": 3300 },
-        { "id": "flat-white-grano", "nombre": "Flat white", "descripcion": "Doble ristretto y leche texturizada.", "precio": 4300 },
-        { "id": "capuccino-grano", "nombre": "Capuccino", "descripcion": "Con espuma alta y cacao.", "precio": 4300 },
-        { "id": "latte-grano", "nombre": "Latte", "precio": 4500 }
+        {
+          "id": "espresso-grano",
+          "nombre": "Espresso",
+          "descripcion": "Doble, del blend de la semana.",
+          "precio": 2900,
+          "etiquetas": [
+            "vegano"
+          ]
+        },
+        {
+          "id": "cortado-grano",
+          "nombre": "Cortado",
+          "precio": 3300
+        },
+        {
+          "id": "flat-white-grano",
+          "nombre": "Flat white",
+          "descripcion": "Doble ristretto y leche texturizada.",
+          "precio": 4300
+        },
+        {
+          "id": "capuccino-grano",
+          "nombre": "Capuccino",
+          "descripcion": "Con espuma alta y cacao.",
+          "precio": 4300
+        },
+        {
+          "id": "latte-grano",
+          "nombre": "Latte",
+          "precio": 4500
+        }
       ]
     },
     {
@@ -45,19 +120,72 @@
       "nombre": "Filtrados",
       "ilustracion": "cafetera",
       "productos": [
-        { "id": "v60", "nombre": "V60 de origen", "descripcion": "Etiopía Guji, notas a durazno y jazmín.", "precio": 5200, "etiquetas": ["vegano"] },
-        { "id": "chemex", "nombre": "Chemex para dos", "descripcion": "600 ml del origen que elijas.", "precio": 8500, "etiquetas": ["vegano"] },
-        { "id": "cold-brew-grano", "nombre": "Cold brew", "descripcion": "18 horas en frío.", "precio": 4800, "etiquetas": ["vegano"] }
+        {
+          "id": "v60",
+          "nombre": "V60 de origen",
+          "descripcion": "Etiopía Guji, notas a durazno y jazmín.",
+          "precio": 5200,
+          "etiquetas": [
+            "vegano"
+          ]
+        },
+        {
+          "id": "chemex",
+          "nombre": "Chemex para dos",
+          "descripcion": "600 ml del origen que elijas.",
+          "precio": 8500,
+          "etiquetas": [
+            "vegano"
+          ]
+        },
+        {
+          "id": "cold-brew-grano",
+          "nombre": "Cold brew",
+          "descripcion": "18 horas en frío.",
+          "precio": 4800,
+          "etiquetas": [
+            "vegano"
+          ]
+        }
       ]
     },
     {
       "id": "para-acompanar",
       "nombre": "Para acompañar",
       "productos": [
-        { "id": "alfajor-grano", "nombre": "Alfajor de maicena", "descripcion": "Con dulce de leche y coco.", "precio": 2600, "etiquetas": ["vegetariano", "sin-tacc"] },
-        { "id": "budin-grano", "nombre": "Budín de banana y nuez", "descripcion": "Porción.", "precio": 3400, "etiquetas": ["vegetariano"] },
-        { "id": "medialuna-grano", "nombre": "Medialuna de manteca", "precio": 1300, "etiquetas": ["vegetariano"] },
-        { "id": "tostado-grano", "nombre": "Tostado de jamón y queso", "descripcion": "En pan de campo.", "precio": 6800 }
+        {
+          "id": "alfajor-grano",
+          "nombre": "Alfajor de maicena",
+          "descripcion": "Con dulce de leche y coco.",
+          "precio": 2600,
+          "etiquetas": [
+            "vegetariano",
+            "sin-tacc"
+          ]
+        },
+        {
+          "id": "budin-grano",
+          "nombre": "Budín de banana y nuez",
+          "descripcion": "Porción.",
+          "precio": 3400,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "medialuna-grano",
+          "nombre": "Medialuna de manteca",
+          "precio": 1300,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "tostado-grano",
+          "nombre": "Tostado de jamón y queso",
+          "descripcion": "En pan de campo.",
+          "precio": 6800
+        }
       ]
     },
     {
@@ -65,10 +193,31 @@
       "nombre": "Café en grano",
       "ilustracion": "cafetera",
       "productos": [
-        { "id": "bolsa-etiopia", "nombre": "Etiopía Guji · 250 g", "descripcion": "Durazno, jazmín, té negro.", "precio": 14500 },
-        { "id": "bolsa-colombia", "nombre": "Colombia Huila · 250 g", "descripcion": "Caramelo, manzana roja.", "precio": 13500 },
-        { "id": "bolsa-blend", "nombre": "Blend de la casa · 500 g", "descripcion": "Chocolate y avellana, para espresso.", "precio": 21000 },
-        { "id": "bolsa-guatemala", "nombre": "Guatemala Huehuetenango · 250 g", "descripcion": "Cacao, ciruela.", "precio": 14000, "agotado": true }
+        {
+          "id": "bolsa-etiopia",
+          "nombre": "Etiopía Guji · 250 g",
+          "descripcion": "Durazno, jazmín, té negro.",
+          "precio": 14500
+        },
+        {
+          "id": "bolsa-colombia",
+          "nombre": "Colombia Huila · 250 g",
+          "descripcion": "Caramelo, manzana roja.",
+          "precio": 13500
+        },
+        {
+          "id": "bolsa-blend",
+          "nombre": "Blend de la casa · 500 g",
+          "descripcion": "Chocolate y avellana, para espresso.",
+          "precio": 21000
+        },
+        {
+          "id": "bolsa-guatemala",
+          "nombre": "Guatemala Huehuetenango · 250 g",
+          "descripcion": "Cacao, ciruela.",
+          "precio": 14000,
+          "agotado": true
+        }
       ]
     }
   ],
@@ -80,30 +229,127 @@
       "titulo": "Café a tu medida",
       "bajada": "Elegí la bebida, el tamaño y la leche. Mirá cómo queda en la taza antes de pedirlo.",
       "bebidas": [
-        { "id": "espresso", "nombre": "Espresso", "precio": 2900, "leche": false, "capas": { "cafe": 1, "leche": 0, "espuma": 0.1 } },
-        { "id": "cortado", "nombre": "Cortado", "precio": 3300, "capas": { "cafe": 0.55, "leche": 0.35, "espuma": 0.1 } },
-        { "id": "flat", "nombre": "Flat white", "precio": 4300, "capas": { "cafe": 0.35, "leche": 0.55, "espuma": 0.1 } },
-        { "id": "capuccino", "nombre": "Capuccino", "precio": 4300, "capas": { "cafe": 0.3, "leche": 0.35, "espuma": 0.35 } },
-        { "id": "latte", "nombre": "Latte", "precio": 4500, "capas": { "cafe": 0.2, "leche": 0.65, "espuma": 0.15 } }
+        {
+          "id": "espresso",
+          "nombre": "Espresso",
+          "precio": 2900,
+          "leche": false,
+          "capas": {
+            "cafe": 1,
+            "leche": 0,
+            "espuma": 0.1
+          },
+          "llenado": 0.42
+        },
+        {
+          "id": "cortado",
+          "nombre": "Cortado",
+          "precio": 3300,
+          "capas": {
+            "cafe": 0.55,
+            "leche": 0.35,
+            "espuma": 0.1
+          },
+          "llenado": 0.7
+        },
+        {
+          "id": "flat",
+          "nombre": "Flat white",
+          "precio": 4300,
+          "capas": {
+            "cafe": 0.35,
+            "leche": 0.55,
+            "espuma": 0.1
+          }
+        },
+        {
+          "id": "capuccino",
+          "nombre": "Capuccino",
+          "precio": 4300,
+          "capas": {
+            "cafe": 0.3,
+            "leche": 0.35,
+            "espuma": 0.35
+          }
+        },
+        {
+          "id": "latte",
+          "nombre": "Latte",
+          "precio": 4500,
+          "capas": {
+            "cafe": 0.2,
+            "leche": 0.65,
+            "espuma": 0.15
+          }
+        }
       ],
       "tamanios": [
-        { "id": "chico", "nombre": "Chico", "extra": 0, "escala": 0.8 },
-        { "id": "mediano", "nombre": "Mediano", "extra": 700, "escala": 1 },
-        { "id": "grande", "nombre": "Grande", "extra": 1300, "escala": 1.18 }
+        {
+          "id": "chico",
+          "nombre": "Chico",
+          "extra": 0,
+          "escala": 0.8
+        },
+        {
+          "id": "mediano",
+          "nombre": "Mediano",
+          "extra": 700,
+          "escala": 1
+        },
+        {
+          "id": "grande",
+          "nombre": "Grande",
+          "extra": 1300,
+          "escala": 1.18
+        }
       ],
       "leches": [
-        { "id": "entera", "nombre": "Entera", "extra": 0 },
-        { "id": "descremada", "nombre": "Descremada", "extra": 0 },
-        { "id": "avena", "nombre": "De avena", "extra": 600 },
-        { "id": "almendras", "nombre": "De almendras", "extra": 800 }
+        {
+          "id": "entera",
+          "nombre": "Entera",
+          "extra": 0
+        },
+        {
+          "id": "descremada",
+          "nombre": "Descremada",
+          "extra": 0
+        },
+        {
+          "id": "avena",
+          "nombre": "De avena",
+          "extra": 600
+        },
+        {
+          "id": "almendras",
+          "nombre": "De almendras",
+          "extra": 800
+        }
       ],
       "extras": [
-        { "id": "shot", "nombre": "Shot extra", "precio": 900 },
-        { "id": "caramelo", "nombre": "Caramelo", "precio": 500 },
-        { "id": "canela", "nombre": "Canela", "precio": 0 },
-        { "id": "crema", "nombre": "Crema batida", "precio": 700 }
+        {
+          "id": "shot",
+          "nombre": "Shot extra",
+          "precio": 900
+        },
+        {
+          "id": "caramelo",
+          "nombre": "Caramelo",
+          "precio": 500
+        },
+        {
+          "id": "canela",
+          "nombre": "Canela",
+          "precio": 0
+        },
+        {
+          "id": "crema",
+          "nombre": "Crema batida",
+          "precio": 700
+        }
       ],
-      "frio": { "extra": 300 }
+      "frio": {
+        "extra": 300
+      }
     }
   ]
 }

@@ -46,6 +46,17 @@ export const PLANTILLAS = [
     salon: true,
   },
   {
+    id: "local-tostado",
+    nombre: "Tostado",
+    tipo: "web",
+    rubros: ["cafeteria"],
+    planes: ["local", "plus"],
+    estilo: "Ficha técnica de laboratorio: papel con grilla, ocre, etiquetas en monoespaciada y una Chemex con cotas.",
+    interacciones: ["Café a tu medida: bebida, tamaño, leche, extras y frío, con la taza dibujada", "Carta numerada con filtros", "Carta del salón para el QR"],
+    contenido: "cafe-grano",
+    salon: true,
+  },
+  {
     id: "carta-clasica",
     nombre: "Clásica",
     tipo: "carta",
@@ -87,6 +98,7 @@ export const PLANES = { carta: "Plan Carta", local: "Plan Local", plus: "Local P
 export const CONTENIDOS = {
   "rotiseria-don-tito": "Rotisería Don Tito",
   "cafe-brote": "Café Brote",
+  "cafe-grano": "Grano Tostadores",
   "pizzeria-el-molde": "Pizzería El Molde",
   "humo-burgers": "Humo Burgers",
   "bodegon-el-farol": "Bodegón El Farol",
