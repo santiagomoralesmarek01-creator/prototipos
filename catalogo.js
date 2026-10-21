@@ -89,6 +89,16 @@ export const PLANTILLAS = [
     contenido: "bodegon-el-farol",
   },
   {
+    id: "carta-pizarra",
+    nombre: "Pizarra",
+    tipo: "carta",
+    rubros: ["bar", "cerveceria", "bodegon"],
+    planes: ["carta"],
+    estilo: "Escrita a mano: pizarra de tiza en modo oscuro y pizarrón blanco con marcador en modo claro.",
+    interacciones: ["Pizarra colgada con el nombre en tiza", "Recomendados encerrados en círculos", "Agotados tachados a mano"],
+    contenido: "cerveceria-la-tiza",
+  },
+  {
     id: "app-comanda",
     nombre: "Comanda",
     tipo: "app",

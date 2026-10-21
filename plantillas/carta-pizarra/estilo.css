@@ -1,0 +1,482 @@
+/* Plantilla "Pizarra": la carta entera escrita a mano. Oscuro: pizarra verde con tiza blanca y
+   amarilla. Claro: pizarrón blanco con marcador azul, negro y rojo. Cabin Sketch y Patrick Hand. */
+
+:root {
+  --fondo: #fbfbf8;
+  --superficie: #ffffff;
+  --texto: #1d2a5a;
+  --suave: #4f5a7c;
+  --linea: #b9c0d6;
+  --acento: #c8322a;
+  --sobre-acento: #fff;
+  --tiza-2: #1d1d1b;
+  --marco: #b9bec4;
+  --fuente: "Patrick Hand", "Comic Sans MS", cursive;
+  --fuente-titulos: "Cabin Sketch", "Patrick Hand", cursive;
+  --radio: 6px;
+  color-scheme: light;
+}
+
+[data-tema="oscuro"] {
+  --fondo: #233029;
+  --superficie: #2a3830;
+  --texto: #f2f0e6;
+  --suave: #c9cdbf;
+  --linea: rgb(242 240 230 / 0.35);
+  --acento: #f3d36b;
+  --sobre-acento: #233029;
+  --tiza-2: #f6b4a8;
+  --marco: #8a5a2b;
+  color-scheme: dark;
+}
+
+body {
+  font-size: 1.2rem;
+  /* Polvo de tiza (o el borrado del marcador). */
+  background-image:
+    radial-gradient(ellipse at 20% 10%, color-mix(in srgb, var(--texto) 6%, transparent), transparent 40%),
+    radial-gradient(ellipse at 80% 60%, color-mix(in srgb, var(--texto) 5%, transparent), transparent 45%);
+  background-attachment: fixed;
+}
+
+[data-tema="oscuro"] body {
+  text-shadow: 0 0 1px rgb(255 255 255 / 0.35);
+}
+
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem) 2rem;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+}
+
+.cabecera-marca {
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.boton-tema {
+  border-style: dashed;
+  font-family: var(--fuente);
+  font-size: 1rem;
+}
+
+/* ---------- Portada: la pizarra colgada ---------- */
+
+.portada {
+  padding: 2.5rem 0 1rem;
+}
+
+.pizarra-colgada {
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--marco);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.25), inset 0 0 0 2px rgb(0 0 0 / 0.15);
+  transform: rotate(-1.2deg);
+}
+
+/* El clavo y los dos hilos de los que cuelga. */
+.clavo {
+  position: absolute;
+  top: -58px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #6b6b6b;
+  transform: translateX(-50%);
+}
+
+.clavo::before,
+.clavo::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  width: 2px;
+  height: 78px;
+  background: #7a6a55;
+  transform-origin: top;
+}
+
+.clavo::before {
+  transform: rotate(52deg);
+}
+
+.clavo::after {
+  transform: rotate(-52deg);
+}
+
+.pizarra-hoja {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: 2rem 1.5rem 1.75rem;
+  border-radius: 4px;
+  background: var(--superficie);
+  text-align: center;
+}
+
+[data-tema="oscuro"] .pizarra-hoja {
+  background: radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.06), transparent 60%), #1f2b25;
+}
+
+.portada-volanta {
+  margin: 0;
+  color: var(--acento);
+  font-size: 1.15rem;
+}
+
+.portada-titulo {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(2.6rem, 9vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.portada-dibujo {
+  color: var(--texto);
+}
+
+.portada-dibujo svg {
+  width: 8.5rem;
+}
+
+.tiza-relleno {
+  fill: color-mix(in srgb, var(--acento) 25%, transparent);
+}
+
+.burbuja {
+  fill: currentColor;
+  animation: burbuja 2.6s ease-in infinite;
+}
+
+.burbuja:nth-of-type(2) {
+  animation-delay: 0.9s;
+}
+
+.burbuja:nth-of-type(3) {
+  animation-delay: 1.7s;
+}
+
+@keyframes burbuja {
+  to {
+    transform: translateY(-34px);
+    opacity: 0;
+  }
+}
+
+.portada-bajada {
+  max-width: 26rem;
+  margin: 0.25rem 0;
+  font-size: 1.3rem;
+}
+
+.estado {
+  margin: 0;
+  color: var(--tiza-2);
+}
+
+.estado::before {
+  content: "→ ";
+}
+
+/* ---------- Títulos con subrayado a mano ---------- */
+
+.seccion-titulo,
+.carta-categoria-titulo {
+  position: relative;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+}
+
+.seccion-titulo::after,
+.carta-categoria-titulo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 30%;
+  bottom: -0.35rem;
+  height: 10px;
+  /* El trazo sale de la máscara; el color, del acento. */
+  background: var(--acento);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6c40-5 90-5 196-2' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6c40-5 90-5 196-2' fill='none' stroke='black' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+
+/* ---------- Recomendados: encerrados en un círculo de tiza ---------- */
+
+.seccion {
+  padding: 2rem 0;
+}
+
+.seccion-titulo {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+}
+
+.destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destacado {
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  padding: 1.5rem 1rem;
+  border: 2.5px solid var(--texto);
+  border-radius: 58% 42% 55% 45% / 45% 55% 45% 55%;
+  text-align: center;
+}
+
+.destacado:nth-child(2) {
+  border-color: var(--acento);
+  border-radius: 42% 58% 45% 55% / 55% 45% 55% 45%;
+}
+
+.destacado-numero {
+  display: none;
+}
+
+.destacado-dibujo {
+  width: 3.4rem;
+  height: 3.4rem;
+  color: var(--texto);
+  filter: grayscale(0.4);
+}
+
+.destacado-nombre {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.4rem;
+}
+
+.destacado-desc {
+  margin: 0;
+  color: var(--suave);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.destacado-precio {
+  color: var(--acento);
+  font-size: 1.4rem;
+}
+
+/* ---------- Índice y filtros ---------- */
+
+.carta-barra {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 2px dashed var(--linea);
+  background: var(--fondo);
+}
+
+.carta-nav ul,
+.carta-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2rem 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-nav a {
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.carta-nav a[aria-current] {
+  color: var(--acento);
+  text-decoration: underline wavy;
+  text-underline-offset: 6px;
+}
+
+.carta-filtros button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--suave);
+  font-size: 1.05rem;
+}
+
+.carta-filtros [aria-pressed="true"] {
+  color: var(--tiza-2);
+  text-decoration: underline;
+}
+
+/* ---------- Carta ---------- */
+
+.carta-cuerpo {
+  display: grid;
+  gap: 2.5rem 3.5rem;
+}
+
+@media (min-width: 52rem) {
+  .carta-cuerpo {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.carta-categoria-titulo {
+  display: flex;
+  margin: 0 0 1.25rem;
+  font-size: 2rem;
+}
+
+.carta-categoria-dibujo {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--texto);
+}
+
+.carta-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-producto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 0.4rem;
+  align-items: baseline;
+  padding: 0.45rem 0;
+}
+
+.carta-producto-texto {
+  display: contents;
+}
+
+.carta-producto-nombre {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.carta-puntos {
+  flex: 1;
+  min-width: 1.5rem;
+  margin-left: 0.4rem;
+  border-bottom: 3px dotted var(--linea);
+  transform: translateY(-0.3em);
+}
+
+.carta-producto-precio {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--acento);
+  font-size: 1.35rem;
+}
+
+.carta-producto-desc,
+.carta-producto-etiquetas {
+  grid-column: 1;
+  margin: 0;
+  color: var(--suave);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.carta-producto-etiquetas {
+  color: var(--tiza-2);
+}
+
+.carta-producto[data-agotado] .carta-producto-nombre {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--tiza-2);
+}
+
+.carta-producto[data-agotado] .carta-producto-precio {
+  color: var(--tiza-2);
+  transform: rotate(-6deg);
+}
+
+/* ---------- Datos ---------- */
+
+.banda-datos {
+  margin-top: 1rem;
+  border-top: 2px dashed var(--linea);
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1.5rem;
+}
+
+.datos-bloque h3 {
+  margin: 0 0 0.3rem;
+  color: var(--acento);
+  font-family: var(--fuente-titulos);
+  font-size: 1.4rem;
+}
+
+.datos-bloque p,
+.datos-bloque ul {
+  margin: 0 0 0.3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.datos .estado::before {
+  content: none;
+}
+
+.datos-enlace {
+  display: inline-block;
+  margin-right: 1rem;
+  color: var(--tiza-2);
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  padding: 2rem 1rem 3rem;
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.1rem 0;
+}
+
+.pie-nombre {
+  font-family: var(--fuente-titulos);
+  font-size: 2rem;
+}
+
+.pie-direccion {
+  color: var(--suave);
+}

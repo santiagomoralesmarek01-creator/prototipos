@@ -159,20 +159,27 @@ export async function webLocal(opciones = {}) {
   return local;
 }
 
-/** Plan Carta: carta para mirar, con portada, filtros y datos del local. */
+/** Plan Carta: carta para mirar, con portada, filtros y datos del local. Opciones: dibujo, volanta,
+ *  puntos, textos y portada(piezas), como en webLocal. */
 export async function cartaSola(opciones = {}) {
   const local = await cargarContenido();
   const t = { ...TEXTOS, ...opciones.textos };
   const { nav, filtros, cuerpo } = carta(local, { puntos: opciones.puntos });
 
+  // Igual que en webLocal: la plantilla puede componer su portada con opciones.portada(piezas).
+  const piezas = {
+    local,
+    textos: t,
+    estado: estado(local),
+    volanta: crear("p", { className: "portada-volanta" }, opciones.volanta ?? "Carta"),
+    titulo: crear("h1", { className: "portada-titulo" }, local.nombre),
+    bajada: local.eslogan ? crear("p", { className: "portada-bajada" }, local.eslogan) : null,
+    dibujo: opciones.dibujo ? crear("div", { className: "portada-dibujo", "aria-hidden": "true" }, svg(conCartel(opciones.dibujo, local))) : null,
+  };
   const portada = crear(
     "section",
     { className: "portada", id: "inicio" },
-    opciones.dibujo ? crear("div", { className: "portada-dibujo", "aria-hidden": "true" }, svg(conCartel(opciones.dibujo, local))) : null,
-    crear("p", { className: "portada-volanta" }, opciones.volanta ?? "Carta"),
-    crear("h1", { className: "portada-titulo" }, local.nombre),
-    local.eslogan ? crear("p", { className: "portada-bajada" }, local.eslogan) : null,
-    estado(local),
+    opciones.portada ? opciones.portada(piezas) : [piezas.dibujo, piezas.volanta, piezas.titulo, piezas.bajada, piezas.estado],
   );
 
   const recomendados = destacados(local);
