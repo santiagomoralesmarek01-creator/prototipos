@@ -1,0 +1,449 @@
+/* Aspecto base de los armadores (nucleo/armadores-ui.js). Usa las variables de cada plantilla. */
+
+.armador {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* En escritorio, el resumen queda en un panel lateral fijo mientras se arma. */
+@media (min-width: 60rem) {
+  .armador {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+    column-gap: 2.5rem;
+    align-items: start;
+  }
+  .armador > * {
+    grid-column: 1;
+  }
+  .armador > .armador-cabeza {
+    grid-column: 1 / -1;
+  }
+  .armador > .armador-resumen {
+    position: sticky;
+    top: 6rem;
+    grid-column: 2;
+    grid-row: 2 / span 3;
+  }
+}
+
+.armador-cabeza {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 40rem;
+}
+
+.armador-volanta {
+  margin: 0;
+  color: var(--acento);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.armador-titulo {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.armador-bajada {
+  margin: 0;
+  color: var(--suave);
+}
+
+.armador-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--superficie);
+}
+
+.armador-resumen > div {
+  display: grid;
+}
+
+.armador-precio {
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.armador-nota {
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+.armador-sumar {
+  padding: 0.8rem 1.4rem;
+  border: 0;
+  border-radius: var(--radio);
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 700;
+}
+
+.armador-sumar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.armador-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.armador-secundario {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  font-size: 0.9rem;
+}
+
+.armador-pista {
+  margin: 0;
+  color: var(--acento);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.control-paso:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ---------- Vianda ---------- */
+
+.vianda-dias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vianda-dia {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: center;
+  padding: 0.9rem 0.75rem;
+  border: 1px dashed var(--linea);
+  border-radius: var(--radio);
+  text-align: center;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.vianda-dia[data-lleno] {
+  border-style: solid;
+  border-color: var(--acento);
+  background: var(--superficie);
+}
+
+.vianda-dia-nombre {
+  font-weight: 700;
+}
+
+.vianda-dia svg {
+  width: 5.5rem;
+}
+
+.taper-tapa {
+  fill: var(--linea);
+  transition: transform 0.3s;
+}
+
+.vianda-dia[data-lleno] .taper-tapa {
+  fill: var(--acento);
+  transform: translateY(-6px) rotate(-6deg);
+  transform-origin: 10% 50%;
+}
+
+.taper-cuerpo {
+  fill: none;
+  stroke: var(--suave);
+  stroke-width: 2.5;
+}
+
+.taper-comida {
+  fill: var(--comida, transparent);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.35s ease-out;
+}
+
+.vianda-dia[data-lleno] .taper-comida {
+  transform: scaleY(1);
+}
+
+.vianda-plato {
+  min-height: 2.6em;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.vianda-dia select {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--fondo);
+  font-size: 0.8rem;
+}
+
+/* ---------- Box ---------- */
+
+.box-cuerpo {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 52rem) {
+  .box-cuerpo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.box-tamanios,
+.burger-panes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.box-tamanios button,
+.burger-panes button {
+  display: grid;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  text-align: left;
+}
+
+.box-tamanios button small,
+.burger-panes button small {
+  color: var(--suave);
+  font-size: 0.75rem;
+}
+
+.box-tamanios [aria-checked="true"],
+.burger-panes [aria-checked="true"] {
+  border-color: var(--acento);
+  box-shadow: inset 0 0 0 1px var(--acento);
+}
+
+.box-caja {
+  display: grid;
+  grid-template-columns: repeat(var(--columnas, 3), 1fr);
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 3px solid var(--acento);
+  border-radius: calc(var(--radio) + 4px);
+  background: var(--superficie);
+}
+
+.box-lugar {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.2rem;
+  aspect-ratio: 1;
+  padding: 0.3rem;
+  border: 1px dashed var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.box-lugar[data-lleno] {
+  border: 0;
+  background: color-mix(in srgb, var(--color) 30%, var(--superficie));
+  animation: lugar-entra 0.3s ease-out;
+}
+
+.box-inicial {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--color);
+  color: #1a1a1a;
+  font-family: var(--fuente-titulos);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+@keyframes lugar-entra {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+
+.box-opciones {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.box-opcion {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  text-align: left;
+}
+
+.box-opcion:hover:not(:disabled) {
+  border-color: var(--acento);
+}
+
+.box-opcion:disabled {
+  opacity: 0.5;
+}
+
+.box-opcion small {
+  color: var(--suave);
+}
+
+.box-punto {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--color);
+}
+
+.box-cuenta {
+  color: var(--acento);
+  font-weight: 700;
+}
+
+.box-regalo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.box-regalo input {
+  accent-color: var(--acento);
+}
+
+/* ---------- Burger ---------- */
+
+.burger-cuerpo {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 52rem) {
+  .burger-cuerpo {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+  }
+}
+
+.burger-escena {
+  display: grid;
+  place-items: end center;
+  min-height: 16rem;
+  padding: 1rem;
+  border-radius: var(--radio);
+  background: radial-gradient(ellipse at 50% 95%, rgb(0 0 0 / 0.18), transparent 55%), var(--superficie);
+}
+
+.burger-dibujo {
+  width: min(100%, 20rem);
+  max-height: 26rem;
+}
+
+.burger-capa:last-of-type,
+.burger-tapa {
+  animation: capa-cae 0.35s cubic-bezier(0.3, 1.4, 0.6, 1);
+}
+
+@keyframes capa-cae {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
+
+.burger-capas {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.burger-capa-fila {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.burger-muestra {
+  width: 1.4rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--color);
+}
+
+.burger-capa-nombre {
+  display: grid;
+}
+
+.burger-capa-nombre small {
+  color: var(--suave);
+  font-size: 0.78rem;
+}
+
+.armador-resumen-titulo {
+  display: none;
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+@media (min-width: 60rem) {
+  .armador > .armador-resumen {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.08);
+  }
+  .armador-resumen-titulo {
+    display: block;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px dashed var(--linea);
+  }
+  .armador-sumar {
+    width: 100%;
+  }
+}

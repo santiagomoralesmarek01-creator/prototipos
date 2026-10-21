@@ -1,0 +1,72 @@
+{
+  "slug": "bodegon-el-farol",
+  "nombre": "Bodegón El Farol",
+  "descripcion": "Cocina de bodegón porteño desde 1974: milanesas, pastas caseras y parrilla.",
+  "demo": true,
+  "plan": "carta",
+  "marca": { "color": "#7a2638", "colorOscuro": "#e0909f" },
+  "eslogan": "Platos abundantes, como en casa de la abuela.",
+  "historia": [
+    "Don Ernesto abrió El Farol en 1974 con seis mesas y una cocina a la vista. Hoy lo atienden sus nietos, con las mismas recetas."
+  ],
+  "destacados": ["mila-napo", "ravioles", "flan"],
+  "turnos": [
+    { "dias": [2, 3, 4, 5, 6], "abre": "12:00", "cierra": "15:30" },
+    { "dias": [2, 3, 4, 5, 6], "abre": "20:00", "cierra": "00:00" },
+    { "dias": [0], "abre": "12:00", "cierra": "16:00" }
+  ],
+  "whatsapp": "5491123456701",
+  "direccion": "Av. San Juan 2150, San Cristóbal",
+  "instagram": "bodegonelfarol",
+  "mediosDePago": ["Efectivo", "Débito", "Crédito", "Mercado Pago"],
+  "envio": { "disponible": false },
+  "categorias": [
+    {
+      "id": "entradas",
+      "nombre": "Entradas",
+      "productos": [
+        { "id": "provoleta", "nombre": "Provoleta a la parrilla", "descripcion": "Con orégano, ají molido y aceite de oliva.", "precio": 9500, "etiquetas": ["vegetariano", "sin-tacc"] },
+        { "id": "empanadas-carne", "nombre": "Empanadas de carne cortada a cuchillo", "descripcion": "Fritas o al horno, la unidad.", "precio": 2400 },
+        { "id": "rabas", "nombre": "Rabas", "descripcion": "Con limón y salsa alioli.", "precio": 16500 },
+        { "id": "matambre", "nombre": "Matambre casero con rusa", "precio": 11800 }
+      ]
+    },
+    {
+      "id": "principales",
+      "nombre": "Principales",
+      "productos": [
+        { "id": "mila-napo", "nombre": "Milanesa napolitana con fritas", "descripcion": "De nalga, para compartir entre dos.", "precio": 24500 },
+        { "id": "bife-chorizo", "nombre": "Bife de chorizo", "descripcion": "400 g, con guarnición a elección.", "precio": 27900, "etiquetas": ["sin-tacc"] },
+        { "id": "pollo-verdeo", "nombre": "Suprema al verdeo", "descripcion": "Con puré de papas.", "precio": 19800 },
+        { "id": "merluza", "nombre": "Merluza a la romana", "descripcion": "Con ensalada mixta.", "precio": 18500, "agotado": true }
+      ]
+    },
+    {
+      "id": "pastas",
+      "nombre": "Pastas caseras",
+      "productos": [
+        { "id": "ravioles", "nombre": "Ravioles de verdura y ricota", "descripcion": "Con estofado o salsa mixta.", "precio": 16900, "etiquetas": ["vegetariano"] },
+        { "id": "sorrentinos", "nombre": "Sorrentinos de jamón y queso", "precio": 17500 },
+        { "id": "noquis", "nombre": "Ñoquis de papa", "descripcion": "Los 29, con la salsa que quieras.", "precio": 14500, "etiquetas": ["vegetariano"] }
+      ]
+    },
+    {
+      "id": "postres",
+      "nombre": "Postres",
+      "productos": [
+        { "id": "flan", "nombre": "Flan casero mixto", "descripcion": "Con dulce de leche y crema.", "precio": 7200, "etiquetas": ["vegetariano", "sin-tacc"] },
+        { "id": "budin-pan", "nombre": "Budín de pan", "precio": 6800, "etiquetas": ["vegetariano"] },
+        { "id": "queso-dulce", "nombre": "Queso y dulce", "descripcion": "Membrillo o batata.", "precio": 6500, "etiquetas": ["vegetariano", "sin-tacc"] }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "productos": [
+        { "id": "vino-casa", "nombre": "Vino de la casa", "descripcion": "Pingüino de 1 litro, tinto o blanco.", "precio": 12000 },
+        { "id": "sifon", "nombre": "Sifón de soda", "precio": 3000 },
+        { "id": "gaseosa", "nombre": "Gaseosa 1,5 l", "precio": 5500 }
+      ]
+    }
+  ]
+}

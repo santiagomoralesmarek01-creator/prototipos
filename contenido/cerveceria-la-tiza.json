@@ -1,0 +1,59 @@
+{
+  "slug": "cerveceria-la-tiza",
+  "nombre": "Cervecería La Tiza",
+  "descripcion": "Cerveza tirada, picadas y música en vivo los viernes.",
+  "demo": true,
+  "plan": "carta",
+  "marca": { "color": "#9c5a1a", "colorOscuro": "#f0b46a" },
+  "eslogan": "Doce canillas y una pizarra que cambia todas las semanas.",
+  "destacados": ["ipa", "papas-cheddar", "picada"],
+  "turnos": [
+    { "dias": [3, 4, 0], "abre": "18:00", "cierra": "01:00" },
+    { "dias": [5, 6], "abre": "18:00", "cierra": "03:00" }
+  ],
+  "whatsapp": "5493414567802",
+  "direccion": "Pellegrini 1240, Rosario",
+  "instagram": "latiza.birra",
+  "mediosDePago": ["Efectivo", "Débito", "Crédito", "Mercado Pago"],
+  "envio": { "disponible": false },
+  "categorias": [
+    {
+      "id": "canillas",
+      "nombre": "De la canilla",
+      "productos": [
+        { "id": "golden", "nombre": "Golden Ale", "descripcion": "Liviana y fresca. 4,8 % · pinta.", "precio": 5200 },
+        { "id": "ipa", "nombre": "IPA de la casa", "descripcion": "Lúpulos patagónicos, bien amarga. 6,5 % · pinta.", "precio": 6000 },
+        { "id": "honey", "nombre": "Honey", "descripcion": "Con miel de Entre Ríos. 5,5 % · pinta.", "precio": 5500 },
+        { "id": "stout", "nombre": "Stout", "descripcion": "Café y chocolate amargo. 5,9 % · pinta.", "precio": 5800 },
+        { "id": "apa", "nombre": "APA", "descripcion": "Cítrica, amargor medio. 5,6 % · pinta.", "precio": 5600, "agotado": true }
+      ]
+    },
+    {
+      "id": "para-picar",
+      "nombre": "Para picar",
+      "productos": [
+        { "id": "papas-cheddar", "nombre": "Papas con cheddar y panceta", "precio": 11500 },
+        { "id": "picada", "nombre": "Picada para dos", "descripcion": "Fiambres, quesos, aceitunas y pan de campo.", "precio": 22000 },
+        { "id": "nachos", "nombre": "Nachos con guacamole", "precio": 9800, "etiquetas": ["vegano", "sin-tacc"] },
+        { "id": "rabas-tiza", "nombre": "Aros de cebolla", "descripcion": "Rebozados en cerveza.", "precio": 8500, "etiquetas": ["vegetariano"] }
+      ]
+    },
+    {
+      "id": "hamburguesas",
+      "nombre": "Hamburguesas",
+      "productos": [
+        { "id": "clasica-tiza", "nombre": "Clásica", "descripcion": "Doble carne, cheddar y salsa de la casa, con papas.", "precio": 14500 },
+        { "id": "ahumada", "nombre": "Ahumada", "descripcion": "Panceta, cebolla caramelizada y barbacoa, con papas.", "precio": 15800 },
+        { "id": "veggie-tiza", "nombre": "De lentejas", "descripcion": "Con rúcula, tomate y mayonesa de ajo.", "precio": 13500, "etiquetas": ["vegano"] }
+      ]
+    },
+    {
+      "id": "sin-alcohol",
+      "nombre": "Sin alcohol",
+      "productos": [
+        { "id": "limonada", "nombre": "Limonada con jengibre", "precio": 4500, "etiquetas": ["vegano", "sin-tacc"] },
+        { "id": "agua", "nombre": "Agua con o sin gas", "precio": 2800 }
+      ]
+    }
+  ]
+}

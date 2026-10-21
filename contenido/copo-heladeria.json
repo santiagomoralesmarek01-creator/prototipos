@@ -1,0 +1,54 @@
+{
+  "slug": "copo-heladeria",
+  "nombre": "Copo Heladería",
+  "descripcion": "Helado artesanal hecho todos los días, con leche de tambo y fruta de estación.",
+  "demo": true,
+  "plan": "carta",
+  "marca": { "color": "#1f4e79", "colorOscuro": "#8fb4dc" },
+  "eslogan": "Helado de verdad, hecho a la vuelta.",
+  "destacados": ["kilo", "ddl-granizado", "pistacho"],
+  "turnos": [{ "dias": [0, 1, 2, 3, 4, 5, 6], "abre": "13:00", "cierra": "00:00" }],
+  "whatsapp": "5492234567803",
+  "direccion": "Güemes 2870, Mar del Plata",
+  "mediosDePago": ["Efectivo", "Débito", "Mercado Pago"],
+  "envio": { "disponible": false },
+  "categorias": [
+    {
+      "id": "potes",
+      "nombre": "Potes",
+      "productos": [
+        { "id": "cuarto", "nombre": "1/4 kg", "descripcion": "Hasta 3 sabores.", "precio": 6500 },
+        { "id": "medio", "nombre": "1/2 kg", "descripcion": "Hasta 4 sabores.", "precio": 11500 },
+        { "id": "kilo", "nombre": "1 kg", "descripcion": "Hasta 4 sabores.", "precio": 20000 }
+      ]
+    },
+    {
+      "id": "cucuruchos",
+      "nombre": "Cucuruchos y vasitos",
+      "productos": [
+        { "id": "simple", "nombre": "Simple", "descripcion": "Una bocha.", "precio": 3800 },
+        { "id": "doble", "nombre": "Doble", "descripcion": "Dos bochas.", "precio": 5200 },
+        { "id": "vaso-sin-tacc", "nombre": "Vasito sin TACC", "descripcion": "Dos bochas.", "precio": 5200, "etiquetas": ["sin-tacc"] }
+      ]
+    },
+    {
+      "id": "sabores",
+      "nombre": "Sabores de la semana",
+      "productos": [
+        { "id": "ddl-granizado", "nombre": "Dulce de leche granizado", "precio": 3800 },
+        { "id": "pistacho", "nombre": "Pistacho", "descripcion": "Con pistachos tostados de San Juan.", "precio": 4500 },
+        { "id": "frutilla-agua", "nombre": "Frutilla al agua", "precio": 3800, "etiquetas": ["vegano", "sin-tacc"] },
+        { "id": "chocolate-amargo", "nombre": "Chocolate amargo 70 %", "precio": 3800, "etiquetas": ["sin-tacc"] },
+        { "id": "maracuya", "nombre": "Maracuyá", "precio": 3800, "etiquetas": ["vegano"], "agotado": true }
+      ]
+    },
+    {
+      "id": "postres-helados",
+      "nombre": "Postres helados",
+      "productos": [
+        { "id": "almendrado", "nombre": "Almendrado", "descripcion": "8 porciones.", "precio": 14000 },
+        { "id": "bombones", "nombre": "Bombón escocés", "descripcion": "Caja de 6.", "precio": 9000 }
+      ]
+    }
+  ]
+}

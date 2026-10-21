@@ -1,0 +1,579 @@
+/* Plantilla "Barrio": papel crema, terracota, títulos en slab. Pensada para rotiserías. */
+
+:root {
+  --fondo: #faf6ef;
+  --superficie: #fffdf9;
+  --texto: #2a1f1a;
+  --suave: #6d5d52;
+  --linea: #e4d8c8;
+  --acento: var(--marca, #9c3f27);
+  --sobre-acento: #fff;
+  --papel: #f3e9d8;
+  --fuente: "Work Sans", system-ui, sans-serif;
+  --fuente-titulos: "Bitter", Georgia, serif;
+  --radio: 10px;
+  color-scheme: light;
+}
+
+[data-tema="oscuro"] {
+  --fondo: #17120f;
+  --superficie: #221a16;
+  --texto: #f4ebe1;
+  --suave: #b6a597;
+  --linea: #3a2e27;
+  --acento: var(--marca-oscuro, #e39a7f);
+  --sobre-acento: #1a120e;
+  --papel: #2a201b;
+  color-scheme: dark;
+}
+
+body {
+  background-image: radial-gradient(rgb(0 0 0 / 0.035) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+main {
+  overflow-x: clip;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 2px solid var(--texto);
+  background: var(--fondo);
+}
+
+.cabecera-marca {
+  font-family: var(--fuente-titulos);
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.cabecera-nav {
+  display: none;
+  gap: 1.25rem;
+  margin-left: auto;
+  font-weight: 500;
+}
+
+.cabecera-nav a {
+  text-decoration: none;
+}
+
+.cabecera-nav a:hover {
+  color: var(--acento);
+}
+
+.cabecera .boton-tema {
+  margin-left: auto;
+}
+
+@media (min-width: 52rem) {
+  .cabecera-nav {
+    display: flex;
+  }
+  .cabecera .boton-tema {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Portada ---------- */
+
+.portada {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+}
+
+@media (min-width: 52rem) {
+  .portada {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.portada-titulo {
+  margin: 0.6rem 0 1rem;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(2.6rem, 8vw, 4.8rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+.portada-bajada {
+  max-width: 34rem;
+  margin: 0 0 1.5rem;
+  color: var(--suave);
+  font-size: 1.1rem;
+}
+
+.portada-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.boton {
+  padding: 0.85rem 1.4rem;
+  border: 2px solid var(--texto);
+  border-radius: var(--radio);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.boton-principal {
+  background: var(--acento);
+  color: var(--sobre-acento);
+  box-shadow: 4px 4px 0 var(--texto);
+}
+
+.boton-principal:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--texto);
+}
+
+.boton-secundario {
+  background: var(--superficie);
+}
+
+.portada-dibujo {
+  color: var(--texto);
+}
+
+.portada-dibujo svg {
+  width: min(100%, 26rem);
+  margin: 0 auto;
+}
+
+.relleno-papel {
+  fill: var(--papel);
+}
+
+.relleno-acento {
+  fill: var(--acento);
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.3rem 0.8rem;
+  border: 1.5px solid var(--texto);
+  border-radius: 999px;
+  background: var(--superficie);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.estado::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #b0453a;
+}
+
+.estado[data-abierto="true"]::before {
+  background: #3c9a5f;
+  box-shadow: 0 0 0 4px rgb(60 154 95 / 0.2);
+}
+
+/* ---------- Cinta ---------- */
+
+.cinta {
+  overflow: hidden;
+  border-block: 2px solid var(--texto);
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-family: var(--fuente-titulos);
+  font-size: 1.2rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cinta-pista {
+  display: inline-flex;
+  padding: 0.6rem 0;
+  animation: cinta 30s linear infinite;
+}
+
+.cinta-palabra::after {
+  content: "✶";
+  margin: 0 1.25rem;
+}
+
+@keyframes cinta {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Secciones ---------- */
+
+.seccion {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.seccion-titulo {
+  margin: 0 0 1.5rem;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+  line-height: 1.1;
+}
+
+/* Bandas: papel con borde festoneado para los armadores, oscura para la historia. */
+.banda-armador {
+  position: relative;
+  background: var(--papel);
+  border-block: 2px solid var(--texto);
+}
+
+.banda-armador::before,
+.banda-armador::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: radial-gradient(circle at 8px -2px, transparent 8px, var(--papel) 9px) 0 0 / 16px 12px repeat-x;
+}
+
+.banda-armador::before {
+  top: -14px;
+  transform: scaleY(-1);
+  background: radial-gradient(circle at 8px 14px, var(--papel) 8px, transparent 9px) 0 0 / 16px 12px repeat-x;
+}
+
+.banda-armador::after {
+  display: none;
+}
+
+.banda-historia {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.banda-historia .cifras li {
+  border-left-color: var(--sobre-acento);
+  background: rgb(0 0 0 / 0.12);
+}
+
+.banda-historia .cifras span {
+  color: inherit;
+  opacity: 0.8;
+}
+
+.banda-datos {
+  background: repeating-linear-gradient(-45deg, transparent 0 14px, rgb(0 0 0 / 0.025) 14px 28px);
+}
+
+.destacado-dibujo {
+  justify-self: end;
+  margin: -3.2rem -0.5rem -0.5rem 0;
+  transform: rotate(8deg);
+  transition: transform 0.25s;
+}
+
+.destacado:hover .destacado-dibujo {
+  transform: rotate(-4deg) scale(1.08);
+}
+
+.carta-categoria-dibujo {
+  color: var(--texto);
+}
+
+.destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destacado {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  gap: 0.4rem;
+  padding: 1.25rem;
+  border: 2px solid var(--texto);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  box-shadow: 5px 5px 0 var(--acento);
+}
+
+.destacado-numero {
+  color: var(--acento);
+  font-family: var(--fuente-titulos);
+  font-weight: 800;
+}
+
+.destacado-nombre {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+}
+
+.destacado-desc {
+  margin: 0;
+  color: var(--suave);
+  font-size: 0.92rem;
+}
+
+.destacado-precio {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ---------- Carta ---------- */
+
+.carta-barra {
+  position: sticky;
+  top: 3.4rem;
+  z-index: 5;
+  display: grid;
+  gap: 0.5rem;
+  margin: 0 calc(-1 * clamp(1rem, 4vw, 3rem)) 1rem;
+  padding: 0.6rem clamp(1rem, 4vw, 3rem);
+  background: var(--fondo);
+}
+
+.carta-nav ul,
+.carta-filtros {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.carta-nav a,
+.carta-filtros button {
+  display: block;
+  padding: 0.4rem 0.9rem;
+  border: 1.5px solid var(--linea);
+  border-radius: 999px;
+  background: var(--superficie);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.carta-nav a[aria-current] {
+  border-color: var(--texto);
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+.carta-filtros button {
+  font-size: 0.8rem;
+}
+
+.carta-filtros [aria-pressed="true"] {
+  border-color: var(--acento);
+  color: var(--acento);
+  font-weight: 600;
+}
+
+.carta-cuerpo {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 60rem) {
+  .carta-cuerpo {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3rem;
+    align-items: start;
+  }
+}
+
+.carta-categoria-titulo {
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+}
+
+.carta-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-producto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px dashed var(--linea);
+}
+
+.carta-producto[data-agotado] {
+  opacity: 0.55;
+}
+
+.carta-producto-nombre {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.carta-producto-desc {
+  margin: 0.1rem 0 0;
+  color: var(--suave);
+  font-size: 0.88rem;
+}
+
+.carta-producto-etiquetas {
+  color: var(--acento);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.carta-producto-precio {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.carta-producto .control {
+  grid-column: 2;
+  justify-self: end;
+}
+
+/* ---------- Historia y datos ---------- */
+
+.seccion-historia {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 52rem) {
+  .seccion-historia {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3rem;
+  }
+  .seccion-historia .seccion-titulo {
+    grid-column: 1 / -1;
+  }
+}
+
+.cifras {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cifras li {
+  display: grid;
+  padding: 1rem 1.25rem;
+  border-left: 6px solid var(--acento);
+  background: var(--superficie);
+}
+
+.cifras strong {
+  font-family: var(--fuente-titulos);
+  font-size: 2.2rem;
+  line-height: 1.1;
+}
+
+.cifras span {
+  color: var(--suave);
+}
+
+.historia-texto p {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+.datos-bloque {
+  padding: 1.25rem;
+  border: 2px solid var(--texto);
+  border-radius: var(--radio);
+  background: var(--superficie);
+}
+
+.datos-bloque h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--fuente-titulos);
+}
+
+.datos-bloque p,
+.datos-bloque ul {
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.datos-enlace {
+  display: inline-block;
+  margin-right: 1rem;
+  color: var(--acento);
+  font-weight: 600;
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  margin-top: 2rem;
+  padding: 2.5rem 1rem 6rem;
+  background: var(--texto);
+  color: var(--fondo);
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.2rem 0;
+}
+
+.pie-nombre {
+  font-family: var(--fuente-titulos);
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.pie-direccion {
+  opacity: 0.75;
+}
+
+.pie-enlace {
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.pie .firma {
+  color: inherit;
+  opacity: 0.6;
+}
+
+[data-modo="salon"] .portada-dibujo {
+  display: none;
+}

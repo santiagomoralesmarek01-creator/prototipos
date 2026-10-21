@@ -1,0 +1,274 @@
+{
+  "slug": "humo-burgers",
+  "nombre": "Humo Burgers",
+  "descripcion": "Hamburguesas smash, papas cortadas a mano y salsas de la casa. Retiro y envío en Córdoba.",
+  "demo": true,
+  "plan": "plus",
+  "marca": {
+    "color": "#b3261e",
+    "colorOscuro": "#ffb4a9"
+  },
+  "eslogan": "Smash, papas y nada más.",
+  "historia": [
+    "Empezamos con un carro en Güemes en 2021. Hoy tenemos plancha propia, pan horneado acá y la misma regla: carne aplastada en el momento."
+  ],
+  "destacados": [
+    "doble-humo",
+    "triple-bacon",
+    "papas-humo"
+  ],
+  "cifras": [
+    {
+      "valor": "100 %",
+      "texto": "carne picada en el día"
+    },
+    {
+      "valor": "25'",
+      "texto": "demora promedio del envío"
+    }
+  ],
+  "turnos": [
+    {
+      "dias": [
+        2,
+        3,
+        4,
+        0
+      ],
+      "abre": "19:30",
+      "cierra": "00:00"
+    },
+    {
+      "dias": [
+        5,
+        6
+      ],
+      "abre": "19:30",
+      "cierra": "01:30"
+    }
+  ],
+  "whatsapp": "5493514567806",
+  "direccion": "Belgrano 815, Güemes, Córdoba",
+  "instagram": "humo.burgers",
+  "mediosDePago": [
+    "Efectivo",
+    "Transferencia",
+    "Mercado Pago"
+  ],
+  "envio": {
+    "disponible": true,
+    "costo": 2000,
+    "zona": "Nueva Córdoba, Güemes y Centro"
+  },
+  "categorias": [
+    {
+      "id": "burgers",
+      "nombre": "Burgers",
+      "productos": [
+        {
+          "id": "simple-humo",
+          "nombre": "Simple",
+          "descripcion": "Un medallón smash, cheddar, pepinos y salsa Humo.",
+          "precio": 9500
+        },
+        {
+          "id": "doble-humo",
+          "nombre": "Doble Humo",
+          "descripcion": "Dos medallones, doble cheddar, cebolla a la plancha.",
+          "precio": 12500
+        },
+        {
+          "id": "triple-bacon",
+          "nombre": "Triple bacon",
+          "descripcion": "Tres medallones, panceta crocante y barbacoa.",
+          "precio": 15500
+        },
+        {
+          "id": "blue",
+          "nombre": "Blue",
+          "descripcion": "Doble, queso azul y cebolla caramelizada.",
+          "precio": 13500
+        },
+        {
+          "id": "notburger",
+          "nombre": "Not burger",
+          "descripcion": "Medallón de garbanzos, cheddar vegano.",
+          "precio": 11500,
+          "etiquetas": [
+            "vegano"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "papas",
+      "nombre": "Papas",
+      "productos": [
+        {
+          "id": "papas-humo",
+          "nombre": "Papas Humo",
+          "descripcion": "Con cheddar, panceta y verdeo.",
+          "precio": 7500
+        },
+        {
+          "id": "papas-simples",
+          "nombre": "Papas clásicas",
+          "precio": 5000,
+          "etiquetas": [
+            "vegano",
+            "sin-tacc"
+          ]
+        },
+        {
+          "id": "papas-batata",
+          "nombre": "Bastones de batata",
+          "precio": 5800,
+          "etiquetas": [
+            "vegano",
+            "sin-tacc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "combos",
+      "nombre": "Combos",
+      "productos": [
+        {
+          "id": "combo-doble",
+          "nombre": "Combo Doble",
+          "descripcion": "Doble Humo, papas clásicas y bebida.",
+          "precio": 17500
+        },
+        {
+          "id": "combo-amigos",
+          "nombre": "Combo para dos",
+          "descripcion": "Dos dobles, papas grandes y dos bebidas.",
+          "precio": 33000
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "productos": [
+        {
+          "id": "lata",
+          "nombre": "Gaseosa en lata",
+          "precio": 2500
+        },
+        {
+          "id": "birra",
+          "nombre": "Cerveza artesanal 473 ml",
+          "precio": 4500
+        },
+        {
+          "id": "agua-humo",
+          "nombre": "Agua",
+          "precio": 2000,
+          "agotado": true
+        }
+      ]
+    }
+  ],
+  "armadores": [
+    {
+      "tipo": "burger",
+      "titulo": "Armá tu burger",
+      "bajada": "Sumá medallones, quesos y extras, y mirala crecer. El precio se arma solo.",
+      "nombre": "Burger a tu manera",
+      "panes": [
+        {
+          "id": "papa",
+          "nombre": "Pan de papa",
+          "precio": 4000
+        },
+        {
+          "id": "brioche",
+          "nombre": "Brioche",
+          "precio": 4500,
+          "color": "#e0a24f"
+        },
+        {
+          "id": "negro",
+          "nombre": "Pan negro",
+          "precio": 4500,
+          "color": "#6b4a2f",
+          "semillas": false
+        }
+      ],
+      "capas": [
+        {
+          "id": "medallon",
+          "nombre": "Medallón smash",
+          "precio": 3000,
+          "min": 1,
+          "max": 4,
+          "inicial": 2,
+          "forma": "medallon"
+        },
+        {
+          "id": "cheddar",
+          "nombre": "Cheddar",
+          "precio": 900,
+          "max": 4,
+          "inicial": 2,
+          "forma": "queso"
+        },
+        {
+          "id": "panceta",
+          "nombre": "Panceta",
+          "precio": 1400,
+          "max": 3,
+          "forma": "panceta",
+          "color": "#c2453a"
+        },
+        {
+          "id": "huevo",
+          "nombre": "Huevo a la plancha",
+          "precio": 1100,
+          "max": 2,
+          "forma": "huevo"
+        },
+        {
+          "id": "cebolla",
+          "nombre": "Cebolla caramelizada",
+          "precio": 700,
+          "max": 2,
+          "forma": "cebolla",
+          "color": "#b86f2c"
+        },
+        {
+          "id": "pepinos",
+          "nombre": "Pepinos",
+          "precio": 400,
+          "max": 1,
+          "forma": "pepino"
+        },
+        {
+          "id": "lechuga",
+          "nombre": "Lechuga",
+          "precio": 400,
+          "max": 1,
+          "forma": "hoja"
+        },
+        {
+          "id": "tomate",
+          "nombre": "Tomate",
+          "precio": 500,
+          "max": 1,
+          "forma": "tomate"
+        },
+        {
+          "id": "salsa",
+          "nombre": "Salsa Humo",
+          "precio": 300,
+          "max": 1,
+          "inicial": 1,
+          "forma": "salsa"
+        }
+      ],
+      "menu": "Armá tu burger"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "slug": "cafe-brote",
+  "nombre": "Café Brote",
+  "descripcion": "Café de especialidad, pastelería casera y brunch todo el día en Palermo.",
+  "demo": true,
+  "plan": "local",
+  "marca": {
+    "color": "#2f5d50",
+    "colorOscuro": "#8cc2ad"
+  },
+  "eslogan": "Un buen café cambia el día.",
+  "historia": [
+    "Brote nació en 2019 de dos amigas baristas y una receta de budín de limón. Tostamos el café en el barrio y horneamos todo acá, todas las mañanas."
+  ],
+  "destacados": [
+    "flat-white",
+    "medialunas",
+    "tostado-palta"
+  ],
+  "cifras": [
+    {
+      "valor": "2019",
+      "texto": "abrimos la primera mesa"
+    },
+    {
+      "valor": "3",
+      "texto": "orígenes de café rotando"
+    }
+  ],
+  "turnos": [
+    {
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "abre": "08:00",
+      "cierra": "19:00"
+    },
+    {
+      "dias": [
+        6,
+        0
+      ],
+      "abre": "09:00",
+      "cierra": "20:00"
+    }
+  ],
+  "whatsapp": "5491123456705",
+  "direccion": "Gorriti 4920, Palermo",
+  "instagram": "brote.cafe",
+  "mediosDePago": [
+    "Efectivo",
+    "Transferencia",
+    "Mercado Pago",
+    "Débito"
+  ],
+  "envio": {
+    "disponible": true,
+    "costo": 1800,
+    "zona": "Palermo y Villa Crespo"
+  },
+  "categorias": [
+    {
+      "id": "cafe",
+      "nombre": "Café",
+      "productos": [
+        {
+          "id": "espresso",
+          "nombre": "Espresso",
+          "precio": 2800
+        },
+        {
+          "id": "cortado",
+          "nombre": "Cortado",
+          "precio": 3200
+        },
+        {
+          "id": "flat-white",
+          "nombre": "Flat white",
+          "descripcion": "Doble espresso con leche texturizada.",
+          "precio": 4200
+        },
+        {
+          "id": "filtrado",
+          "nombre": "Filtrado del día",
+          "descripcion": "V60 con el origen de la semana.",
+          "precio": 4500,
+          "etiquetas": [
+            "vegano"
+          ]
+        },
+        {
+          "id": "latte-avena",
+          "nombre": "Latte con leche de avena",
+          "precio": 4600,
+          "etiquetas": [
+            "vegano"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pasteleria",
+      "nombre": "Pastelería",
+      "productos": [
+        {
+          "id": "medialunas",
+          "nombre": "Medialunas de manteca",
+          "descripcion": "Tres, recién horneadas.",
+          "precio": 3600,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "budin-limon",
+          "nombre": "Budín de limón y amapola",
+          "descripcion": "Porción.",
+          "precio": 3900,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "cookie",
+          "nombre": "Cookie de chocolate",
+          "precio": 3200,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "brownie-sin-tacc",
+          "nombre": "Brownie sin TACC",
+          "precio": 4200,
+          "etiquetas": [
+            "sin-tacc",
+            "vegetariano"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brunch",
+      "nombre": "Brunch",
+      "productos": [
+        {
+          "id": "tostado-palta",
+          "nombre": "Tostón de palta y huevo",
+          "descripcion": "Pan de masa madre, palta, huevo poché y semillas.",
+          "precio": 9800,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "tostado-jyq",
+          "nombre": "Tostado de jamón y queso",
+          "descripcion": "En pan de molde casero.",
+          "precio": 7500
+        },
+        {
+          "id": "yogur",
+          "nombre": "Yogur con granola y frutas",
+          "precio": 6800,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "combo-brunch",
+          "nombre": "Combo brunch",
+          "descripcion": "Café, jugo, tostón a elección y algo dulce.",
+          "precio": 15500
+        }
+      ]
+    },
+    {
+      "id": "frios",
+      "nombre": "Fríos",
+      "productos": [
+        {
+          "id": "cold-brew",
+          "nombre": "Cold brew",
+          "precio": 4800,
+          "etiquetas": [
+            "vegano"
+          ]
+        },
+        {
+          "id": "limonada-brote",
+          "nombre": "Limonada de menta y jengibre",
+          "precio": 4500,
+          "etiquetas": [
+            "vegano"
+          ]
+        },
+        {
+          "id": "jugo",
+          "nombre": "Jugo de naranja exprimido",
+          "precio": 4200,
+          "etiquetas": [
+            "vegano"
+          ]
+        }
+      ]
+    }
+  ],
+  "armadores": [
+    {
+      "tipo": "box",
+      "titulo": "Armá tu box de merienda",
+      "bajada": "Llená la caja con lo que más te guste. Ideal para regalar o para la oficina.",
+      "nombre": "Box de merienda",
+      "categorias": [
+        "pasteleria"
+      ],
+      "tamanios": [
+        {
+          "lugares": 4,
+          "descuento": 0
+        },
+        {
+          "lugares": 6,
+          "descuento": 10
+        },
+        {
+          "lugares": 9,
+          "descuento": 15
+        }
+      ],
+      "regalo": 1500,
+      "menu": "Box de merienda"
+    }
+  ]
+}

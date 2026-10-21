@@ -1,0 +1,386 @@
+/* Base de todas las plantillas: reset, pedido (barra y hoja), firma y avisos.
+   Cada plantilla define estas variables en su estilo.css, para claro y para [data-tema="oscuro"]:
+   --fondo, --superficie, --texto, --suave, --linea, --acento, --sobre-acento,
+   --fuente, --fuente-titulos, --radio. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.aviso-demo {
+  margin: 0;
+  padding: 0.45rem 1rem;
+  background: var(--texto);
+  color: var(--fondo);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.sin-datos {
+  max-width: 30rem;
+  margin: 30vh auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.firma {
+  margin: 0;
+  padding: 1.5rem 1rem 2rem;
+  color: var(--suave);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.boton-tema {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.8rem;
+}
+
+/* ---------- Control de cantidad de cada producto ---------- */
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.control-agregar {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--acento);
+  border-radius: var(--radio);
+  background: transparent;
+  color: var(--acento);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.control-agregar:hover {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.control-paso {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: var(--radio);
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.control-cantidad {
+  min-width: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.control-agotado {
+  color: var(--suave);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* ---------- Barra de pedido ---------- */
+
+.pedido-barra {
+  position: fixed;
+  z-index: 20;
+  inset: auto 1rem max(1rem, env(safe-area-inset-bottom)) 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 0.85rem 1.1rem;
+  border: 0;
+  border-radius: var(--radio);
+  background: var(--acento);
+  color: var(--sobre-acento);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.25);
+  animation: barra-entra 0.25s ease-out;
+}
+
+.pedido-barra[hidden] {
+  display: none;
+}
+
+.pedido-barra strong {
+  margin-left: auto;
+}
+
+.pedido-barra-cantidad {
+  display: grid;
+  place-items: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: var(--sobre-acento);
+  color: var(--acento);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+@keyframes barra-entra {
+  from {
+    transform: translateY(120%);
+  }
+}
+
+/* ---------- Hoja de pedido ---------- */
+
+.pedido-hoja {
+  width: min(34rem, 100%);
+  max-height: 92vh;
+  margin: auto auto 0;
+  padding: 1.25rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+  border: 0;
+  border-radius: var(--radio) var(--radio) 0 0;
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+@media (min-width: 40rem) {
+  .pedido-hoja {
+    margin: auto;
+    border-radius: var(--radio);
+  }
+}
+
+.pedido-hoja::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+.pedido-hoja[open] {
+  animation: hoja-entra 0.25s ease-out;
+}
+
+@keyframes hoja-entra {
+  from {
+    transform: translateY(2rem);
+    opacity: 0;
+  }
+}
+
+.pedido-cabeza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.pedido-cabeza h2 {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+}
+
+.pedido-cerrar {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: transparent;
+  font-size: 0.85rem;
+}
+
+.pedido-vacio {
+  color: var(--suave);
+}
+
+.pedido-lineas {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.pedido-lineas li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 0.75rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.pedido-linea-precio {
+  grid-column: 2;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pedido-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.pedido-campo {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.pedido-campo input,
+.pedido-campo select,
+.pedido-campo textarea {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--fondo);
+}
+
+.pedido-entrega {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 0.9rem;
+}
+
+.pedido-entrega legend {
+  margin-bottom: 0.3rem;
+}
+
+.pedido-opcion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pedido-opcion input {
+  accent-color: var(--acento);
+}
+
+.pedido-nota {
+  margin: 0;
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+.pedido-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+.pedido-total strong {
+  margin-left: auto;
+  color: var(--texto);
+  font-size: 1.15rem;
+}
+
+.pedido-enviar {
+  padding: 0.9rem;
+  border: 0;
+  border-radius: var(--radio);
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.pedido-barra-salta {
+  animation: barra-salta 0.4s ease-out;
+}
+
+@keyframes barra-salta {
+  40% {
+    transform: scale(1.04);
+  }
+}
+
+.pedido-linea-nombre small {
+  display: block;
+  color: var(--suave);
+  font-size: 0.8rem;
+}
+
+.carta-categoria-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.carta-categoria-dibujo {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+}
+
+.destacado-dibujo {
+  width: 4.5rem;
+  height: 4.5rem;
+}

@@ -1,0 +1,244 @@
+{
+  "slug": "rotiseria-don-tito",
+  "nombre": "Rotisería Don Tito",
+  "descripcion": "Empanadas, milanesas y comida casera para llevar o con envío, en Villa Urquiza.",
+  "demo": true,
+  "plan": "local",
+  "marca": {
+    "color": "#9c3f27",
+    "colorOscuro": "#e39a7f"
+  },
+  "eslogan": "Comida casera, lista para llevar.",
+  "historia": [
+    "Tito empezó vendiendo empanadas por la ventana de su casa en 1998. La fila llegó a la esquina y tuvo que abrir el local.",
+    "Seguimos cocinando todo en el día, con la misma receta de masa y el mismo horno."
+  ],
+  "destacados": [
+    "emp-carne",
+    "mila-papas",
+    "tarta-jyq"
+  ],
+  "cifras": [
+    {
+      "valor": "1998",
+      "texto": "abrimos en el barrio"
+    },
+    {
+      "valor": "40",
+      "texto": "docenas por día"
+    },
+    {
+      "valor": "20",
+      "texto": "cuadras de envío"
+    }
+  ],
+  "turnos": [
+    {
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "abre": "11:00",
+      "cierra": "15:00"
+    },
+    {
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "abre": "19:00",
+      "cierra": "23:30"
+    },
+    {
+      "dias": [
+        0
+      ],
+      "abre": "11:00",
+      "cierra": "15:00"
+    }
+  ],
+  "whatsapp": "5491123456704",
+  "direccion": "Triunvirato 4580, Villa Urquiza",
+  "instagram": "rotiseriadontito",
+  "mediosDePago": [
+    "Efectivo",
+    "Transferencia",
+    "Mercado Pago"
+  ],
+  "envio": {
+    "disponible": true,
+    "costo": 1500,
+    "zona": "Hasta 20 cuadras"
+  },
+  "categorias": [
+    {
+      "id": "empanadas",
+      "nombre": "Empanadas",
+      "productos": [
+        {
+          "id": "emp-carne",
+          "nombre": "Carne suave",
+          "descripcion": "Al horno, la unidad.",
+          "precio": 1800
+        },
+        {
+          "id": "emp-pollo",
+          "nombre": "Pollo",
+          "precio": 1800
+        },
+        {
+          "id": "emp-jyq",
+          "nombre": "Jamón y queso",
+          "precio": 1800
+        },
+        {
+          "id": "emp-humita",
+          "nombre": "Humita",
+          "precio": 1800,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "emp-cyq",
+          "nombre": "Cebolla y queso",
+          "precio": 1800,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "docena",
+          "nombre": "Docena surtida",
+          "descripcion": "Elegí los gustos en las aclaraciones.",
+          "precio": 19500
+        }
+      ]
+    },
+    {
+      "id": "minutas",
+      "nombre": "Minutas",
+      "productos": [
+        {
+          "id": "mila-papas",
+          "nombre": "Milanesa con papas fritas",
+          "descripcion": "De carne o de pollo.",
+          "precio": 12500
+        },
+        {
+          "id": "mila-napo-tito",
+          "nombre": "Milanesa napolitana con puré",
+          "precio": 14500
+        },
+        {
+          "id": "pollo-papas",
+          "nombre": "1/2 pollo al spiedo con papas",
+          "precio": 13800,
+          "etiquetas": [
+            "sin-tacc"
+          ]
+        },
+        {
+          "id": "tortilla",
+          "nombre": "Tortilla de papas",
+          "descripcion": "Babé o cocida.",
+          "precio": 9800,
+          "etiquetas": [
+            "vegetariano",
+            "sin-tacc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tartas",
+      "nombre": "Tartas",
+      "productos": [
+        {
+          "id": "tarta-jyq",
+          "nombre": "Jamón y queso",
+          "descripcion": "Entera, 8 porciones.",
+          "precio": 14000
+        },
+        {
+          "id": "tarta-verdura",
+          "nombre": "Verdura",
+          "descripcion": "Entera, 8 porciones.",
+          "precio": 13000,
+          "etiquetas": [
+            "vegetariano"
+          ]
+        },
+        {
+          "id": "tarta-calabaza",
+          "nombre": "Calabaza y queso",
+          "descripcion": "Entera, 8 porciones.",
+          "precio": 13000,
+          "etiquetas": [
+            "vegetariano"
+          ],
+          "agotado": true
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "productos": [
+        {
+          "id": "coca",
+          "nombre": "Gaseosa 1,5 l",
+          "precio": 4500
+        },
+        {
+          "id": "agua-tito",
+          "nombre": "Agua 1,5 l",
+          "precio": 2500
+        },
+        {
+          "id": "cerveza-tito",
+          "nombre": "Cerveza 1 l",
+          "precio": 5000
+        }
+      ]
+    }
+  ],
+  "armadores": [
+    {
+      "tipo": "vianda",
+      "titulo": "Armá tu semana de viandas",
+      "bajada": "Elegí un plato para cada día. Te las llevamos el lunes, listas para la heladera.",
+      "nombre": "Viandas de la semana",
+      "categorias": [
+        "minutas",
+        "tartas"
+      ],
+      "dias": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "descuentos": [
+        {
+          "desde": 3,
+          "porcentaje": 10
+        },
+        {
+          "desde": 5,
+          "porcentaje": 15
+        }
+      ],
+      "menu": "Viandas"
+    }
+  ]
+}
