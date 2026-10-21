@@ -1,7 +1,7 @@
 // Interfaz de los armadores (ver nucleo/armadores.js). Cada uno devuelve una <section class="armador">
 // lista para insertar; el aspecto base está en nucleo/armadores.css y cada plantilla lo ajusta
 // con sus variables.
-import { box, burger, cafe, juntada, mitades, pizza, vianda } from "./armadores.js";
+import { box, burger, cafe, juntada, menu, mitades, pizza, vianda } from "./armadores.js";
 import { dibujoPara, svgDibujo } from "./dibujos.js";
 import { formatearPesos } from "./formato.js";
 import { crear, svg } from "./pagina.js";
@@ -11,7 +11,7 @@ export function armadores(local, carrito) {
   return (local.armadores ?? []).map((cfg) => ARMADORES[cfg.tipo]?.(local, cfg, carrito)).filter(Boolean);
 }
 
-const ARMADORES = { vianda: armadorVianda, box: armadorBox, burger: armadorBurger, mitades: armadorMitades, juntada: armadorJuntada, cafe: armadorCafe, pizza: armadorPizza };
+const ARMADORES = { vianda: armadorVianda, box: armadorBox, burger: armadorBurger, mitades: armadorMitades, juntada: armadorJuntada, cafe: armadorCafe, pizza: armadorPizza, menu: armadorMenu };
 
 function cabeza(cfg, tituloPorDefecto, bajadaPorDefecto) {
   return crear(
@@ -770,6 +770,79 @@ function armadorPizza(local, cfg, carrito) {
     { className: "armador armador-pizza", id: "armador-pizza" },
     cabeza(cfg, "Armá tu pizza", "Elegí la masa, la salsa y los ingredientes."),
     crear("div", { className: "pizza-cuerpo" }, escena, opciones),
+    r.caja,
+  );
+}
+
+// ---------- Menú del día ----------
+
+/** Día de la semana (0 = domingo) y fecha larga de hoy, en hora argentina. */
+function hoyEnArgentina(fecha = new Date()) {
+  const zona = "America/Argentina/Buenos_Aires";
+  const dia = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(new Intl.DateTimeFormat("en-US", { timeZone: zona, weekday: "short" }).format(fecha));
+  const texto = new Intl.DateTimeFormat("es-AR", { timeZone: zona, weekday: "long", day: "numeric", month: "long" }).format(fecha);
+  return { dia, texto };
+}
+
+function armadorMenu(local, cfg, carrito) {
+  const hoy = hoyEnArgentina();
+  let eleccion = {};
+  const pasos = crear("ol", { className: "menu-pasos" });
+  const bandeja = crear("div", { className: "menu-bandeja", "aria-label": "Tu bandeja" });
+  const r = resumen("Tu menú");
+
+  function pintar() {
+    pasos.replaceChildren(
+      ...cfg.pasos.map((paso) =>
+        crear(
+          "li",
+          { className: "menu-paso" },
+          crear("p", { className: "cafe-grupo-titulo" }, paso.delDia ? `${paso.nombre} · el de hoy` : paso.nombre),
+          crear(
+            "div",
+            { className: "cafe-botones", role: "radiogroup", "aria-label": paso.nombre },
+            menu.opciones(paso, hoy.dia).map((o) =>
+              crear(
+                "button",
+                { type: "button", role: "radio", "aria-checked": String(eleccion[paso.id] === o.id), onclick: () => ((eleccion = { ...eleccion, [paso.id]: o.id }), pintar()) },
+                o.nombre,
+                o.extra ? crear("small", {}, `+${formatearPesos(o.extra)}`) : null,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    const c = menu.calcular(cfg, eleccion);
+    bandeja.replaceChildren(
+      ...c.elegidos.map(({ paso, opcion }, i) => {
+        const nombreDibujo = opcion ? dibujoPara({ id: opcion.id, nombre: opcion.nombre }) : null;
+        return crear(
+          "div",
+          { className: `menu-hueco${i === 0 ? " menu-hueco-plato" : ""}`, "data-lleno": opcion ? "" : null },
+          nombreDibujo ? svg(svgDibujo(nombreDibujo, "menu-dibujo")) : null,
+          crear("span", { className: "menu-hueco-nombre" }, opcion?.nombre ?? paso.nombre),
+        );
+      }),
+    );
+    r.precio.textContent = formatearPesos(c.total);
+    r.nota.textContent = c.completo ? "Menú completo" : `Falta: ${c.faltan.join(", ").toLowerCase()}`;
+    r.boton.disabled = !c.completo;
+  }
+
+  r.boton.addEventListener("click", () => {
+    carrito.agregar(menu.id(cfg, eleccion));
+    eleccion = {};
+    pintar();
+  });
+
+  pintar();
+  return crear(
+    "section",
+    { className: "armador armador-menu", id: "armador-menu" },
+    cabeza({ ...cfg, volanta: cfg.volanta ? `${cfg.volanta} · ${hoy.texto}` : hoy.texto }, "Menú del día", "Plato, guarnición, bebida y postre a precio fijo."),
+    crear("div", { className: "menu-cuerpo" }, bandeja, pasos),
     r.caja,
   );
 }

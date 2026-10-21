@@ -10,6 +10,7 @@
 // - "burger": hamburguesa capa por capa: pan, medallones, quesos y extras, cada uno con su precio.
 // - "mitades": pizza mitad y mitad, dibujada; se cobra la mitad más cara (o el promedio).
 // - "pizza": pizza desde cero: masa, salsa y hasta N ingredientes, dibujados sobre la pizza.
+// - "menu": menú del día a precio fijo: un plato (que cambia según el día) + guarnición + bebida + postre.
 // - "cafe": café a tu medida: bebida, tamaño, leche, extras y frío o caliente, con la taza dibujada.
 // - "juntada": cuántas pizzas pedir según la cantidad de personas y el hambre; suma productos
 //   comunes de la carta (no lleva id propio).
@@ -368,8 +369,49 @@ export const pizza = {
   },
 };
 
-const TIPOS = { vianda, box, burger, mitades, juntada, cafe, pizza };
-const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades", "cafe:": "cafe", "pizza:": "pizza" };
+// ---------- Menú del día ----------
+// cfg: { precio, pasos: [{ id, nombre, opciones: [{ id, nombre, extra? }], delDia?: { "1": [ids], … } }] }
+// `delDia` (0 = domingo … 6 = sábado) limita las opciones de un paso según el día: el plato del día.
+
+export const menu = {
+  /** Las opciones de un paso para un día de la semana. */
+  opciones(paso, dia) {
+    const hoy = paso.delDia?.[String(dia)];
+    return hoy ? paso.opciones.filter((o) => hoy.includes(o.id)) : paso.opciones;
+  },
+
+  calcular(cfg, eleccion) {
+    const elegidos = cfg.pasos.map((p) => ({ paso: p, opcion: p.opciones.find((o) => o.id === eleccion[p.id]) }));
+    const faltan = elegidos.filter((x) => !x.opcion).map((x) => x.paso.nombre);
+    const total = cfg.precio + elegidos.reduce((s, x) => s + (x.opcion?.extra ?? 0), 0);
+    return { elegidos, faltan, completo: !faltan.length, total };
+  },
+
+  id: (cfg, eleccion) => `menu:${cfg.pasos.map((p) => `${p.id}=${eleccion[p.id] ?? ""}`).join(";")}`,
+
+  leer(cfg, id) {
+    if (!id.startsWith("menu:")) return null;
+    const eleccion = {};
+    for (const parte of id.slice(5).split(";")) {
+      const [paso, opcion] = parte.split("=");
+      if (!cfg.pasos.some((p) => p.id === paso)) return null;
+      eleccion[paso] = opcion;
+    }
+    return eleccion;
+  },
+
+  /** El día no se valida acá: el menú elegido ayer y pedido hoy sigue siendo un pedido válido. */
+  resolver(local, cfg, id) {
+    const eleccion = this.leer(cfg, id);
+    if (!eleccion) return undefined;
+    const r = this.calcular(cfg, eleccion);
+    if (!r.completo) return undefined;
+    return { id, nombre: cfg.nombre ?? "Menú del día", precio: r.total, detalle: r.elegidos.map((x) => x.opcion.nombre).join(" + ") };
+  },
+};
+
+const TIPOS = { vianda, box, burger, mitades, juntada, cafe, pizza, menu };
+const PREFIJOS = { "vianda:": "vianda", "box:": "box", "box-regalo:": "box", "burger:": "burger", "mitades:": "mitades", "cafe:": "cafe", "pizza:": "pizza", "menu:": "menu" };
 
 /** El producto armado que corresponde a un id del carrito, o undefined si no es un armado válido. */
 export function resolverArmado(local, id) {

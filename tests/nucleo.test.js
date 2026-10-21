@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { formatearPesos } from "../nucleo/formato.js";
 import { describirTurnos, estadoDelLocal } from "../nucleo/horario.js";
 import { armarMensaje, calcularTotal, cambiarCantidad, lineasValidas } from "../nucleo/pedido.js";
-import { box, burger, cafe, juntada, mitades, pizza, vianda } from "../nucleo/armadores.js";
+import { box, burger, cafe, juntada, menu, mitades, pizza, vianda } from "../nucleo/armadores.js";
 import { contraste, validarContenido } from "../nucleo/validar.js";
 import { normalizarWhatsapp } from "../nucleo/whatsapp.js";
 
@@ -142,4 +142,18 @@ test("pizza desde cero: máximo de ingredientes, precio e id", () => {
   assert.equal(lineasValidas(local, [{ productoId: pizza.id(e), cantidad: 1 }])[0].subtotal, total);
   assert.equal(lineasValidas(local, [{ productoId: "pizza:piedra;tomate;jamon+jamon", cantidad: 1 }]).length, 0);
   assert.equal(lineasValidas(local, [{ productoId: "pizza:piedra;tomate;caviar", cantidad: 1 }]).length, 0);
+});
+
+test("menú del día: plato según el día, completo y con extras", () => {
+  const local = leer("casa-dona-rosa");
+  const cfg = local.armadores[0];
+  const plato = cfg.pasos[0];
+  assert.deepEqual(menu.opciones(plato, 2).map((o) => o.id), ["canelones", "pollo", "estofado"]);
+  assert.equal(menu.opciones(plato, 0).length, plato.opciones.length, "sin plato del día, todas");
+  const eleccion = { plato: "lasagna", guarnicion: "fritas", bebida: "vino", postre: "budin" };
+  assert.equal(menu.calcular(cfg, eleccion).total, 13900 + 1500 + 800 + 900);
+  const [l] = lineasValidas(local, [{ productoId: menu.id(cfg, eleccion), cantidad: 1 }]);
+  assert.equal(l.producto.detalle, "Lasaña de carne + Papas fritas + Copa de vino + Budín de pan");
+  assert.deepEqual(menu.calcular(cfg, { plato: "mila" }).faltan, ["Guarnición", "Bebida", "Postre"]);
+  assert.equal(lineasValidas(local, [{ productoId: "menu:plato=mila;guarnicion=;bebida=agua;postre=cafe", cantidad: 1 }]).length, 0);
 });

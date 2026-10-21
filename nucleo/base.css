@@ -467,3 +467,11 @@ a {
 .armador-titulo {
   text-wrap: balance;
 }
+
+/* Nombre del local en la barra: siempre en una línea; si no entra, termina en "…". */
+.cabecera-marca {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

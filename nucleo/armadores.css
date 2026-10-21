@@ -861,3 +861,78 @@
     top: 6rem;
   }
 }
+
+/* ---------- Menú del día ---------- */
+
+.menu-cuerpo {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 52rem) {
+  .menu-cuerpo {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+  }
+  .menu-bandeja {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+/* La bandeja: un hueco grande para el plato y tres chicos. */
+.menu-bandeja {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: repeat(3, minmax(5.5rem, auto));
+  gap: 0.6rem;
+  padding: 0.8rem;
+  border-radius: calc(var(--radio) + 10px);
+  background: #c9ced2;
+  box-shadow: inset 0 0 0 4px #b5bbc0, 0 12px 24px rgb(0 0 0 / 0.12);
+}
+
+.menu-hueco {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.3rem;
+  padding: 0.6rem;
+  border-radius: calc(var(--radio) + 4px);
+  background: #dfe3e6;
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / 0.12);
+  color: #5d656b;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.menu-hueco-plato {
+  grid-row: span 3;
+  font-size: 1rem;
+}
+
+.menu-hueco[data-lleno] {
+  background: #f4f1ea;
+  color: #1c1b19;
+  font-weight: 600;
+  animation: lugar-entra 0.3s ease-out;
+}
+
+.menu-dibujo {
+  width: 2.8rem;
+  height: 2.8rem;
+  color: #1c1b19;
+}
+
+.menu-hueco-plato .menu-dibujo {
+  width: 5rem;
+  height: 5rem;
+}
+
+.menu-pasos {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

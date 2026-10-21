@@ -1,0 +1,686 @@
+/* Plantilla "Diario": tapa de diario de barrio. Papel prensa, tinta negra, un azul de acento,
+   cabecera gótica (UnifrakturMaguntia), titulares en Old Standard TT y texto en Source Serif. */
+
+:root {
+  --fondo: #f0ebdf;
+  --superficie: #f7f3ea;
+  --texto: #141311;
+  --suave: #57524a;
+  --linea: #c9c1b0;
+  --acento: var(--marca, #1f4e79);
+  --sobre-acento: #fff;
+  --fuente: "Source Serif 4", Georgia, serif;
+  --fuente-titulos: "Old Standard TT", Georgia, serif;
+  --gotica: "UnifrakturMaguntia", "Old English Text MT", serif;
+  --radio: 0;
+  color-scheme: light;
+}
+
+[data-tema="oscuro"] {
+  --fondo: #151412;
+  --superficie: #1d1c19;
+  --texto: #ebe5d8;
+  --suave: #aaa294;
+  --linea: #3a3631;
+  --acento: var(--marca-oscuro, #8fb4dc);
+  --sobre-acento: #0d1a26;
+  color-scheme: dark;
+}
+
+body {
+  font-size: 1.05rem;
+  /* Grano de papel prensa. */
+  background-image: radial-gradient(rgb(0 0 0 / 0.04) 1px, transparent 1.2px);
+  background-size: 4px 4px;
+}
+
+main {
+  overflow-x: clip;
+}
+
+/* ---------- Cabecera de navegación ---------- */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem max(clamp(1rem, 4vw, 3rem), calc((100% - 74rem) / 2 + clamp(1rem, 4vw, 3rem)));
+  border-bottom: 1px solid var(--texto);
+  background: var(--fondo);
+}
+
+.cabecera-marca {
+  font-family: var(--gotica);
+  font-size: 1.35rem;
+  text-decoration: none;
+}
+
+.cabecera-nav {
+  display: none;
+  gap: 1.5rem;
+  margin-left: auto;
+  font-family: var(--fuente-titulos);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cabecera-nav a {
+  text-decoration: none;
+}
+
+.cabecera-nav a:hover {
+  text-decoration: underline;
+}
+
+.cabecera .boton-tema {
+  margin-left: auto;
+  border-radius: 0;
+}
+
+@media (min-width: 52rem) {
+  .cabecera-nav {
+    display: flex;
+  }
+  .cabecera .boton-tema {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Tapa ---------- */
+
+.portada {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+}
+
+.diario-cabecera {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px double var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.diario-cabecera span:last-child {
+  text-align: right;
+}
+
+.diario-cabecera span:first-child::first-letter,
+.diario-cabecera span:last-child::first-letter {
+  text-transform: uppercase;
+}
+
+.diario-nombre {
+  margin: 0;
+  font-family: var(--gotica);
+  /* La gótica mide unas 0,5 "eme" por letra; el nombre ocupa a lo sumo el 62 % del ancho
+     (en el celular, el 90 %, porque va solo en su renglón). */
+  font-size: min(5.6rem, calc(62vw / (var(--letras, 14) * 0.5)));
+  font-style: normal;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .diario-cabecera {
+    grid-template-columns: 1fr 1fr;
+  }
+  .diario-nombre {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-size: min(3.4rem, calc(90vw / (var(--letras, 14) * 0.5)));
+  }
+}
+
+.diario-filete {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.estado {
+  margin: 0;
+}
+
+.estado[data-abierto="true"] {
+  color: #2d7a46;
+}
+
+.diario-tapa {
+  display: grid;
+  gap: 1.5rem 2.5rem;
+  padding-top: 1.5rem;
+}
+
+@media (min-width: 52rem) {
+  .diario-tapa {
+    grid-template-columns: 1.7fr 1fr;
+  }
+  .diario-nota {
+    padding-right: 2.5rem;
+    border-right: 1px solid var(--texto);
+  }
+}
+
+.portada-titulo {
+  margin: 0 0 1rem;
+  font-family: var(--fuente-titulos);
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.portada-bajada {
+  margin: 0 0 1.5rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 36rem;
+}
+
+.portada-bajada::first-letter {
+  float: left;
+  margin: 0.05em 0.1em 0 0;
+  font-family: var(--fuente-titulos);
+  font-size: 3.3em;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0.85;
+}
+
+.portada-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.boton {
+  padding: 0.8rem 1.3rem;
+  border: 1px solid var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.boton-principal,
+.aviso .boton-armador {
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+.boton:hover {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
+}
+
+/* El aviso del menú del día, enmarcado como un clasificado. */
+.aviso {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.4rem;
+  padding: 1.25rem;
+  border: 3px double var(--texto);
+  text-align: center;
+}
+
+.aviso-volanta {
+  margin: 0;
+  font-family: var(--gotica);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.aviso-dibujo {
+  width: 6rem;
+  height: 6rem;
+  color: var(--texto);
+  filter: grayscale(1) contrast(1.2);
+}
+
+.aviso-precio {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.aviso-texto {
+  margin: 0 0 0.5rem;
+  color: var(--suave);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* ---------- Secciones ---------- */
+
+.seccion {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+}
+
+.seccion-titulo {
+  margin: 0 0 1.5rem;
+  padding: 0.5rem 0;
+  border-block: 1px solid var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.banda-armador {
+  border-block: 4px double var(--texto);
+  background: var(--superficie);
+}
+
+.armador-volanta {
+  color: var(--suave);
+  font-family: var(--fuente-titulos);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.armador-volanta::first-letter {
+  text-transform: uppercase;
+}
+
+.armador-titulo {
+  font-family: var(--gotica);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  font-weight: 400;
+}
+
+.armador-resumen {
+  border: 1px solid var(--texto);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.armador-sumar {
+  border-radius: 0;
+  font-family: var(--fuente-titulos);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.banda-armador .cafe-botones button {
+  border-radius: 0;
+}
+
+.banda-historia {
+  border-top: 4px double var(--texto);
+}
+
+/* ---------- Destacados: tres columnas con filete ---------- */
+
+.destacados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.destacado {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto auto;
+  gap: 0.4rem;
+  padding: 0 1.5rem 1rem;
+}
+
+.destacado + .destacado {
+  border-left: 1px solid var(--texto);
+}
+
+@media (max-width: 46rem) {
+  .destacado {
+    padding: 1rem 0;
+  }
+  .destacado + .destacado {
+    border-left: 0;
+    border-top: 1px solid var(--texto);
+  }
+}
+
+.destacado-numero {
+  font-family: var(--fuente-titulos);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.destacado-numero::before {
+  content: "N.º ";
+}
+
+.destacado-dibujo {
+  width: 4.5rem;
+  height: 4.5rem;
+  color: var(--texto);
+  filter: grayscale(1) contrast(1.15);
+}
+
+.destacado-nombre {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+.destacado-desc {
+  margin: 0;
+  color: var(--suave);
+  font-style: italic;
+}
+
+.destacado-precio {
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* ---------- Carta: columnas de diario ---------- */
+
+.carta-barra {
+  position: sticky;
+  top: 2.9rem;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--texto);
+  background: var(--fondo);
+}
+
+.carta-nav ul,
+.carta-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2rem 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-nav a {
+  font-family: var(--fuente-titulos);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.carta-nav a[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.carta-filtros button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--suave);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.carta-filtros [aria-pressed="true"] {
+  color: var(--texto);
+  text-decoration: underline;
+}
+
+.carta-cuerpo {
+  columns: 3 18rem;
+  column-gap: 2.5rem;
+  column-rule: 1px solid var(--texto);
+}
+
+.carta-categoria {
+  break-inside: avoid;
+  margin-bottom: 1.75rem;
+}
+
+.carta-categoria-titulo {
+  margin: 0 0 0.25rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.carta-categoria-dibujo {
+  width: 2rem;
+  height: 2rem;
+  color: var(--texto);
+  filter: grayscale(1);
+}
+
+.carta-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carta-producto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dotted var(--linea);
+}
+
+.carta-producto[data-agotado] {
+  opacity: 0.5;
+}
+
+.carta-producto-nombre {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.carta-producto-desc {
+  margin: 0;
+  color: var(--suave);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.carta-producto-etiquetas {
+  color: var(--acento);
+  font-size: 0.75rem;
+  font-variant: small-caps;
+}
+
+.carta-producto-precio {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  text-align: right;
+}
+
+.control-agregar,
+.control-paso {
+  border-radius: 0;
+}
+
+.control-agregar {
+  border-color: var(--texto);
+  color: var(--texto);
+  font-family: var(--fuente-titulos);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.control-agregar:hover {
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+.control-paso {
+  background: var(--texto);
+  color: var(--fondo);
+}
+
+/* ---------- Historia y datos ---------- */
+
+.seccion-historia {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 52rem) {
+  .seccion-historia {
+    grid-template-columns: 1fr 2fr;
+  }
+  .seccion-historia .seccion-titulo {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+}
+
+.cifras {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cifras li {
+  display: grid;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--texto);
+  text-align: center;
+}
+
+.cifras strong {
+  font-family: var(--fuente-titulos);
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.cifras span {
+  color: var(--suave);
+  font-style: italic;
+}
+
+.historia-texto {
+  columns: 2 18rem;
+  column-gap: 2rem;
+  column-rule: 1px solid var(--linea);
+}
+
+.historia-texto p {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 0;
+}
+
+.datos-bloque {
+  padding: 0.25rem 1.25rem 1rem;
+  border-left: 1px solid var(--texto);
+}
+
+.datos-bloque:first-child {
+  border-left: 0;
+}
+
+@media (max-width: 40rem) {
+  .datos-bloque {
+    padding: 0.75rem 0.75rem 1rem;
+    border-top: 1px solid var(--linea);
+  }
+  .datos-bloque:nth-child(odd) {
+    border-left: 0;
+  }
+}
+
+.datos-bloque h3 {
+  margin: 0 0 0.4rem;
+  font-family: var(--fuente-titulos);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.datos-bloque p,
+.datos-bloque ul {
+  margin: 0 0 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.datos-enlace {
+  display: inline-block;
+  margin-right: 1rem;
+  color: var(--acento);
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  margin-top: 1rem;
+  padding: 2rem 1rem 6rem;
+  border-top: 4px double var(--texto);
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.2rem 0;
+}
+
+.pie-nombre {
+  font-family: var(--gotica);
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.pie-direccion {
+  color: var(--suave);
+  font-style: italic;
+}
+
+.pie-enlace {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--acento);
+}

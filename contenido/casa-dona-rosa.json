@@ -1,0 +1,140 @@
+{
+  "slug": "casa-dona-rosa",
+  "nombre": "Casa de Comidas Doña Rosa",
+  "descripcion": "Comida de casa para llevar en Caballito: guisos, pastas, minutas y el menú del día a precio fijo.",
+  "demo": true,
+  "plan": "local",
+  "marca": { "color": "#1f4e79", "colorOscuro": "#8fb4dc" },
+  "cartel": "DOÑA ROSA",
+  "eslogan": "Hoy hay guiso de lentejas y la fila llega a la esquina.",
+  "historia": [
+    "Rosa Ferreyra cocinó para su familia de nueve hermanos hasta que los vecinos empezaron a tocarle el timbre. En 1991 puso un mostrador en el garaje de la calle Rojas.",
+    "Hoy lo atiende su hijo Néstor, con las mismas ollas y una regla: el menú del día se termina cuando se termina."
+  ],
+  "destacados": ["guiso-lentejas", "canelones", "budin-pan-rosa"],
+  "cifras": [
+    { "valor": "1991", "texto": "primer mostrador" },
+    { "valor": "120", "texto": "menús por día" },
+    { "valor": "6", "texto": "días a la semana" }
+  ],
+  "turnos": [
+    { "dias": [1, 2, 3, 4, 5, 6], "abre": "11:30", "cierra": "15:00" },
+    { "dias": [1, 2, 3, 4, 5], "abre": "19:30", "cierra": "22:30" }
+  ],
+  "whatsapp": "5491123456710",
+  "direccion": "Rojas 512, Caballito",
+  "instagram": "casadonarosa",
+  "mediosDePago": ["Efectivo", "Transferencia", "Mercado Pago"],
+  "envio": { "disponible": true, "costo": 1200, "zona": "Caballito y Flores norte" },
+  "categorias": [
+    {
+      "id": "olla",
+      "nombre": "De la olla",
+      "productos": [
+        { "id": "guiso-lentejas", "nombre": "Guiso de lentejas", "descripcion": "Con chorizo colorado y panceta. La porción es grande.", "precio": 9800, "etiquetas": ["sin-tacc"] },
+        { "id": "locro", "nombre": "Locro", "descripcion": "Sólo los jueves y fines de semana de invierno.", "precio": 11500, "etiquetas": ["sin-tacc"] },
+        { "id": "estofado", "nombre": "Estofado con papas", "precio": 10500, "etiquetas": ["sin-tacc"] },
+        { "id": "puchero", "nombre": "Puchero", "descripcion": "Los miércoles.", "precio": 12500, "agotado": true }
+      ]
+    },
+    {
+      "id": "pastas-rosa",
+      "nombre": "Pastas",
+      "productos": [
+        { "id": "canelones", "nombre": "Canelones de verdura", "descripcion": "Con salsa blanca y fileto, cuatro unidades.", "precio": 10800, "etiquetas": ["vegetariano"] },
+        { "id": "tallarines", "nombre": "Tallarines con tuco", "precio": 8900, "etiquetas": ["vegetariano"] },
+        { "id": "lasagna", "nombre": "Lasaña de carne", "precio": 12000 }
+      ]
+    },
+    {
+      "id": "minutas-rosa",
+      "nombre": "Minutas",
+      "productos": [
+        { "id": "mila-rosa", "nombre": "Milanesa de nalga", "descripcion": "Sola; la guarnición va aparte.", "precio": 8500 },
+        { "id": "pollo-rosa", "nombre": "Pata muslo al horno", "precio": 7800, "etiquetas": ["sin-tacc"] },
+        { "id": "tortilla-rosa", "nombre": "Tortilla de papas", "precio": 7500, "etiquetas": ["vegetariano", "sin-tacc"] }
+      ]
+    },
+    {
+      "id": "postres-rosa",
+      "nombre": "Postres",
+      "productos": [
+        { "id": "budin-pan-rosa", "nombre": "Budín de pan", "descripcion": "Con caramelo, como lo hacía Rosa.", "precio": 4200, "etiquetas": ["vegetariano"] },
+        { "id": "arroz-leche", "nombre": "Arroz con leche", "precio": 3800, "etiquetas": ["vegetariano", "sin-tacc"] },
+        { "id": "flan-rosa", "nombre": "Flan casero", "precio": 3900, "etiquetas": ["vegetariano", "sin-tacc"] }
+      ]
+    },
+    {
+      "id": "bebidas-rosa",
+      "nombre": "Bebidas",
+      "productos": [
+        { "id": "gaseosa-rosa", "nombre": "Gaseosa 500 ml", "precio": 2200 },
+        { "id": "agua-rosa", "nombre": "Agua 500 ml", "precio": 1600 },
+        { "id": "vino-rosa", "nombre": "Vino tinto 750 ml", "precio": 6500 }
+      ]
+    }
+  ],
+  "armadores": [
+    {
+      "tipo": "menu",
+      "menu": "Menú del día",
+      "volanta": "Edición de hoy",
+      "titulo": "Menú del día",
+      "bajada": "Plato del día, guarnición, bebida y postre a precio fijo. El plato cambia todos los días.",
+      "nombre": "Menú del día",
+      "precio": 13900,
+      "pasos": [
+        {
+          "id": "plato",
+          "nombre": "Plato",
+          "opciones": [
+            { "id": "lentejas", "nombre": "Guiso de lentejas" },
+            { "id": "canelones", "nombre": "Canelones de verdura" },
+            { "id": "mila", "nombre": "Milanesa de nalga" },
+            { "id": "pollo", "nombre": "Pata muslo al horno" },
+            { "id": "estofado", "nombre": "Estofado con papas" },
+            { "id": "tallarines", "nombre": "Tallarines con tuco" },
+            { "id": "lasagna", "nombre": "Lasaña de carne", "extra": 1500 }
+          ],
+          "delDia": {
+            "1": ["lentejas", "mila", "tallarines"],
+            "2": ["canelones", "pollo", "estofado"],
+            "3": ["lentejas", "mila", "lasagna"],
+            "4": ["estofado", "pollo", "tallarines"],
+            "5": ["canelones", "mila", "lasagna"],
+            "6": ["lentejas", "pollo", "tallarines"]
+          }
+        },
+        {
+          "id": "guarnicion",
+          "nombre": "Guarnición",
+          "opciones": [
+            { "id": "pure", "nombre": "Puré de papas" },
+            { "id": "ensalada", "nombre": "Ensalada mixta" },
+            { "id": "fritas", "nombre": "Papas fritas", "extra": 800 },
+            { "id": "sin", "nombre": "Sin guarnición" }
+          ]
+        },
+        {
+          "id": "bebida",
+          "nombre": "Bebida",
+          "opciones": [
+            { "id": "agua", "nombre": "Agua" },
+            { "id": "gaseosa", "nombre": "Gaseosa" },
+            { "id": "vino", "nombre": "Copa de vino", "extra": 900 }
+          ]
+        },
+        {
+          "id": "postre",
+          "nombre": "Postre",
+          "opciones": [
+            { "id": "budin", "nombre": "Budín de pan" },
+            { "id": "arroz", "nombre": "Arroz con leche" },
+            { "id": "fruta", "nombre": "Fruta de estación" },
+            { "id": "cafe", "nombre": "Café" }
+          ]
+        }
+      ]
+    }
+  ]
+}

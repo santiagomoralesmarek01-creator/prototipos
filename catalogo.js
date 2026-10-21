@@ -13,6 +13,17 @@ export const PLANTILLAS = [
     salon: true,
   },
   {
+    id: "local-diario",
+    nombre: "Diario",
+    tipo: "web",
+    rubros: ["rotiseria", "restaurante"],
+    planes: ["local", "plus"],
+    estilo: "Tapa de diario de barrio: cabecera gótica con la fecha de hoy, titulares a columnas y papel prensa.",
+    interacciones: ["Menú del día a precio fijo que cambia según el día", "Bandeja que se llena con cada elección", "Carta a columnas con filetes"],
+    contenido: "casa-dona-rosa",
+    salon: true,
+  },
+  {
     id: "local-cafe",
     nombre: "Brote",
     tipo: "web",
@@ -108,6 +119,7 @@ export const PLANES = { carta: "Plan Carta", local: "Plan Local", plus: "Local P
 /** Contenidos de ejemplo para probar cada plantilla con otro rubro. */
 export const CONTENIDOS = {
   "rotiseria-don-tito": "Rotisería Don Tito",
+  "casa-dona-rosa": "Casa de Comidas Doña Rosa",
   "cafe-brote": "Café Brote",
   "cafe-grano": "Grano Tostadores",
   "pizzeria-el-molde": "Pizzería El Molde",
