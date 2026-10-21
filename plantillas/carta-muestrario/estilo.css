@@ -431,3 +431,22 @@ main {
 .pie-direccion {
   color: var(--suave);
 }
+
+/* En el celular las fichas son angostas: nombre más chico y hasta tres renglones. */
+@media (max-width: 40rem) {
+  .ficha {
+    width: 5.9rem;
+    margin-left: -2.95rem;
+    padding: 0.45rem;
+    background:
+      linear-gradient(#fff 0 0) top / 100% 3.9rem no-repeat,
+      var(--color);
+  }
+  .ficha-nombre {
+    font-size: 0.64rem;
+    -webkit-line-clamp: 3;
+  }
+  .ficha-codigo {
+    font-size: 0.56rem;
+  }
+}
