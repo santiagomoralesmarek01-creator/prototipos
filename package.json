@@ -5,6 +5,7 @@
   "scripts": {
     "test": "node --test tests/*.test.js",
     "dev": "python3 -m http.server 8765",
-    "capturas": "node scripts/capturas.mjs"
+    "capturas": "node scripts/capturas.mjs",
+    "vista-previa": "node scripts/vista-previa.mjs"
   }
 }
